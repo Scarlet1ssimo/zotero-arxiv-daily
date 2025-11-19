@@ -2,9 +2,14 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from paper import ArxivPaper
 from datetime import datetime
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def get_encoder(model_name):
+    return SentenceTransformer(model_name)
 
 def rerank_paper(candidate:list[ArxivPaper],corpus:list[dict],model:str='avsolatorio/GIST-small-Embedding-v0') -> list[ArxivPaper]:
-    encoder = SentenceTransformer(model)
+    encoder = get_encoder(model)
     #sort corpus by date, from newest to oldest
     corpus = sorted(corpus,key=lambda x: datetime.strptime(x['data']['dateAdded'], '%Y-%m-%dT%H:%M:%SZ'),reverse=True)
     time_decay_weight = 1 / (1 + np.log10(np.arange(len(corpus)) + 1))

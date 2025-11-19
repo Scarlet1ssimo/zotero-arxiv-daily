@@ -118,7 +118,7 @@ if __name__ == '__main__':
     add_argument('--zotero_key', type=str, help='Zotero API key')
     add_argument('--zotero_ignore',type=str,help='Zotero collection to ignore, using gitignore-style pattern.')
     add_argument('--send_empty', type=bool, help='If get no arxiv paper, send empty email',default=False)
-    add_argument('--max_paper_num', type=int, help='Maximum number of papers to recommend',default=100)
+    add_argument('--max_paper_num', type=str, help='Maximum number of papers to recommend',default='100')
     add_argument('--arxiv_query', type=str, help='Arxiv search query')
     add_argument('--smtp_server', type=str, help='SMTP server')
     add_argument('--smtp_port', type=int, help='SMTP port')
@@ -176,24 +176,53 @@ if __name__ == '__main__':
         corpus = filter_corpus(corpus, args.zotero_ignore)
         logger.info(f"Remaining {len(corpus)} papers after filtering.")
     logger.info("Retrieving Arxiv papers...")
-    papers = get_arxiv_paper(args.arxiv_query, args.debug)
-    if len(papers) == 0:
-        logger.info("No new papers found. Yesterday maybe a holiday and no one submit their work :). If this is not the case, please check the ARXIV_QUERY.")
-        if not args.send_empty:
-          exit(0)
-    else:
-        logger.info("Reranking papers...")
-        papers = rerank_paper(papers, corpus)
-        if args.max_paper_num != -1:
-            papers = papers[:args.max_paper_num]
-        if args.use_llm_api:
-            logger.info("Using OpenAI API as global LLM.")
-            set_global_llm(api_key=args.openai_api_key, base_url=args.openai_api_base, model=args.model_name, lang=args.language)
-        else:
-            logger.info("Using Local LLM as global LLM.")
-            set_global_llm(lang=args.language)
 
-    html = render_email(papers)
+    # Parse queries and max_nums
+    queries = args.arxiv_query.split(';')
+    max_nums_str = str(args.max_paper_num).split(';')
+
+    # Handle max_nums length mismatch
+    if len(max_nums_str) == 1:
+        max_nums = [int(max_nums_str[0])] * len(queries)
+    else:
+        max_nums = [int(n) for n in max_nums_str]
+        if len(max_nums) != len(queries):
+            logger.warning("Number of queries and max_nums do not match. Using the first max_num for all.")
+            max_nums = [max_nums[0]] * len(queries)
+
+    paper_groups = []
+
+    # Set LLM once
+    if args.use_llm_api:
+        logger.info("Using OpenAI API as global LLM.")
+        set_global_llm(api_key=args.openai_api_key, base_url=args.openai_api_base, model=args.model_name, lang=args.language)
+    else:
+        logger.info("Using Local LLM as global LLM.")
+        set_global_llm(lang=args.language)
+
+    for query, max_num in zip(queries, max_nums):
+        query = query.strip()
+        if not query:
+            continue
+
+        logger.info(f"Processing query: {query}")
+        papers = get_arxiv_paper(query, args.debug)
+
+        if len(papers) > 0:
+            logger.info(f"Reranking papers for {query}...")
+            papers = rerank_paper(papers, corpus)
+            if max_num != -1:
+                papers = papers[:max_num]
+            paper_groups.append((query, papers))
+        else:
+            logger.info(f"No papers found for {query}")
+
+    if not paper_groups:
+        logger.info("No new papers found for any query. Yesterday maybe a holiday and no one submit their work :). If this is not the case, please check the ARXIV_QUERY.")
+        if not args.send_empty:
+            exit(0)
+
+    html = render_email(paper_groups)
     logger.info("Sending email...")
     send_email(args.sender, args.receiver, args.sender_password, args.smtp_server, args.smtp_port, html)
     logger.success("Email sent successfully! If you don't receive the email, please check the configuration and the junk box.")

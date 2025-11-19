@@ -56,7 +56,7 @@ class ArxivPaper:
         retries = Retry(total=5, backoff_factor=0.1)
         s.mount('https://', HTTPAdapter(max_retries=retries))
         try:
-            paper_list = s.get(f'https://paperswithcode.com/api/v1/papers/?arxiv_id={self.arxiv_id}').json()
+            paper_list = s.get(f'https://huggingface.co/api/papers/?arxiv_id={self.arxiv_id}').json()
         except Exception as e:
             logger.debug(f'Error when searching {self.arxiv_id}: {e}')
             return None
@@ -66,7 +66,7 @@ class ArxivPaper:
         paper_id = paper_list['results'][0]['id']
 
         try:
-            repo_list = s.get(f'https://paperswithcode.com/api/v1/papers/{paper_id}/repositories/').json()
+            repo_list = s.get(f'https://huggingface.co/api/papers/{paper_id}/repositories/').json()
         except Exception as e:
             logger.debug(f'Error when searching {self.arxiv_id}: {e}')
             return None

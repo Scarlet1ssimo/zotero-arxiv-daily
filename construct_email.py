@@ -6,7 +6,6 @@ from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
 import smtplib
 import datetime
-import time
 from loguru import logger
 
 framework = """
@@ -118,29 +117,53 @@ def get_stars(score:float):
         return '<div class="star-wrapper">'+full_star * full_star_num + half_star * half_star_num + '</div>'
 
 
-def render_email(papers:list[ArxivPaper]):
+def get_group_header_html(group_name: str):
+    return f"""
+    <div style="margin-top: 30px; margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">
+        {group_name}
+    </div>
+    """
+
+def render_email(paper_groups):
     parts = []
-    if len(papers) == 0 :
-        return framework.replace('__CONTENT__', get_empty_html())
     
-    for p in tqdm(papers,desc='Rendering Email'):
-        rate = get_stars(p.score)
-        author_list = [a.name for a in p.authors]
-        num_authors = len(author_list)
+    # Normalize input to list of tuples [(title, papers)]
+    if isinstance(paper_groups, list) and (not paper_groups or isinstance(paper_groups[0], ArxivPaper)):
+        groups = [("Papers", paper_groups)]
+    elif isinstance(paper_groups, dict):
+        groups = list(paper_groups.items())
+    else:
+        groups = paper_groups
+
+    total_papers = sum(len(p) for _, p in groups)
+    if total_papers == 0:
+        return framework.replace('__CONTENT__', get_empty_html())
+
+    for group_name, papers in groups:
+        if not papers:
+            continue
+            
+        # Add group header if there are multiple groups
+        if len(groups) > 1:
+            parts.append(get_group_header_html(group_name))
         
-        if num_authors <= 5:
-            authors = ', '.join(author_list)
-        else:
-            authors = ', '.join(author_list[:3] + ['...'] + author_list[-2:])
-        if p.affiliations is not None:
-            affiliations = p.affiliations[:5]
-            affiliations = ', '.join(affiliations)
-            if len(p.affiliations) > 5:
-                affiliations += ', ...'
-        else:
-            affiliations = 'Unknown Affiliation'
-        parts.append(get_block_html(p.title, authors,rate,p.arxiv_id ,p.tldr, p.pdf_url, p.code_url, affiliations))
-        time.sleep(10)
+        for p in tqdm(papers, desc=f'Rendering Email for {group_name}'):
+            rate = get_stars(p.score)
+            author_list = [a.name for a in p.authors]
+            num_authors = len(author_list)
+            
+            if num_authors <= 5:
+                authors = ', '.join(author_list)
+            else:
+                authors = ', '.join(author_list[:3] + ['...'] + author_list[-2:])
+            if p.affiliations is not None:
+                affiliations = p.affiliations[:5]
+                affiliations = ', '.join(affiliations)
+                if len(p.affiliations) > 5:
+                    affiliations += ', ...'
+            else:
+                affiliations = 'Unknown Affiliation'
+            parts.append(get_block_html(p.title, authors,rate,p.arxiv_id ,p.tldr, p.pdf_url, p.code_url, affiliations))
 
     content = '<br>' + '</br><br>'.join(parts) + '</br>'
     return framework.replace('__CONTENT__', content)
