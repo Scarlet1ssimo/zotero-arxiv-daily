@@ -1,3 +1,4 @@
+import time
 from paper import ArxivPaper
 import math
 from tqdm import tqdm
@@ -164,6 +165,7 @@ def render_email(paper_groups):
             else:
                 affiliations = 'Unknown Affiliation'
             parts.append(get_block_html(p.title, authors,rate,p.arxiv_id ,p.tldr, p.pdf_url, p.code_url, affiliations))
+            # time.sleep(10)
 
     content = '<br>' + '</br><br>'.join(parts) + '</br>'
     return framework.replace('__CONTENT__', content)
