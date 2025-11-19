@@ -14,7 +14,7 @@ class LLM:
         if api_key:
             # self.llm = OpenAI(api_key=api_key, base_url=base_url)
             self.llm = genai.Client(api_key=api_key, http_options=types.HttpOptions(
-                base_url="https://4.vemuji.ca/"
+                base_url=base_url
             ),)
         else:
             self.llm = Llama.from_pretrained(
