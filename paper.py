@@ -52,6 +52,7 @@ class ArxivPaper:
     
     @cached_property
     def code_url(self) -> Optional[str]:
+        return None
         s = requests.Session()
         retries = Retry(total=5, backoff_factor=0.1)
         s.mount('https://', HTTPAdapter(max_retries=retries))
