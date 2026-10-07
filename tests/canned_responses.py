@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from types import SimpleNamespace
+import json
 
 from zotero_arxiv_daily.protocol import CorpusPaper, Paper
 
@@ -36,6 +37,25 @@ def _stub_chat_create(**kwargs):
     request_str = str(messages)
     if _AFFILIATION_MARKER in request_str:
         return _make_chat_response(_AFFILIATION_RESPONSE)
+    if "Assess the candidates comparatively" in request_str:
+        user_content = messages[-1]["content"]
+        payload = json.loads(user_content.split("\n\n", 1)[1])
+        assessments = []
+        for candidate in payload["candidate_papers"]:
+            assessments.append(
+                {
+                    "paper_id": candidate["paper_id"],
+                    "relevance": 8,
+                    "novelty": 7,
+                    "elegance": 7,
+                    "transferability": 7,
+                    "confidence": 0.9,
+                    "bucket": "direct",
+                    "contribution": {"zh": "提出一种新方法。", "en": "Presents a new method."},
+                    "why_care": {"zh": "与近期研究相关。", "en": "Relevant to recent research."},
+                }
+            )
+        return _make_chat_response(json.dumps({"assessments": assessments}))
     return _make_chat_response(_TLDR_RESPONSE)
 
 

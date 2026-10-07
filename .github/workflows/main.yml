@@ -7,12 +7,15 @@ on:
 jobs:
   calculate-and-send:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           repository: ${{ vars.REPOSITORY }}
           ref: ${{ vars.REF }}
+          fetch-depth: 0
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v7
@@ -25,10 +28,24 @@ jobs:
           RECEIVER: ${{ secrets.RECEIVER }}
           SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_BASE: ${{ secrets.OPENAI_API_BASE }}
+          OPENAI_API_BASE: ${{ secrets.OPENAI_API_BASE || 'https://api.deepseek.com' }}
           CUSTOM_CONFIG: ${{ vars.CUSTOM_CONFIG }}
         run: |
           printf "%b\n" "$CUSTOM_CONFIG" > config/custom.yaml
-          echo "Use custom config: "
-          cat config/custom.yaml
+          echo "Loaded custom configuration"
           uv run src/zotero_arxiv_daily/main.py
+
+      - name: Commit daily report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -d data/daily ]; then
+            git add data/daily
+          fi
+          if git diff --cached --quiet; then
+            echo "No daily report changes to commit"
+          else
+            git commit -m "data: save daily research report"
+            git push
+          fi

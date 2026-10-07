@@ -148,39 +148,49 @@ def test_fetch_zotero_corpus_paper_with_zero_collections(config, monkeypatch):
 # ---------------------------------------------------------------------------
 
 
-def test_run_end_to_end(config, monkeypatch):
-    """Full pipeline: Zotero fetch -> filter -> retrieve -> rerank -> TLDR -> email."""
+def test_run_end_to_end(config, monkeypatch, tmp_path):
+    """Full pipeline: Zotero fetch -> candidate assessment -> daily JSON -> email."""
     import smtplib
-
+    import json
     from omegaconf import open_dict
 
+    from zotero_arxiv_daily.candidate_generation import CandidatePool
     from tests.canned_responses import (
-        make_sample_corpus,
         make_sample_paper,
         make_stub_openai_client,
         make_stub_smtp,
         make_stub_zotero_client,
     )
 
-    # Config: source=["arxiv"], reranker="api", send_empty=false
+    # Config: source=["arxiv"], send_empty=false
     with open_dict(config):
         config.executor.source = ["arxiv"]
-        config.executor.reranker = "api"
         config.executor.send_empty = False
+        config.research.daily_dir = str(tmp_path / "daily")
 
     # 1. Stub pyzotero
     stub_zot = make_stub_zotero_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.zotero.Zotero", lambda *a, **kw: stub_zot)
 
-    # 2. Stub OpenAI (for reranker + TLDR/affiliations)
+    # 2. Stub OpenAI for the batch assessment
     stub_client = make_stub_openai_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.OpenAI", lambda **kw: stub_client)
-    monkeypatch.setattr("zotero_arxiv_daily.reranker.api.OpenAI", lambda **kw: stub_client)
     retrieved = [
-        make_sample_paper(title="E2E Paper 1", score=None),
-        make_sample_paper(title="E2E Paper 2", score=None),
+        make_sample_paper(title="E2E Paper 1", score=None, paper_id="e2e-1", categories=["cs.PL"]),
+        make_sample_paper(title="E2E Paper 2", score=None, paper_id="e2e-2", categories=["cs.AR"]),
     ]
+    for paper in retrieved:
+        paper.retrieval_channels = ["semantic"]
+        paper.channel_scores = {"semantic": 0.8}
 
+    class StubCandidateGenerator:
+        def __init__(self, _config):
+            pass
+
+        def generate(self, papers, _corpus, _date):
+            return CandidatePool(papers, {"semantic": papers, "lexical": [], "diversity": [], "exploration": []})
+
+    monkeypatch.setattr("zotero_arxiv_daily.executor.CandidateGenerator", StubCandidateGenerator)
     # Import to register the arxiv retriever
     import zotero_arxiv_daily.retriever.arxiv_retriever  # noqa: F401
 
@@ -207,9 +217,12 @@ def test_run_end_to_end(config, monkeypatch):
     assert len(sent) == 1, "Email should have been sent"
     _, _, email_body = sent[0]
     assert "text/html" in email_body
+    record = json.loads(next((tmp_path / "daily").glob("*.json")).read_text())
+    assert record["recommendation_count"] == 2
+    assert record["delivery_status"] == "sent"
 
 
-def test_run_no_papers_send_empty_false(config, monkeypatch):
+def test_run_no_papers_send_empty_false(config, monkeypatch, tmp_path):
     """When no papers are found and send_empty=false, no email is sent."""
     import smtplib
 
@@ -219,15 +232,14 @@ def test_run_no_papers_send_empty_false(config, monkeypatch):
 
     with open_dict(config):
         config.executor.source = ["arxiv"]
-        config.executor.reranker = "api"
         config.executor.send_empty = False
+        config.research.daily_dir = str(tmp_path / "daily")
 
     stub_zot = make_stub_zotero_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.zotero.Zotero", lambda *a, **kw: stub_zot)
 
     stub_client = make_stub_openai_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.OpenAI", lambda **kw: stub_client)
-    monkeypatch.setattr("zotero_arxiv_daily.reranker.api.OpenAI", lambda **kw: stub_client)
 
     import zotero_arxiv_daily.retriever.arxiv_retriever  # noqa: F401
 
@@ -243,9 +255,13 @@ def test_run_no_papers_send_empty_false(config, monkeypatch):
     executor.run()
 
     assert len(sent) == 0, "No email should be sent when no papers and send_empty=false"
+    import json
+    record = json.loads(next((tmp_path / "daily").glob("*.json")).read_text())
+    assert record["candidate_count"] == 0
+    assert record["delivery_status"] == "skipped_empty"
 
 
-def test_run_no_papers_send_empty_true(config, monkeypatch):
+def test_run_no_papers_send_empty_true(config, monkeypatch, tmp_path):
     """When no papers are found and send_empty=true, empty email is sent."""
     import smtplib
 
@@ -255,15 +271,14 @@ def test_run_no_papers_send_empty_true(config, monkeypatch):
 
     with open_dict(config):
         config.executor.source = ["arxiv"]
-        config.executor.reranker = "api"
         config.executor.send_empty = True
+        config.research.daily_dir = str(tmp_path / "daily")
 
     stub_zot = make_stub_zotero_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.zotero.Zotero", lambda *a, **kw: stub_zot)
 
     stub_client = make_stub_openai_client()
     monkeypatch.setattr("zotero_arxiv_daily.executor.OpenAI", lambda **kw: stub_client)
-    monkeypatch.setattr("zotero_arxiv_daily.reranker.api.OpenAI", lambda **kw: stub_client)
 
     import zotero_arxiv_daily.retriever.arxiv_retriever  # noqa: F401
 

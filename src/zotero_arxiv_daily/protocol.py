@@ -48,6 +48,12 @@ class Paper:
     tldr: Optional[str] = None
     affiliations: Optional[list[str]] = None
     score: Optional[float] = None
+    paper_id: Optional[str] = None
+    categories: list[str] | None = None
+    published_date: Optional[datetime] = None
+    retrieval_channels: list[str] | None = None
+    channel_scores: dict[str, float] | None = None
+    assessment: dict | None = None
 
     def _generate_tldr_with_llm(self, openai_client:OpenAI,llm_params:dict) -> str:
         lang = llm_params.get('language', 'English')

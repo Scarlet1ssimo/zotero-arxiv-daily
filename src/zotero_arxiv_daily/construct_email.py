@@ -1,5 +1,6 @@
 from .protocol import Paper
 import math
+from html import escape
 
 
 framework = """
@@ -43,16 +44,42 @@ To unsubscribe, remove your email in your Github Action setting.
 def get_empty_html():
   block_template = """
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Arial, sans-serif; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #f9f9f9;">
-  <tr>
-    <td style="font-size: 20px; font-weight: bold; color: #333;">
-        No Papers Today. Take a Rest!
-    </td>
-  </tr>
+ <tr>
+   <td style="font-size: 20px; font-weight: bold; color: #333;">
+        今天没有符合条件的论文，休息一下！ / No Papers Today. Take a rest!
+   </td>
+ </tr>
   </table>
   """
   return block_template
 
-def get_block_html(title:str, authors:str, rate:str, tldr:str, pdf_url:str, affiliations:str=None):
+def get_block_html(
+    title: str,
+    authors: str,
+    rate: str,
+    tldr: str,
+    pdf_url: str,
+    affiliations: str = None,
+    *,
+    bucket: str = "",
+    categories: str = "",
+    contribution_en: str = "",
+    why_care_zh: str = "",
+    why_care_en: str = "",
+    paper_url: str = "",
+):
+    title = escape(title or "")
+    authors = escape(authors or "")
+    rate = escape(str(rate))
+    tldr = escape(tldr or "")
+    pdf_url = escape(pdf_url or paper_url or "#", quote=True)
+    paper_url = escape(paper_url or "#", quote=True)
+    affiliations = escape(affiliations or "Unknown Affiliation")
+    bucket = escape(bucket.title())
+    categories = escape(categories)
+    contribution_en = escape(contribution_en or "")
+    why_care_zh = escape(why_care_zh or "")
+    why_care_en = escape(why_care_en or "")
     block_template = """
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Arial, sans-serif; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #f9f9f9;">
     <tr>
@@ -69,23 +96,50 @@ def get_block_html(title:str, authors:str, rate:str, tldr:str, pdf_url:str, affi
     </tr>
     <tr>
         <td style="font-size: 14px; color: #333; padding: 8px 0;">
-            <strong>Relevance:</strong> {rate}
+            <strong>分栏 / Category:</strong> {bucket}
+            <br><strong>分类 / arXiv:</strong> {categories}
         </td>
     </tr>
     <tr>
         <td style="font-size: 14px; color: #333; padding: 8px 0;">
-            <strong>TLDR:</strong> {tldr}
+            <strong>相关性 / Relevance:</strong> {rate}/10
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px; color: #333; padding: 8px 0;">
+            <strong>贡献 / Contribution:</strong> {tldr}
+            <br><i>{contribution_en}</i>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px; color: #333; padding: 8px 0;">
+            <strong>为什么值得看 / Why you might care:</strong> {why_care_zh}
+            <br><i>{why_care_en}</i>
         </td>
     </tr>
 
     <tr>
         <td style="padding: 8px 0;">
+            <a href="{paper_url}" style="display: inline-block; text-decoration: none; font-size: 14px; font-weight: bold; color: #fff; background-color: #666; padding: 8px 16px; border-radius: 4px;">arXiv</a>
             <a href="{pdf_url}" style="display: inline-block; text-decoration: none; font-size: 14px; font-weight: bold; color: #fff; background-color: #d9534f; padding: 8px 16px; border-radius: 4px;">PDF</a>
         </td>
     </tr>
 </table>
 """
-    return block_template.format(title=title, authors=authors,rate=rate, tldr=tldr, pdf_url=pdf_url, affiliations=affiliations)
+    return block_template.format(
+        title=title,
+        authors=authors,
+        rate=rate,
+        tldr=tldr,
+        pdf_url=pdf_url,
+        affiliations=affiliations,
+        bucket=bucket,
+        categories=categories,
+        contribution_en=contribution_en,
+        why_care_zh=why_care_zh,
+        why_care_en=why_care_en,
+        paper_url=paper_url,
+    )
 
 def get_stars(score:float):
     full_star = '<span class="full-star">⭐</span>'
@@ -125,7 +179,25 @@ def render_email(papers:list[Paper]) -> str:
                 affiliations += ', ...'
         else:
             affiliations = 'Unknown Affiliation'
-        parts.append(get_block_html(p.title, authors, rate, p.tldr, p.pdf_url, affiliations))
+        assessment = p.assessment or {}
+        contribution = assessment.get("contribution", {})
+        why_care = assessment.get("why_care", {})
+        parts.append(
+            get_block_html(
+                p.title,
+                authors,
+                rate,
+                p.tldr,
+                p.pdf_url,
+                affiliations,
+                bucket=assessment.get("bucket", ""),
+                categories=", ".join(p.categories or []),
+                contribution_en=contribution.get("en", ""),
+                why_care_zh=why_care.get("zh", ""),
+                why_care_en=why_care.get("en", ""),
+                paper_url=p.url,
+            )
+        )
 
     content = '<br>' + '</br><br>'.join(parts) + '</br>'
     return framework.replace('__CONTENT__', content)

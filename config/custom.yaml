@@ -1,7 +1,8 @@
 zotero:
   user_id: ${oc.env:ZOTERO_ID}
   api_key: ${oc.env:ZOTERO_KEY}
-  include_path: null # Or set a list of glob patterns, e.g. ["2026/survey/**","2026/reading-group/**"]
+  include_path: null
+  ignore_path: null
 
 email:
   sender: ${oc.env:SENDER}
@@ -13,15 +14,18 @@ email:
 llm:
   api:
     key: ${oc.env:OPENAI_API_KEY}
-    base_url: ${oc.env:OPENAI_API_BASE}
+    base_url: ${oc.env:OPENAI_API_BASE,https://api.deepseek.com}
   api_mode: chat_completion
   generation_kwargs:
-    model: gpt-4o-mini
+    model: deepseek-flash
+    max_tokens: 16384
 
 source:
   arxiv:
-    category: ["cs.AI","cs.CV","cs.LG","cs.CL"]
+    category: ["cs.PL", "cs.AR", "cs.DC", "cs.ET", "cs.PF", "cs.OS", "cs.LO", "cs.SE", "cs.AI", "cs.LG", "eess.SP"]
+    include_cross_list: true
 
 executor:
   debug: ${oc.env:DEBUG,null}
-  source: ['arxiv']
+  max_paper_num: 10
+  source: ["arxiv"]

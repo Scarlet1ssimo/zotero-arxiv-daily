@@ -6,11 +6,16 @@ from .retriever import get_retriever_cls
 from .protocol import CorpusPaper
 import random
 from datetime import datetime
-from .reranker import get_reranker_cls
+from .candidate_generation import CandidateGenerator
+from .assessment import assess_candidates, build_slate
+from .daily_report import (
+    build_daily_record,
+    local_report_date,
+    write_daily_record,
+)
 from .construct_email import render_email
 from .utils import send_email
 from openai import OpenAI
-from tqdm import tqdm
 
 
 def normalize_path_patterns(patterns: list[str] | ListConfig | None, config_key: str) -> list[str] | None:
@@ -37,15 +42,20 @@ class Executor:
         self.retrievers = {
             source: get_retriever_cls(source)(config) for source in config.executor.source
         }
-        self.reranker = get_reranker_cls(config.executor.reranker)(config)
         self.openai_client = OpenAI(api_key=config.llm.api.key, base_url=config.llm.api.base_url)
+        self.candidate_generator = CandidateGenerator(config)
     def fetch_zotero_corpus(self) -> list[CorpusPaper]:
         logger.info("Fetching zotero corpus")
         zot = zotero.Zotero(self.config.zotero.user_id, 'user', self.config.zotero.api_key)
         collections = zot.everything(zot.collections())
         collections = {c['key']:c for c in collections}
         corpus = zot.everything(zot.items(itemType='conferencePaper || journalArticle || preprint'))
-        corpus = [c for c in corpus if c['data']['abstractNote'] != '']
+        corpus = [
+            item
+            for item in corpus
+            if item.get('data', {}).get('title', '').strip()
+            and item.get('data', {}).get('abstractNote', '').strip()
+        ]
         def get_collection_path(col_key:str) -> str:
             if p := collections[col_key]['data']['parentCollection']:
                 return get_collection_path(p) + '/' + collections[col_key]['data']['name']
@@ -91,34 +101,122 @@ class Executor:
 
     
     def run(self):
-        corpus = self.fetch_zotero_corpus()
-        corpus = self.filter_corpus(corpus)
+        report_date = local_report_date(
+            timezone_name=str(self.config.get("research", {}).get("timezone", "America/Chicago"))
+        )
+        retrieved_count = 0
+        candidates = []
+        recommendations = []
+        record_path = None
+        try:
+            corpus = self.fetch_zotero_corpus()
+            corpus = self.filter_corpus(corpus)
+        except Exception as exc:
+            write_daily_record(
+                build_daily_record(
+                    report_date,
+                    retrieved_count,
+                    candidates,
+                    recommendations,
+                    status="failed",
+                    error=f"{type(exc).__name__}: {exc}",
+                ),
+                self.config.get("research", {}).get("daily_dir", "data/daily"),
+            )
+            raise
         if len(corpus) == 0:
-            logger.error(f"No zotero papers found. Please check your zotero settings:\n{self.config.zotero}")
-            return
+            error = "No Zotero papers found. Check Zotero credentials and collection filters."
+            logger.error(error)
+            write_daily_record(
+                build_daily_record(
+                    report_date,
+                    retrieved_count,
+                    candidates,
+                    recommendations,
+                    status="failed",
+                    error=error,
+                ),
+                self.config.get("research", {}).get("daily_dir", "data/daily"),
+            )
+            raise ValueError(error)
         all_papers = []
-        for source, retriever in self.retrievers.items():
-            logger.info(f"Retrieving {source} papers...")
-            papers = retriever.retrieve_papers()
-            if len(papers) == 0:
-                logger.info(f"No {source} papers found")
-                continue
-            logger.info(f"Retrieved {len(papers)} {source} papers")
-            all_papers.extend(papers)
+        try:
+            for source, retriever in self.retrievers.items():
+                logger.info(f"Retrieving {source} papers...")
+                papers = retriever.retrieve_papers()
+                if len(papers) == 0:
+                    logger.info(f"No {source} papers found")
+                    continue
+                logger.info(f"Retrieved {len(papers)} {source} papers")
+                all_papers.extend(papers)
+            retrieved_count = len(all_papers)
+        except Exception as exc:
+            write_daily_record(
+                build_daily_record(
+                    report_date,
+                    retrieved_count,
+                    candidates,
+                    recommendations,
+                    status="failed",
+                    error=f"{type(exc).__name__}: {exc}",
+                ),
+                self.config.get("research", {}).get("daily_dir", "data/daily"),
+            )
+            raise
         logger.info(f"Total {len(all_papers)} papers retrieved from all sources")
-        reranked_papers = []
-        if len(all_papers) > 0:
-            logger.info("Reranking papers...")
-            reranked_papers = self.reranker.rerank(all_papers, corpus)
-            reranked_papers = reranked_papers[:self.config.executor.max_paper_num]
-            logger.info("Generating TLDR and affiliations...")
-            for p in tqdm(reranked_papers):
-                p.generate_tldr(self.openai_client, self.config.llm)
-                p.generate_affiliations(self.openai_client, self.config.llm)
-        elif not self.config.executor.send_empty:
-            logger.info("No new papers found. No email will be sent.")
+        try:
+            logger.info("Applying category and keyword gates, then generating candidates...")
+            pool = self.candidate_generator.generate(all_papers, corpus, report_date)
+            candidates = pool.papers
+            logger.info(f"Assessing {len(candidates)} unique candidates with DeepSeek...")
+            research_config = self.config.get("research", {})
+            assess_candidates(
+                self.openai_client,
+                self.config.llm,
+                candidates,
+                str(research_config.get("profile", "")),
+                recent_papers=sorted(corpus, key=lambda item: item.added_date, reverse=True)[
+                    : int(research_config.get("recent_zotero_count", 40))
+                ],
+            )
+            recommendations = build_slate(candidates, self.config.get("research", {}))
+        except Exception as exc:
+            failed_record = build_daily_record(
+                report_date,
+                retrieved_count,
+                candidates,
+                recommendations,
+                status="failed",
+                error=f"{type(exc).__name__}: {exc}",
+            )
+            record_path = write_daily_record(
+                failed_record,
+                self.config.get("research", {}).get("daily_dir", "data/daily"),
+            )
+            logger.exception(f"Daily assessment failed; saved partial record to {record_path}")
+            raise
+
+        record = build_daily_record(report_date, retrieved_count, candidates, recommendations)
+        record["delivery_status"] = "pending"
+        data_dir = self.config.get("research", {}).get("daily_dir", "data/daily")
+        record_path = write_daily_record(record, data_dir)
+        logger.info(f"Saved daily paper record to {record_path}")
+
+        should_send = bool(recommendations) or bool(self.config.executor.send_empty)
+        if not should_send:
+            record["delivery_status"] = "skipped_empty"
+            write_daily_record(record, data_dir)
+            logger.info("No qualifying recommendations; no email will be sent.")
             return
-        logger.info("Sending email...")
-        email_content = render_email(reranked_papers)
-        send_email(self.config, email_content)
-        logger.info("Email sent successfully")
+
+        try:
+            logger.info(f"Sending {len(recommendations)} recommendations by email...")
+            send_email(self.config, render_email(recommendations), report_date=report_date)
+            record["delivery_status"] = "sent"
+            write_daily_record(record, data_dir)
+            logger.info("Email sent successfully")
+        except Exception as exc:
+            record["delivery_status"] = "failed"
+            record["delivery_error"] = f"{type(exc).__name__}: {exc}"
+            write_daily_record(record, data_dir)
+            raise

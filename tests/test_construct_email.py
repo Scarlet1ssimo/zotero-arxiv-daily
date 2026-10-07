@@ -12,6 +12,27 @@ def test_render_email_with_papers():
     assert "MIT" in html
 
 
+def test_render_email_includes_bilingual_assessment_and_bucket():
+    paper = make_sample_paper(
+        score=8,
+        tldr="提出一种编译优化。",
+        categories=["cs.PL", "cs.AR"],
+        assessment={
+            "bucket": "direct",
+            "relevance": 8,
+            "contribution": {"zh": "提出一种编译优化。", "en": "Presents a compiler optimization."},
+            "why_care": {"zh": "与近期阅读高度相关。", "en": "Closely matches recent reading."},
+        },
+    )
+    html = render_email([paper])
+    assert "提出一种编译优化。" in html
+    assert "Presents a compiler optimization." in html
+    assert "与近期阅读高度相关。" in html
+    assert "Closely matches recent reading." in html
+    assert "Direct" in html
+    assert "cs.PL, cs.AR" in html
+
+
 def test_render_email_empty_list():
     html = render_email([])
     assert "No Papers Today" in html

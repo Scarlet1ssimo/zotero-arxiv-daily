@@ -282,11 +282,9 @@ class ArxivRetriever(BaseRetriever):
         authors = [a.name for a in raw_paper.authors]
         abstract = raw_paper.summary
         pdf_url = raw_paper.pdf_url
-        full_text = extract_text_from_tar(raw_paper)
-        if full_text is None:
-            full_text = extract_text_from_html(raw_paper)
-        if full_text is None:
-            full_text = extract_text_from_pdf(raw_paper)
+        id_match = re.search(r"/abs/([^?#]+)", raw_paper.entry_id)
+        paper_id = id_match.group(1).split("v", 1)[0] if id_match else raw_paper.entry_id
+        published = getattr(raw_paper, "published", None)
         return Paper(
             source=self.name,
             title=title,
@@ -294,7 +292,9 @@ class ArxivRetriever(BaseRetriever):
             abstract=abstract,
             url=raw_paper.entry_id,
             pdf_url=pdf_url,
-            full_text=full_text,
+            paper_id=paper_id,
+            categories=list(getattr(raw_paper, "categories", []) or []),
+            published_date=published,
         )
 
 

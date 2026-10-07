@@ -63,6 +63,42 @@ def test_arxiv_retriever(config, mock_feedparser, monkeypatch):
     assert set(p.title for p in papers) == set(e.title for e in new_entries)
 
 
+def test_convert_to_paper_keeps_metadata_without_downloading_full_text(config, monkeypatch):
+    from datetime import datetime, timezone
+
+    retriever = ArxivRetriever(config)
+    raw = SimpleNamespace(
+        title="Compiler paper",
+        authors=[SimpleNamespace(name="A. Author")],
+        summary="An abstract.",
+        pdf_url="https://arxiv.org/pdf/2601.00001v2",
+        entry_id="https://arxiv.org/abs/2601.00001v2",
+        categories=["cs.PL", "cs.AR"],
+        published=datetime(2026, 1, 1, tzinfo=timezone.utc),
+    )
+    monkeypatch.setattr(
+        arxiv_retriever,
+        "extract_text_from_tar",
+        lambda _: (_ for _ in ()).throw(AssertionError("PDF source should not be downloaded")),
+    )
+    monkeypatch.setattr(
+        arxiv_retriever,
+        "extract_text_from_html",
+        lambda _: (_ for _ in ()).throw(AssertionError("HTML should not be downloaded")),
+    )
+    monkeypatch.setattr(
+        arxiv_retriever,
+        "extract_text_from_pdf",
+        lambda _: (_ for _ in ()).throw(AssertionError("PDF should not be downloaded")),
+    )
+
+    paper = retriever.convert_to_paper(raw)
+    assert paper.paper_id == "2601.00001"
+    assert paper.categories == ["cs.PL", "cs.AR"]
+    assert paper.published_date == raw.published
+    assert paper.full_text is None
+
+
 def test_run_with_hard_timeout_returns_value():
     result = _run_with_hard_timeout(
         _sleep_and_return, ("done", 0.01), timeout=1, operation="test op", paper_title="paper"
@@ -251,4 +287,3 @@ def test_retrieve_raw_papers_retries_on_http_failure(config, mock_feedparser, mo
     raw = retriever._retrieve_raw_papers()
     assert len(calls) == 2
     assert len(raw) > 0
-
