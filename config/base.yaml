@@ -57,6 +57,7 @@ research:
   timezone: America/Chicago
   daily_dir: data/daily
   recent_zotero_count: 40
+  assessment_batch_size: 8
   profile: >-
     Compiler optimization, program synthesis, equality saturation, e-graphs,
     term rewriting, intermediate representations, MLIR and LLVM compiler

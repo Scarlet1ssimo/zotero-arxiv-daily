@@ -178,6 +178,7 @@ class Executor:
                 recent_papers=sorted(corpus, key=lambda item: item.added_date, reverse=True)[
                     : int(research_config.get("recent_zotero_count", 40))
                 ],
+                batch_size=int(research_config.get("assessment_batch_size", 8)),
             )
             recommendations = build_slate(candidates, self.config.get("research", {}))
         except Exception as exc:

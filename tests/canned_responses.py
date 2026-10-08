@@ -37,7 +37,7 @@ def _stub_chat_create(**kwargs):
     request_str = str(messages)
     if _AFFILIATION_MARKER in request_str:
         return _make_chat_response(_AFFILIATION_RESPONSE)
-    if "Assess the candidates comparatively" in request_str:
+    if "Assess these candidates comparatively" in request_str:
         user_content = messages[-1]["content"]
         payload = json.loads(user_content.split("\n\n", 1)[1])
         assessments = []

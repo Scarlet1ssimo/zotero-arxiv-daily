@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 from omegaconf import OmegaConf
 
-from zotero_arxiv_daily.assessment import assess_candidates, build_slate
+from zotero_arxiv_daily.assessment import _parse_json_response, assess_candidates, build_slate
 from zotero_arxiv_daily.protocol import Paper
 
 
@@ -129,3 +129,63 @@ def test_assess_candidates_fails_when_model_omits_candidates():
             [candidate],
             "Compiler",
         )
+
+
+def test_assess_candidates_splits_large_candidate_list_into_batches():
+    candidates = [
+        Paper(
+            source="arxiv",
+            title=f"Paper {index}",
+            authors=[],
+            abstract="Abstract",
+            url=f"https://arxiv.org/abs/2601.{index:05d}",
+            paper_id=f"2601.{index:05d}",
+        )
+        for index in range(1, 4)
+    ]
+    batch_sizes = []
+
+    def create(**kwargs):
+        prompt = kwargs["messages"][1]["content"]
+        payload = json.loads(prompt.split("\n\n", 1)[1])
+        papers = payload["candidate_papers"]
+        batch_sizes.append(len(papers))
+        assessments = [
+            {
+                "paper_id": paper["paper_id"],
+                "relevance": 8,
+                "novelty": 7,
+                "elegance": 7,
+                "transferability": 7,
+                "confidence": 0.9,
+                "bucket": "direct",
+                "contribution": {"zh": "方法摘要。", "en": "Method summary."},
+                "why_care": {"zh": "研究相关。", "en": "Relevant work."},
+            }
+            for paper in papers
+        ]
+        return SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    message=SimpleNamespace(content=json.dumps({"assessments": assessments}))
+                )
+            ]
+        )
+
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    result = assess_candidates(
+        client,
+        OmegaConf.create({"api_mode": "chat_completion", "generation_kwargs": {"model": "deepseek-flash"}}),
+        candidates,
+        "Compiler research",
+        batch_size=2,
+    )
+
+    assert result == candidates
+    assert batch_sizes == [2, 1]
+    assert all(paper.assessment["relevance"] == 8 for paper in candidates)
+
+
+def test_parse_json_response_explains_truncated_output():
+    with pytest.raises(ValueError, match="incomplete JSON.*truncated"):
+        _parse_json_response('{"assessments":[{"paper_id":"2601.00001')
