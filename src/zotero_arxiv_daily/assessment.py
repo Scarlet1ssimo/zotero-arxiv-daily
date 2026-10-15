@@ -105,14 +105,20 @@ def assess_candidates(
             total_batches,
             len(batch),
         )
-        response = _request_llm(
-            client,
-            llm_params,
-            [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-        )
+        try:
+            response = _request_llm(
+                client,
+                llm_params,
+                [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+            )
+        except Exception as exc:
+            raise RuntimeError(
+                f"DeepSeek assessment batch {batch_number}/{total_batches} "
+                f"request failed: {exc}"
+            ) from exc
         try:
             parsed = _parse_json_response(response or "")
         except ValueError as exc:

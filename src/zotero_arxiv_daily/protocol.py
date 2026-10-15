@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Optional, TypeVar
 from datetime import datetime
 import re
+import time
 import tiktoken
 from openai import OpenAI
 from loguru import logger
@@ -9,16 +10,69 @@ import json
 RawPaperItem = TypeVar('RawPaperItem')
 
 
+def _chat_completion_text(response: object) -> str | None:
+    """Return message text, or None when an OpenAI-compatible response is empty."""
+    choices = getattr(response, "choices", None)
+    if not choices:
+        return None
+    message = getattr(choices[0], "message", None)
+    content = getattr(message, "content", None)
+    if not isinstance(content, str) or not content.strip():
+        return None
+    return content
+
+
+def _chat_completion_diagnostic(response: object) -> str:
+    choices = getattr(response, "choices", None)
+    metadata = []
+    for field in ("id", "model", "system_fingerprint"):
+        value = getattr(response, field, None)
+        if value is not None:
+            metadata.append(f"{field}={value!r}")
+    if not choices:
+        reason = "choices missing or empty"
+    else:
+        choice = choices[0]
+        message = getattr(choice, "message", None)
+        finish_reason = getattr(choice, "finish_reason", None)
+        reason = "message content missing or empty"
+        if finish_reason is not None:
+            reason += f", finish_reason={finish_reason!r}"
+        if getattr(message, "reasoning_content", None):
+            reason += ", reasoning_content was present"
+    suffix = f" ({', '.join(metadata)})" if metadata else ""
+    return reason + suffix
+
+
 def _request_llm(openai_client: OpenAI, llm_params: dict, messages: list[dict]) -> str:
     api_mode = llm_params.get("api_mode", "chat_completion")
     generation_kwargs = dict(llm_params.get("generation_kwargs", {}))
 
     if api_mode == "chat_completion":
-        response = openai_client.chat.completions.create(
-            messages=messages,
-            **generation_kwargs,
-        )
-        return response.choices[0].message.content
+        # Some OpenAI-compatible gateways can return HTTP 200 with an empty
+        # completion object. The OpenAI SDK accepts that shape, so retry it once
+        # here instead of failing later with an opaque NoneType error.
+        for attempt in range(2):
+            response = openai_client.chat.completions.create(
+                messages=messages,
+                **generation_kwargs,
+            )
+            content = _chat_completion_text(response)
+            if content is not None:
+                return content
+
+            diagnostic = _chat_completion_diagnostic(response)
+            if attempt == 0:
+                logger.warning(
+                    "OpenAI-compatible chat completion was empty ({}); retrying once",
+                    diagnostic,
+                )
+                time.sleep(2)
+                continue
+            raise RuntimeError(
+                "OpenAI-compatible chat completion returned no usable text after "
+                f"2 attempts: {diagnostic}"
+            )
 
     if api_mode == "response":
         max_tokens = generation_kwargs.pop("max_tokens", None)
