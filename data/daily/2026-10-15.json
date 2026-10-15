@@ -1,0 +1,1904 @@
+{
+  "candidate_count": 40,
+  "candidates": [
+    {
+      "abstract": "Sparse tensor compilers are commonly used high-performance tools that optimize tensor algebra programs over notoriously complex sparse data structures. Despite the ever-increasing size and scale of sparse datasets, there exists astonishingly little research on developing a parallel sparse tensor compiler. Existing approaches fail to parallelize or make assumptions about access patterns or output formats that limit generality. This paper presents Birdseed, the first tensor compiler to support all loop orderings over any standard sparse format in parallel. More specifically, Birdseed supports parallel sparse scatters and directly writes into list, bytemap, hash, and dense levels of fibertree sparse formats. Our approach exhibits asymptotic memory and time improvements over all previous work. We additionally demonstrate empirical speedups on challenging kernels to parallelize, such as histogram construction and SpMSpV.",
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Presents Birdseed, the first parallel sparse tensor compiler supporting all loop orderings and standard sparse formats with parallel writes into fibertree levels.",
+          "zh": "提出Birdseed，首个支持任意循环序和标准稀疏格式的并行稀疏张量编译器，可直接并行写入fibertree的多种level。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 8,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly overlaps with tensor compilers, parallel code generation, and sparse IR, potentially informing compiler handling of parallel scatters and format generality.",
+          "zh": "与张量编译器、并行代码生成和稀疏IR直接重合，可能启发编译器对并行scatter和格式通用化的处理。"
+        }
+      },
+      "authors": [
+        "Adrian Gushin",
+        "Pau Sum",
+        "Willow Ahrens"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.43999989986419674,
+        "semantic": 0.6529181003570557
+      },
+      "paper_id": "2610.19308",
+      "pdf_url": "https://arxiv.org/pdf/2610.19308v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Parallel Sparse Outputs for Tensor Compilers",
+      "url": "https://arxiv.org/abs/2610.19308"
+    },
+    {
+      "abstract": "Many important computational workloads are bound by the performance of the memory system that supplies data to conventional processors. Compute in Memory (CiM) promises to circumvent this bottleneck by performing the processing within the memory. Neural Networks are memory-bound, and a notable example of such is the Hopfield Network. This work explores the design space of non-volatile computing-in-memory (NV-CiM) architectures using an instruction-level simulator to evaluate application mappings and workload-driven architectural adaptations. The exploration examines the resulting design trade-offs and includes theoretical comparisons with representative CPU and GPU architectures.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Uses an instruction-level simulator to explore application mapping and architectural adaptation for Hopfield networks on non-volatile compute-in-memory architectures.",
+          "zh": "用指令级模拟器探索非易失存内计算架构上Hopfield网络的应用映射与架构适配。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "Connects to compute-in-memory and architecture co-design interests, but focuses on neural network mapping rather than compilers and IR.",
+          "zh": "对接存内计算与架构协同设计兴趣，但聚焦神经网络映射，离编译器与IR主线较远。"
+        }
+      },
+      "authors": [
+        "Patrick Miller",
+        "Ulya R. Karpuzcu"
+      ],
+      "categories": [
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "diversity": 0.38236590385437014,
+        "lexical": 57.289176608435056,
+        "semantic": 0.62109375
+      },
+      "paper_id": "2610.19321",
+      "pdf_url": "https://arxiv.org/pdf/2610.19321v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Hopfield Networks in Non-volatile Memory",
+      "url": "https://arxiv.org/abs/2610.19321"
+    },
+    {
+      "abstract": "Configuring distributed LLM training across hundreds of GPUs requires jointly optimizing tensor, pipeline, expert, context, and data parallelism alongside micro-batch size, recomputation, sharding, and overlap, a combinatorial space where memory legality can hinge on a single byte of activation accounting. Today, teams navigate it through expensive multi-node trial and error, burning GPU-hours on crashes and suboptimal recipes. We present Primus Projection, which closes this loop with two coupled components. First, a hybrid projection engine that measures what it can and simulates what it cannot: GPU microbenchmarks on as few as a single device capture compute kernels and any in-scope communication; a sub-node downscale-measure-upscale workflow analytically restores out-of-scope collectives, FSDP overlap, and the full pipeline schedule at the multi-node target. A pure simulation mode runs entirely on CPU, enabling pre-silicon planning without any GPU. Second, the Primus Tuning Agent treats the projection engine as a fast scoring oracle (seconds per candidate instead of tens of minutes) and uses it to drive an intelligent search over the configuration space. A deterministic seed planner sweeps single axes; an LLM investigation loop proposes cross-axis combinations the planner cannot reach, with an analytic memory pre-filter that rejects infeasible candidates before any GPU time is spent. Validated on Llama 3.1 (dense) and Mixtral 8x22B (MoE) across two GPU generations, all projections stay within ~10% of measured multi-node throughput, and fidelity holds at production scale: 4.7% error on DeepSeek V3 671B at 1,024 GPUs and 1.9% on Qwen3-235B-A22B at 256 GPUs. In a Mixtral 8x22B case study, the Primus Tuning Agent discovers a configuration delivering +27% throughput over the published 4-node BF16 reference at the same scale, in under 30 minutes of single-node exploration.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes a hybrid projection engine and LLM tuning agent to automate the search over distributed LLM training parallelism configurations.",
+          "zh": "提出混合投影引擎与LLM调优代理，自动搜索分布式LLM训练的并行配置。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Serves as an adjacent reference for autotuning and parallel configuration search, but is far from compiler and code generation cores.",
+          "zh": "可作为自动调优和并行配置搜索的邻近参考，但与编译器和代码生成核心相距较远。"
+        }
+      },
+      "authors": [
+        "Anshu Raina",
+        "Peyman Razaghi",
+        "Yuankai Chen",
+        "Cheng Yao",
+        "Yao Fu",
+        "Vidushi Goyal",
+        "Devang Patel",
+        "Wen Xie",
+        "Zhenyu Gu",
+        "Emad Barsoum"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.3674486589431763,
+        "lexical": 54.901231576192366,
+        "semantic": 0.6128567457199097
+      },
+      "paper_id": "2610.19423",
+      "pdf_url": "https://arxiv.org/pdf/2610.19423v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Beyond the Trial-and-Error Loop: Hybrid Projection and Automated Tuning for Distributed Training",
+      "url": "https://arxiv.org/abs/2610.19423"
+    },
+    {
+      "abstract": "LLM agents are evolving from a single model calling tools to planners that orchestrate multiple expert models whose capabilities live in distinct weights. This shift breaks a hidden assumption of today's serving systems: that the working set of models fits in GPU memory. On the memory-constrained GPUs typical of private and edge deployments, naive whole-model swapping serializes weight transfer with computation and, without host-backed KV restoration, discards session state at a switch. We present JointServe, a serving system that treats weight shards and KV blocks as residency objects competing for one unified memory budget. JointServe exploits three structural properties of agent workloads (directed calls, gapped execution, and dual-state residency) to prepare models before they are called: an intent signal parsed from the caller's own output stream triggers prefetch during generation, partial k* residency reduces switching to incremental layers, and a preemptive transfer scheduler protects live-session KV with a guaranteed bandwidth share. A carve-out control step adjusts the weight/KV allocation as workload demands change. Evaluations show that JointServe reduces session completion time by 21.7% over the strongest whole-model swap baseline and stays usable in a crash regime where every whole-model swap baseline fails to finish (a 46-fold gap). On replayed SWE-bench, tau-bench, and OSWorld traces, it cuts session completion time by up to 49% and lifts SLO attainment from 2.8-24.5% to 76.8-100%.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Presents JointServe, treating weight shards and KV blocks as residency objects under a unified GPU memory budget for multi-model agent serving.",
+          "zh": "提出JointServe，将权重分片和KV块作为统一显存预算下的驻留对象，面向多模型agent服务做预取调度。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Involves GPU systems and memory scheduling, but offers limited value for compilers, IR, and parallel code generation.",
+          "zh": "涉及GPU系统与内存调度，但对编译器、IR和并行代码生成主线帮助有限。"
+        }
+      },
+      "authors": [
+        "Daijin Hu"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "diversity": 0.3393491744995117,
+        "semantic": 0.5973407626152039
+      },
+      "paper_id": "2610.19822",
+      "pdf_url": "https://arxiv.org/pdf/2610.19822v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "JointServe: Serving Multi-Model Agents on Memory-Constrained GPUs",
+      "url": "https://arxiv.org/abs/2610.19822"
+    },
+    {
+      "abstract": "Lane-based RISC-V vector processors exploit data parallelism well but pay a recurring cost for two common patterns: reductions, which require a separate tree pass, and deep dependent expression chains, which cannot be fused and are issued as serial vector instructions. We present TALU, a 5-stage RISC-V core whose execute stage is an NxN grid of registered ALU tiles instead of a single ALU. The grid is a reconfigurable, feed-forward spatial fabric: tiles route operands only from non-backward neighbours, and added diagonal forwarding lets a reduction collapse spatially. A minimal custom extension configures the per-tile operation, routing, and per-tile constants, and streams operands through the array. On a single fabric, TALU runs ordinary scalar code, single deep-path expressions, and multi-lane vector kernels. On the benchmark suite of the RISC-V2 vector processor, TALU is 1.8-5.5x faster than RISC-V2 and 4.5-15.5x faster than Vicuna at equal lane count, with a reduction cost (dot{\\div}add) of 1.05x versus 1.96x and 1.26x for the vector cores. A retimed implementation places and routes at 1.03 GHz in 45 nm in 0.30 mm2, half the area of RISC-V2.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces TALU, a RISC-V core replacing the execute-stage ALU with an NxN reconfigurable ALU tile grid to accelerate reductions and deep dependent expression chains.",
+          "zh": "提出TALU，一种用NxN可配置ALU tile网格替换单ALU执行级的RISC-V核，加速归约和深依赖表达式链。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 6,
+        "why_care": {
+          "en": "Relates to SIMD/vectorization, heterogeneous architecture, and compiler-architecture co-design, potentially influencing instruction selection and vector code generation.",
+          "zh": "与SIMD/向量化、异构架构和编译-架构协同相关，可能影响指令选择与向量代码生成。"
+        }
+      },
+      "authors": [
+        "Ali Emre Oztas",
+        "Can Erim Karsal",
+        "Mahir Demir",
+        "Mikel Luj\\'an"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.325969762802124,
+        "lexical": 52.88653072415262,
+        "semantic": 0.5899530053138733
+      },
+      "paper_id": "2610.19277",
+      "pdf_url": "https://arxiv.org/pdf/2610.19277v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TALU: A Reconfigurable Tiled-ALU Grid for RISC-V",
+      "url": "https://arxiv.org/abs/2610.19277"
+    },
+    {
+      "abstract": "Large Language Model (LLM) serving systems must balance latency and throughput while efficiently utilizing distributed GPU resources. This challenge arises because inference consists of two fundamentally different phases: prefill, which determines time-to-first-token (TTFT), and decode, which determines inter-token latency (ITL). The use of tensor parallelism (TP), pipeline parallelism (PP), and hybrid configurations exposes different trade-offs between these latency dimensions, making the optimal parallelism configuration highly dependent on workload characteristics, latency requirements, and context length. Moreover, despite the widespread adoption of distributed inference, there is still limited understanding of how parallelism configurations should be selected under varying workload conditions and service-level objectives (SLO). In this paper, we develop a systematic framework for characterizing LLM inference parallelism via throughput-latency trade-offs, SLO-aware serving, and long-context scalability. We introduce the notion of parallelism operating regions by constructing TTFT-ITL feasible sets and Pareto frontiers across different workload compositions, thereby revealing a systematic transition from TP-dominant to PP-dominant configurations as workloads become increasingly prefill-heavy. We further formulate SLO-aware parallelism selection using goodput, showing that stringent TTFT requirements favor PP-dominated configurations, whereas relaxed latency constraints progressively shift the optimality toward TP-dominated configurations with higher serving capacity. Finally, we demonstrate that increasing context length fundamentally changes the relative advantages of parallelism configurations, with PP-dominant configurations exhibiting more favorable scalability and SLO attainment in the long-context regime.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Systematically characterizes throughput-latency trade-offs and SLO-aware selection for LLM inference under tensor and pipeline parallelism configurations.",
+          "zh": "系统刻画LLM推理在张量并行/流水并行等配置下的吞吐-延迟权衡与SLO感知选择。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 4,
+        "why_care": {
+          "en": "Belongs to parallel computing and GPU serving analysis, offering background for parallel scheduling but distant from compiler techniques.",
+          "zh": "属于并行计算与GPU服务分析，可为并行调度提供背景，但与编译器技术距离较远。"
+        }
+      },
+      "authors": [
+        "Javad Mirzaei",
+        "Jeebak Mitra"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.AI",
+        "cs.LG",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "diversity": 0.3210791015625,
+        "semantic": 0.5872524380683899
+      },
+      "paper_id": "2610.19405",
+      "pdf_url": "https://arxiv.org/pdf/2610.19405v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Scaling LLM Inference via Parallelism: Throughput-Latency Trade-off",
+      "url": "https://arxiv.org/abs/2610.19405"
+    },
+    {
+      "abstract": "Thermal constraints in heterogeneous multi-core systems can significantly degrade performance, as conventional techniques such as dynamic voltage and frequency scaling (DVFS) and task migration introduce overhead under high utilization. Approximate computing, particularly loop perforation, can mitigate this overhead by reducing computation at the cost of accuracy loss. However, existing approaches typically apply a uniform perforation rate across all loops, ignoring loop-specific sensitivity. We propose AMAX, an accuracy-aware multi-loop asymmetric perforation framework that reduces the combinational design space through loop-wise profiling and multi-objective configuration selection, and dynamically adapts the resulting configurations at runtime according to performance requirements. Experiments on PARSEC benchmarks show that {\\em AMAX} achieves up to 0.85 improvement in normalized accuracy over symmetric perforation for the same performance targets.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.76,
+        "contribution": {
+          "en": "Presents AMAX, an accuracy-aware asymmetric loop perforation framework that adapts configurations at runtime to performance needs.",
+          "zh": "提出AMAX，按循环敏感度进行非对称perforation，并在运行时根据性能需求动态调整配置。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Relates to loop optimization, heterogeneous architectures, and approximate computing, potentially informing compiler performance-accuracy trade-offs.",
+          "zh": "与循环优化、异构架构和近似计算相关，可能影响编译器的性能-精度权衡。"
+        }
+      },
+      "authors": [
+        "Amna Hassan",
+        "Paul Danielse",
+        "Anuj Pathania",
+        "Andy Pimentel",
+        "Semeen Rehman"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.26319038867950434,
+        "lexical": 57.56143092506391,
+        "semantic": 0.5552874803543091
+      },
+      "paper_id": "2610.19186",
+      "pdf_url": "https://arxiv.org/pdf/2610.19186v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "AMAX: Accuracy-Aware Multi-Loop Asymmetric Perforation for Heterogeneous Architectures",
+      "url": "https://arxiv.org/abs/2610.19186"
+    },
+    {
+      "abstract": "Vision-language models (VLMs) are moving onto edge devices, but little is known about how much energy they draw on single-board computers with NPU or GPU accelerators, or where that energy goes. We measure total-system energy, latency, and thermal behavior of Qwen2-VL-2B-Instruct and its text-only sibling on a Raspberry Pi 5 with a Hailo-10H NPU and on a Jetson Orin Nano Super, on both CPU and accelerator, and separate the fixed energy of each request from the energy that grows with output length. Because the accelerators use different quantization and serving software, we compare deployment stacks rather than silicon. Three findings stand out. First, NPU offloading makes the Pi a much more efficient VLM platform: it cuts energy per generated token by about two-thirds, leaves the host CPU largely free, and avoids the thermal throttling that the CPU backend reaches in sustained use. Second, an image adds both fixed and per-token energy, but at typical response lengths generating the answer costs far more than processing the image. Third, the Jetson GPU favors short responses through its lower fixed cost per request, whereas the Pi NPU favors longer ones through its lower cost per output token; their energy curves cross near 40 output tokens.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Measures system energy, latency, and thermal behavior of VLM inference on edge NPU/GPU platforms, separating fixed and per-token energy.",
+          "zh": "测量边缘NPU/GPU上VLM推理的系统能耗、延迟和热行为，并分解固定能耗与每token能耗。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Provides an edge-accelerator energy perspective, but is peripheral to compilers, IR, and parallel code generation.",
+          "zh": "提供边缘加速器部署的能耗视角，但对编译器、IR和并行代码生成主线较边缘。"
+        }
+      },
+      "authors": [
+        "Junlin Liao",
+        "Harshit Kondle",
+        "Di Liu",
+        "Zonghua Gu"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "diversity": 0.2616219615936279,
+        "semantic": 0.5544214248657227
+      },
+      "paper_id": "2610.20136",
+      "pdf_url": "https://arxiv.org/pdf/2610.20136v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Seeing at the Edge: Energy Characterization of Vision-Language Model Inference on Edge Platforms",
+      "url": "https://arxiv.org/abs/2610.20136"
+    },
+    {
+      "abstract": "NVIDIA Grace--Blackwell systems make CPU--GPU memory increasingly unified at the programming level, but unified addressability does not make the memory system uniform. A CUDA managed allocation on GB200 may be served from GPU-local HBM, accessed through host/system memory, demand-migrated, prefetched, reused after GPU access, or evicted and reloaded under capacity pressure. The problem is that these states share a programming interface while exercising different hardware paths and runtime mechanisms, making a single ``Unified Memory bandwidth'' number misleading. This paper presents a placement-controlled microbenchmark study of CUDA Unified Memory on NVIDIA GB200, using GH200 as a Grace--Hopper baseline and GB10/DGX Spark as a validation platform. Our methodology separates local HBM access, host/system-memory access, explicit movement, managed first touch, prefetch, reuse, access-pattern sensitivity, oversubscription, and CPU--GPU handoff, then summarizes the observations with a measurement-calibrated model of compute, access, migration, eviction, synchronization, and handoff costs. On GB200, a 1~GB STREAM-style triad reaches 3963~GB/s from local HBM but 304~GB/s through host-mapped CPU/system memory; for a 256~MB streaming kernel, cold CPU-initialized managed memory reaches 14.1~GB/s, while managed prefetch and reuse reach 4606~GB/s and 4504~GB/s. Below the capacity boundary, prefetched and reused managed memory remain above 4.6~TB/s, but at 125\\% of CUDA-visible memory they fall to 968~GB/s and 1214~GB/s, showing that Grace--Blackwell unified memory must be understood through placement, access history, locality, reuse, and capacity pressure.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "A placement-controlled microbenchmark study and calibrated cost model for CUDA Unified Memory behavior on GB200/GH200.",
+          "zh": "对 GB200/GH200 上 CUDA 统一内存行为进行放置控制微基准研究并给出校准开销模型。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Informs runtime and code-generation decisions about memory placement and migration on Grace-Blackwell heterogeneous systems.",
+          "zh": "有助于在 Grace-Blackwell 异构系统上做出内存放置与迁移的运行时和代码生成决策。"
+        }
+      },
+      "authors": [
+        "Nathan Graddon",
+        "Aaron Jarmusch",
+        "Sunita Chandrasekaran"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.25639148235321035,
+        "semantic": 0.5515332818031311
+      },
+      "paper_id": "2610.20354",
+      "pdf_url": "https://arxiv.org/pdf/2610.20354v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Understanding NVIDIA Grace-Blackwell Unified Memory Through Placement-Controlled Microbenchmarks",
+      "url": "https://arxiv.org/abs/2610.20354"
+    },
+    {
+      "abstract": "AI workloads increasingly employ low-precision formats such as BF16 / FP16, FP8 variants, FP4, Micro Scaling (MX), and INT modes across models, layers, and execution stages to balance accuracy, memory footprint, and throughput, which in turn requires hardware to support these formats in a flexible and efficient way. We present MFSA, a weight-stationary multi-format systolic array that achieves area efficiency through two architectural choices. At the PE level, MFSA uses dot-product-accumulator-based processing elements extended from an existing open-source trans-precision FPU to support reduced-precision formats (FP32/FP16/BF16/CFP8/FP4/INT16/INT8/INT4) with a shared datapath and proportional throughput scaling. At the array level, MFSA employs Online Block-Scale Rebasing (OBSR) for block-scaled formats, which folds each block scale into the running FP32 partial sum at block boundaries without adding a second cross-block accumulator, thereby reducing the additional overhead of block-scaling support. In TSMC 28 nm at 1 GHz, matched-throughput BF16/FP8/FP4 cascaded FMA-PE baselines are 1.5x/2.5x/4.5x larger than the single-format DPA-PE, the gap growing with subword parallelism. A routed 16x16 MFSA reaches a peak 0.5/1/2/4 TOPS of FP32/BF16/FP8/FP4, and OBSR cuts the incremental MX overhead by 64.2% in area and 67.5% in energy versus a naive MX implementation baseline, without hurting the numerical stability on real LLM traces. Adding support for all other formats based on a BF16+CFP8 systolic array costs 25.7% additional area. OBSR also extends to non-power-of-two block scales: folding the fractional part of an E4M3 scale into the MFPE dot product supports NVFP4 alongside OCP MX for 11.8% area and 7.3% power over a CFP8+FP4 base, less than half the cost of a naive implementation.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "A weight-stationary multi-format systolic array with dot-product-accumulator PEs and online block-scale rebasing for MX/FP4/INT formats.",
+          "zh": "提出采用点积累加PE和在线块缩放重基的多格式权重静止脉动阵列，支持MX/FP4/INT等格式。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 4,
+        "why_care": {
+          "en": "Provides hardware support for mixed-precision tensor acceleration that could shape low-precision code generation and ISA assumptions.",
+          "zh": "为混合精度张量加速提供硬件支持，可能影响低精度代码生成和ISA假设。"
+        }
+      },
+      "authors": [
+        "Jiayi Wang",
+        "Kearnan Bishop",
+        "Ang Li"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.5502278208732605
+      },
+      "paper_id": "2610.19645",
+      "pdf_url": "https://arxiv.org/pdf/2610.19645v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "MFSA: A Multi-Format Systolic Array with Native Micro Scaling Support",
+      "url": "https://arxiv.org/abs/2610.19645"
+    },
+    {
+      "abstract": "The rapid adoption of Retrieval-Augmented Generation (RAG) and long-context LLMs has shifted the computational burden toward the prefill phase---the initial stage where the model processes all input tokens in parallel before generating a response---yet its energy impact remains poorly characterised. We investigate the contradiction between massive hardware-level power spikes and the sub-linear marginal cost of input tokens reported in system-level studies. Through high-resolution telemetry of Llama-3.1 and Qwen-2 models on NVIDIA A100 hardware, we identify the efficiency threshold where $O(n^2)$ attention complexity overcomes GPU parallelisation. Our results quantify how optimised memory orchestration (PagedAttention) delays this scaling bottleneck across three orders of context scaling, yielding up to an 8.9$\\times$ energy efficiency advantage at 112,000 tokens compared to standard baselines. Furthermore, we characterise the energy disparity between input and output tokens, demonstrating that optimised serving (vLLM) causes this ratio to narrow (from $\\approx$850$\\times$ to 750$\\times$) as context scales due to high decode efficiency, whereas unoptimised baselines show a much smaller, roughly constant gap ($\\approx$150--230$\\times$) because their prefill is itself expensive. This work establishes context-scaling laws that differentiate engine-level optimisations from inherent model constraints, providing an empirical framework for sustainable LLM deployment.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Profiles and models energy scaling of prefill/input tokens in long-context LLM serving on A100s.",
+          "zh": "对A100上长上下文LLM服务中输入token预填充阶段的能耗扩展进行刻画与建模。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Gives energy-aware workload insight but not a compiler method, useful for evaluating serving/runtime optimizations.",
+          "zh": "提供能耗感知的工作负载洞见但非编译方法，可用于评估服务/运行时优化。"
+        }
+      },
+      "authors": [
+        "Boris Ruf",
+        "Marcin Detyniecki"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5467031598091125
+      },
+      "paper_id": "2610.19819",
+      "pdf_url": "https://arxiv.org/pdf/2610.19819v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "The Cost of Context: Profiling the Energy Footprint of Input Tokens in Large Language Models",
+      "url": "https://arxiv.org/abs/2610.19819"
+    },
+    {
+      "abstract": "Scaling up transformers has produced models with broad capabilities, deployed across heterogeneous hardware and fluctuating workloads. Yet, model families offer only a few fixed sizes (e.g., S, B, L), forcing users to commit to a model based on hardware and latency constraints. This rigidity is often suboptimal under varying query loads. We introduce a retraining-free method that elastifies pre-trained transformers into a single model that adapts on-the-fly across a continuum of computational budgets. Our key contribution is a differentiable relaxation of the functional unit-ranking problem: unlike prior work, which optimizes a single importance weight per MLP block or attention head, we rank every individual MLP neuron and attention head jointly, on a common scale, by minimizing the model's loss under soft pruning across many sparsity targets, all at once. Across 27 vision and text transformer encoders ranging from 22M to 8B parameters, our method yields smooth degradation up to 60% sparsity and outperforms one-shot baselines under deep pruning. For example, pruning DINOv3 ViT-H+/16 to 50% sparsity removes 427M parameters while reducing ImageNet-1k linear-probing accuracy by only 0.8%, without the need for weight correction or retraining. At 60% sparsity, a pruned AugReg ViT-B/16 model achieves up to $1.80\\times$ higher throughput and $1.26\\times$ lower single-query latency on an A100 GPU. Elastic models are produced in minutes, with construction time scaling sub-linearly with parameter count.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "A retraining-free method that elastifies pretrained transformers by jointly ranking neurons and heads under soft pruning.",
+          "zh": "提出无需重训练的方法，通过在软剪枝下联合排序神经元和注意力头使预训练Transformer弹性化。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Clean adaptive-model idea, but distant from compiler IR and code-generation concerns.",
+          "zh": "自适应模型的简洁思路，但距离编译器IR和代码生成关注点较远。"
+        }
+      },
+      "authors": [
+        "Walter Simoncini",
+        "Dheeraj Varghese",
+        "Gertjan J. Burghouts",
+        "Cees G. M. Snoek"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5394417643547058
+      },
+      "paper_id": "2610.20588",
+      "pdf_url": "https://arxiv.org/pdf/2610.20588v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Your Transformer Is Secretly Elastic",
+      "url": "https://arxiv.org/abs/2610.20588"
+    },
+    {
+      "abstract": "Equivariant interatomic potentials enable accurate and efficient simulations of molecules and materials. Among them, models based on SO(2) convolutions reduce the cost of tensor products and achieve state-of-the-art accuracy, but their training remains time-consuming and memory-intensive. Existing training implementations materialize large edge tensors for representation transformations surrounding dense matrix multiplications, increasing memory usage and data movement. We observe that these transformations can be integrated into the model's existing dataflow, avoiding separate intermediate materialization. We introduce TrimSO(2), a fast and memory-efficient algorithm for SO(2)-based equivariant models. It realizes this principle through rotation on gather, recombination with activation, and inverse rotation on reduction, with support for the higher-order differentiation required for training. By avoiding intermediate materialization, TrimSO(2) delivers 2.71-16.73$\\times$ operator speedups across forward, backward, and double backward and reduces model-level high-bandwidth memory traffic by 3.81-9.88$\\times$. Finally, TrimSO(2) achieves 2.07-2.94$\\times$ training speedups and 1.53-3.16$\\times$ reductions in peak training memory over PyTorch implementations for official eSEN, UMA, and EquiformerV3 workloads on A100 and H100 GPUs.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "A dataflow-integrated algorithm for SO(2)-equivariant potentials that avoids materializing edge tensors and speeds up forward/backward training.",
+          "zh": "一种数据流集成算法，用于SO(2)等变势模型，避免边张量物化并加速前向/反向训练。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "Shows fusion-like elimination of intermediate materialization and reduced memory traffic, relevant to GPU kernel/dataflow optimization.",
+          "zh": "展示类似融合的中间物化消除与显存流量降低，与GPU内核和数据流优化相关。"
+        }
+      },
+      "authors": [
+        "Chen Wang",
+        "Yuanchang Zhou",
+        "Guangming Tan",
+        "Mingzhen Li",
+        "Weile Jia"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.22746111869812008,
+        "semantic": 0.5355585813522339
+      },
+      "paper_id": "2610.20029",
+      "pdf_url": "https://arxiv.org/pdf/2610.20029v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TrimSO(2): Fast and Memory-Efficient Training of Equivariant Interatomic Potentials",
+      "url": "https://arxiv.org/abs/2610.20029"
+    },
+    {
+      "abstract": "Spiking neural networks (SNNs) offer great potential for low-power intelligent computing owing to their event-driven nature, yet their deployment is limited by high inference latency and inefficient hardware utilization caused by temporal dependencies. Existing accelerators struggle to balance timesteps, accuracy, and energy efficiency, while hardware-oriented timestep compression remains underexplored. To address these challenges, this work presents STISA, a unified algorithm-hardware co-design framework featuring: (i) a Temporal Splitter Compression (TSC) technique with a Temporal Split Structure (TSS) to reduce temporal redundancy while preserving network dynamics; (ii) a hardware-efficient spatiotemporal parallelism scheme, which co-optimizes dataflow and architecture through a Temporal-Prioritized Output-Stationary (TPOS) mapping and a flexible Block-Mux Streaming (BMS) architecture; and (iii) a joint TSC-TPOS-BMS co-optimization framework featuring a bandwidth-aware resource allocation strategy to achieve balanced accuracy, latency, and energy efficiency across diverse network architectures. On the algorithmic side, TSC reduces synaptic operations by 24.44%-51.71% while achieving competitive accuracies of 96.38%, 81.10%, 68.51%, and 82.40% on CIFAR-10, CIFAR-100, ImageNet, and DVS-CIFAR10, respectively. On the hardware side, FPGA prototypes deliver up to 7.99 speedup, 30.4% power reduction, and 30.1% LUT reduction. Compared with state-of-the-art SNN accelerators, STISA achieves 0.16 GOPS/W/PE, demonstrating its scalability and superior energy efficiency for real-time SNN inference under constrained hardware resources.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "An algorithm-hardware co-designed FPGA SNN accelerator with temporal compression and spatiotemporal parallelism.",
+          "zh": "提出算法-硬件协同设计的FPGA脉冲神经网络加速器，含时间压缩与时空并行映射。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Accelerator co-design and dataflow mapping are adjacent, but it targets SNN inference rather than compiler infrastructure.",
+          "zh": "加速器协同设计与数据流映射属邻近方向，但目标为SNN推理而非编译器基础设施。"
+        }
+      },
+      "authors": [
+        "Kainan Wang",
+        "Chengyi Yang",
+        "Lei Liu",
+        "Chengting Yu",
+        "Yee Sin Ang",
+        "Bo Wang",
+        "Aili Wang"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "lexical": 71.24348270434436,
+        "semantic": 0.5339999794960022
+      },
+      "paper_id": "2610.19973",
+      "pdf_url": "https://arxiv.org/pdf/2610.19973v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "STISA: A 0.16 GOPS/W/PE Single-Shot Inference FPGA-based SNN Accelerator with Algorithm and Hardware Co-Design",
+      "url": "https://arxiv.org/abs/2610.19973"
+    },
+    {
+      "abstract": "Analog in-memory computing performs the matrix-vector multiplications of neural networks directly inside the memory array, which saves time and energy. But each memory cell stores only a few levels and is noisy, so one cell cannot hold a weight precisely. The standard fix is to split each weight across several cells, like digits of a number. The base of this split decides the trade-off: a large base gives fine resolution but amplifies the noise, and a base near one averages the noise but wastes resolution. The best-known prior analysis considers only the noise, and so it always picks a base of one. We propose a principled method that also accounts for the limited number of levels per cell. It gives the optimal base in closed form, from a single measurement of the device noise. On a device-physics simulator, the optimal split is 3.3 dB more accurate than the common base-16 split, and it beats equal splitting in end-application accuracy.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Derives a closed-form optimal base for splitting weights across noisy analog in-memory cells using device-noise measurements.",
+          "zh": "利用器件噪声测量推导出在含噪模拟存内计算单元中权重拆分的最优进制闭式解。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Provides a clean precision/splitting principle for analog PIM, relevant to mapping neural weights onto memory-centric accelerators.",
+          "zh": "为模拟PIM提供简洁的精度/拆分原则，与将神经网络权重映射到存内计算加速器相关。"
+        }
+      },
+      "authors": [
+        "Mehmet Aktukmak",
+        "David A. Roberts"
+      ],
+      "categories": [
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "semantic": 0.5334010720252991
+      },
+      "paper_id": "2610.20359",
+      "pdf_url": "https://arxiv.org/pdf/2610.20359v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Closed-Form Optimal Weight Splitting for Matrix-Vector Multiply on Noisy In-Memory Accelerators",
+      "url": "https://arxiv.org/abs/2610.20359"
+    },
+    {
+      "abstract": "Ferroelectric field-effect transistor (FeFET)-based compute-in-memory (CIM) promises energy-efficient deep neural network (DNN) inference, but device variation can severely degrade bit-sliced CIM accuracy. Prior works either rely on hardware modifications or treat such variation as generic noise, overlooking a key FeFET asymmetry: negligible off-state leakage makes errors dominated by conducting on-state cells. This asymmetry is amplified by two's-complement sign extension, which maps small negative values to high-significance bit slices and magnifies their errors during shift-and-add reconstruction. In this paper, we propose CAFE, a conducting-cell-aware adaptive differential encoding framework built upon this FeFET-specific asymmetry. CAFE introduces C$^2$AM, a bit-significance-weighted conducting-cell activity metric that predicts output deviation and inference accuracy degradation under FeFET device variation. Guided by C$^2$AM, CAFE applies differential weight and activation encoding to eliminate sign-extension-induced conducting-cell amplification. To balance robustness and cost, CAFE performs type-wise encoding enumeration, layer-wise NSGA-II search, and post-GA pruning to allocate robust encodings where the robustness-cost trade-off is favorable. Across representative vision and language workloads, CAFE reduces C$^2$AM by up to $28.6\\times$; in the main deployment study, it improves accuracy over two's-complement CIM by more than 87 percentage points and approaches full-differential robustness at $1.86$-$2.78\\times$ normalized cost, compared with $3.06\\times$ for uniform full-differential encoding.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "A conducting-cell-aware adaptive differential encoding framework that mitigates FeFET CIM variation through search-based encoding allocation.",
+          "zh": "提出导通单元感知的自适应差分编码框架，通过搜索式编码分配缓解FeFET存内计算的器件变异。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Addresses robustness in FeFET CIM and may inform CIM-aware compiler encoding/mapping choices.",
+          "zh": "解决FeFET存内计算的鲁棒性问题，可能启发CIM感知的编译器编码/映射选择。"
+        }
+      },
+      "authors": [
+        "Wenshuai Yao",
+        "Wenyong Zhou",
+        "Hanyong Shao",
+        "Zhiyuan Ning",
+        "Ru Huang",
+        "Kechao Tang"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.5295374989509583
+      },
+      "paper_id": "2610.19697",
+      "pdf_url": "https://arxiv.org/pdf/2610.19697v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "CAFE: Conducting-Cell-Aware Adaptive Differential Encoding for Robust DNN Inference in FeFET-Based Compute-in-Memory",
+      "url": "https://arxiv.org/abs/2610.19697"
+    },
+    {
+      "abstract": "We introduce Continuum Attention (CA), a causal Transformer attention operator that replaces discrete key and value lookup with integration over a continuous, piecewise linear memory curve. Each query induces an exponential relevance density along the curve. Integrating the density and interpolated values yields exact normalized attention from closed form exponential moments, including half token boundary contributions. The gradients follow analytically from moments of order at most two, enabling parallel GPU implementations while retaining quadratic sequence complexity and the standard Transformer decoder. Compared with ordinary softmax and focal attention, CA reduces mean validation negative log likelihood by 0.0200 and 0.0480 nats per byte, respectively, winning all paired comparisons. An additional disjoint validation slice yields a 0.0457 nats per byte advantage over the strongest selected softmax baseline, with a paired 95% confidence interval. These findings motivate continuous integration as a promising attention alternative while leaving larger scale generalization open.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces a continuous attention operator using piecewise linear memory curves and closed-form exponential moments.",
+          "zh": "提出一种使用分段线性记忆曲线和闭式指数矩的连续注意力算子。"
+        },
+        "elegance": 7,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 2,
+        "why_care": {
+          "en": "Outside compiler/architecture focus, but its GPU-friendly parallel formulation may inspire attention kernel optimization.",
+          "zh": "虽不在编译器/体系结构焦点内，但其GPU友好的并行形式可能启发注意力内核优化。"
+        }
+      },
+      "authors": [
+        "Afshin Khadangi"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5294235348701477
+      },
+      "paper_id": "2610.20586",
+      "pdf_url": "https://arxiv.org/pdf/2610.20586v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Continuum Attention",
+      "url": "https://arxiv.org/abs/2610.20586"
+    },
+    {
+      "abstract": "An agent that drives an LLM sends the model the same conversation again and again, and each turn adds only a little text at the end. Inference engines reuse the KV cache of the shared prefix, so only the new tokens pass through the model. However, tokenization has no such shortcut. The CPU front end of the serving engine converts every request back into token IDs from its first character, which lengthens the time to first token (TTFT) and consumes CPU on every turn. We present Delta Tokenizer, a CPU tokenization front end that tokenizes only the delta between a request and the previous request of the same session. It retains the earlier token sequence, encodes again only the appended text and the short tail whose tokens the append could affect, and joins the two only at a position the tokenizer's splitting rules themselves cannot move, which keeps the result exact. For long requests with no state to reuse, it cuts the text where practical tokenizers already keep neighboring pieces independent, encodes the pieces on several cores at once, and concatenates the outputs into the reference encoding, exactly. A shared CPU pool schedules these chunks together with the short incremental updates, so an update runs between two chunks rather than behind an entire long job. The incremental path shortens the tokenization of a session turn by roughly 40x relative to the Hugging Face reference tokenizer, and on 16 cores the chunk-parallel path encodes a four-million-character request 8.2x faster than a serial encode and 1.6-2.1x faster than LoPT. Inside SGLang, Delta Tokenizer reduces the median TTFT through the chat interface by 59% at 100K tokens and brings the P99 TTFT of agent sessions down 9.5x under load and 23x when long requests tie up the front end. Every output we checked matches the reference, among them 41.8 billion documents encoded by its fast encoder.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Presents an incremental and parallel CPU tokenization front end for LLM serving that avoids re-encoding full prompts.",
+          "zh": "提出一种面向LLM服务的增量与并行CPU分词前端，避免重新编码完整提示。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Tokenization is a serving-system concern, not a compiler/architecture topic, though multicore scheduling may be tangentially relevant.",
+          "zh": "分词属于服务系统问题，而非编译器/体系结构主题，尽管多核调度可能略有参考。"
+        }
+      },
+      "authors": [
+        "Zhenyu Zhang",
+        "Zhichao Cao"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.DC",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "semantic": 0.5248591899871826
+      },
+      "paper_id": "2610.19801",
+      "pdf_url": "https://arxiv.org/pdf/2610.19801v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Delta Tokenizer: Reference-Identical Tokenization of Session Deltas and Segment-Parallelism for Long Prompts on Multicore CPUs",
+      "url": "https://arxiv.org/abs/2610.19801"
+    },
+    {
+      "abstract": "Sparse matrices, in which most entries are zero, are central to scientific simulation, graph analytics and machine learning, and their multiplication with dense inputs is a core parallel kernel. In many applications the matrix stays fixed while only a few input rows change per step, so the result can be updated from those rows alone, which we call the dirty set. Sparse kernels often add a second optimization based on the inspector-executor principle, in which a tiled schedule is prepared once and reused across calls. However, when this reuse remains profitable as the dirty set moves is not well characterized. In this paper, we show that retained tiled execution rarely beats direct CSC in incremental sparse matrix multiplication, although incremental execution itself remains highly profitable. Across 21 SuiteSparse matrices and controlled patterns of motion, a direct column-wise incremental update is 2.1-8.2x faster than the best of eight full-recomputation codes, among them Intel oneMKL and PyTorch. Yet the same direct update outperforms a tiled executor that retains tile preparation and caches assembled schedules in 779 of 837 workloads. Separating reuse into per-tile preparation and cached schedules shows that the benefit comes from preparation; extra cache capacity seldom helps because a tile set rarely returns after a different one has intervened. Tiling is faster only when tiles merge many entries into each output write, a structural property that we predicted before measurement and confirmed on four held-out matrices of the same family. These results show that the structure of the matrix and the motion of the dirty set, rather than the sophistication of the schedule, determine whether reuse is profitable. We anticipate that our methodology and guidelines will help developers decide when to build schedule reuse into incremental sparse runtimes.",
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Characterizes incremental sparse matrix multiplication and finds retained tiled schedule reuse rarely beats direct CSC updates.",
+          "zh": "刻画增量稀疏矩阵乘法，发现保留的分块调度复用很少优于直接CSC更新。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Challenges assumptions about inspector-executor schedule reuse, informing compiler and runtime decisions for incremental sparse kernels.",
+          "zh": "挑战了inspector-executor调度复用的假设，为增量稀疏内核的编译器和运行时决策提供依据。"
+        }
+      },
+      "authors": [
+        "Hunter Horne (HorneSci)",
+        "Eric Spencer (Loyola University Chicago",
+        "HorneSci)",
+        "Alex Henningfield (HorneSci)",
+        "Arslan Bisharat (Loyola University Chicago)"
+      ],
+      "categories": [
+        "cs.PF",
+        "cs.DC",
+        "cs.MS"
+      ],
+      "channel_scores": {
+        "lexical": 49.985549830238604,
+        "semantic": 0.5147795081138611
+      },
+      "paper_id": "2610.19489",
+      "pdf_url": "https://arxiv.org/pdf/2610.19489v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "How the Dirty Set Moves: Characterizing Schedule Reuse in Incremental Sparse Matrix Multiplication",
+      "url": "https://arxiv.org/abs/2610.19489"
+    },
+    {
+      "abstract": "Closing the loop of AI-driven science requires reliably translating natural-language protocols into executable laboratory workflows despite protocol defects and heterogeneous hardware. Existing approaches often couple scientific interpretation with device-specific code generation, making errors difficult to localize and limiting reuse across laboratory platforms. We introduce LabCompiler, a robust protocol-to-execution framework that transforms imperfect natural-language protocols into verifiable human-machine workflows. Its protocol firewall diagnoses and repairs defects before compilation while preserving unaffected content, guided by troubleshooting knowledge accumulated through perturbation-guided self-evolution. A two-level, device-agnostic graph representation separates experimental semantics from hardware-specific implementation and supports capability-based device assignment with coordinated human execution. We further introduce a protocol recovery benchmark covering four controlled perturbation types and naturally occurring errors collected from protocols written by iGEM participants. Experiments show that LabCompiler outperforms frontier LLMs in protocol error correction while enabling coordinated human-machine execution across heterogeneous, partially automated laboratory settings.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Builds a protocol-to-execution framework that compiles imperfect lab protocols into verifiable human-machine workflows.",
+          "zh": "构建协议到执行的框架，将不完美的实验室协议编译为可验证的人机工作流。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Uses 'compiler' loosely for lab automation and is far from compiler IR, optimization, or architecture research.",
+          "zh": "仅宽泛地使用“编译器”一词用于实验室自动化，与编译器IR、优化或体系结构研究相去甚远。"
+        }
+      },
+      "authors": [
+        "Jingyuan Li",
+        "Dongzhan Zhou",
+        "Minting Pan",
+        "Yujie Liu",
+        "Yuan Gao",
+        "Yankai Jiang",
+        "Xinyu Gu",
+        "Zhe Liu",
+        "Yang Li",
+        "Bo Zhang",
+        "Lei Bai",
+        "Tong Si",
+        "Weinan Zhang"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "lexical": 52.096618410321504,
+        "semantic": 0.5079332590103149
+      },
+      "paper_id": "2610.19550",
+      "pdf_url": "https://arxiv.org/pdf/2610.19550v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "LabCompiler: A Framework for Verifiable Human-Machine Laboratory Execution from Imperfect Protocols",
+      "url": "https://arxiv.org/abs/2610.19550"
+    },
+    {
+      "abstract": "Chance-constrained stochastic programs (CCSPs) require solutions that satisfy uncertain constraints with high probability. Standard approaches either embed scenarios directly into optimization by considering sample average approximation (SAA)-based reformulations, growing prohibitively expensive and often failing to find feasible solutions; or employ conservative reformulations that guarantee feasibility but sacrifice objective quality by design. We propose ACCESS (Adaptive Chance-Constrained Exploration via Structured Sampling), a structured sampling framework that decouples optimization from feasibility evaluation. First, high-quality candidate solutions are generated by solving many inexpensive single-scenario subproblems, avoiding sampling directly in the constrained high-dimensional solution space. Second, feasibility is assessed separately via large-scale batched simulation over a massive number of scenarios, which is naturally amenable to GPU parallelism. That reduces the search from a high-dimensional solution space to a two-dimensional parameter space controlling conservatism and scenario diversity; while concentrating on candidates near the feasibility boundary, where high-quality feasible solutions lie. We also introduce a variant, ACCESS($\\delta$), which provides certified feasibility guarantees with probability $1-\\delta$. Experiments across three benchmark classes and five scenario distributions show that ACCESS matches or exceeds the best objective found by any method in nearly every setting, while ACCESS($\\delta$) is empirically feasible on every instance. The conservative reformulations remain several percent worse in objective, and SAA is frequently infeasible while taking an order of magnitude longer on the harder benchmarks.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Decouples optimization from feasibility evaluation in chance-constrained programs via batched GPU simulation.",
+          "zh": "通过批量GPU模拟，将机会约束程序中的优化与可行性评估解耦。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Applies GPU parallelism to stochastic optimization, but has no direct connection to compiler or architecture research.",
+          "zh": "将GPU并行性应用于随机优化，但与编译器或体系结构研究无直接联系。"
+        }
+      },
+      "authors": [
+        "Justin Dumouchelle",
+        "Shunyu Yao",
+        "Beste Basciftci",
+        "Thiago Serra"
+      ],
+      "categories": [
+        "math.OC",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "lexical": 49.11517946554797,
+        "semantic": 0.5034129023551941
+      },
+      "paper_id": "2610.19027",
+      "pdf_url": "https://arxiv.org/pdf/2610.19027v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Optimization for One, Feasibility for Most: Decoupling Optimization from Feasibility in Chance-Constrained Programs",
+      "url": "https://arxiv.org/abs/2610.19027"
+    },
+    {
+      "abstract": "Data movement between memory and processing units remains a major bottleneck in data-centric systems. Memristive Stateful Logic (SL) addresses this problem by performing Boolean operations directly on stored resistive states. However, arithmetic efficiency depends jointly on the device-supported logic primitive set, the dependency structure of the resulting operation sequence, and its mapping to datapath architectures. While prior designs typically optimize device, logic, and architecture layers separately, we jointly consider them to co-design a stateful adder. We experimentally demonstrate a mixed MAGIC and FELIX logic primitive set on printed Electrochemical Metallization (ECM) memristors and derive a full adder sequence optimized for inter-bit carry propagation. Mapping this sequence to bit-serial, bit-parallel, and bit-pipelined datapaths reduces the latter two to 2n+6 cycles for an n-bit addition. For 32-bit addition, this requires 60-88% fewer cycles than prior SL adders. Across four representative workloads, we achieve 3.7x-16.4x speedup over prior. These results show how cross-layer co-design can translate into improved workload-level performance.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Co-designs a full adder using mixed memristive stateful logic primitives and maps it to efficient datapaths for in-memory computing.",
+          "zh": "使用混合忆阻器状态逻辑原语协同设计全加器，并映射到高效数据通路以实现存内计算。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 4,
+        "why_care": {
+          "en": "Relevant to PIM/CIM architecture co-design, though it operates at device and logic level rather than compiler infrastructure.",
+          "zh": "与PIM/CIM架构协同设计相关，尽管其操作层面在器件和逻辑层而非编译器基础设施。"
+        }
+      },
+      "authors": [
+        "Fabian Seiler",
+        "Kerem Kagan G\\\"ucl\\\"u",
+        "Hongrong Hu",
+        "Gabriel Cadilha Marques",
+        "Jasmin Aghassi-Hagmann",
+        "Nima TaheriNejad"
+      ],
+      "categories": [
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "lexical": 57.68620289822634,
+        "semantic": 0.5015198588371277
+      },
+      "paper_id": "2610.20109",
+      "pdf_url": "https://arxiv.org/pdf/2610.20109v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Cross-Layer Co-Design of Low-Latency Stateful Logic Adders with Printed Memristors",
+      "url": "https://arxiv.org/abs/2610.20109"
+    },
+    {
+      "abstract": "Structured pruning reduces LLM inference costs by removing model components to produce smaller dense models. However, existing methods can cause reasoning performance to collapse on long-form reasoning tasks such as AIME. We propose \\textit{LayerTrim}, a training-free structured pruning method that identifies redundant decoder layers and selectively trims their MLP features while preserving attention and decoder depth. LayerTrim is the first training-free structured pruning method designed to preserve long-form reasoning without gradients or recovery training. Across three reasoning language models and five benchmarks, LayerTrim outperforms existing structured pruning methods in most evaluated settings, improving average accuracy by up to 21.4 percentage points over RESP. On \\texttt{Qwen3-14B}, LayerTrim achieves 1.24$\\times$ faster prefill and 19.7\\% lower peak GPU memory than the dense model, while better preserving reasoning ability. It also achieves the shortest average generation length among evaluated pruned models, while retaining the highest average accuracy. These results demonstrate that LayerTrim improves reasoning efficiency through both structural compression and reduced token generation.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Proposes a training-free structured pruning method that trims MLP features while preserving attention and depth for reasoning LLMs.",
+          "zh": "提出一种免训练的结构化剪枝方法，在保留注意力与深度的同时裁剪推理LLM的MLP特征。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Focuses on model compression for inference efficiency, with no overlap with compiler optimization or computer architecture.",
+          "zh": "聚焦于推理效率的模型压缩，与编译器优化或计算机体系结构没有重叠。"
+        }
+      },
+      "authors": [
+        "Woosang Lim",
+        "Haneul Yoo",
+        "Vincent-Daniel Yun",
+        "Sungjoo Yoo"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "channel_scores": {
+        "semantic": 0.5009327530860901
+      },
+      "paper_id": "2610.19121",
+      "pdf_url": "https://arxiv.org/pdf/2610.19121v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Unlocking Structured Pruning for Reasoning Language Models via Attention-Preserving MLP Trimming",
+      "url": "https://arxiv.org/abs/2610.19121"
+    },
+    {
+      "abstract": "When writing code, the same computation can be expressed in different programming languages and through different implementation strategies. We show that the activations of LLMs capture this shared structure in reusable and composable abstract representations when they generate code. These representations emerge in the middle layers, are reusable across programming languages, and afford the model an impressive amount of generalization ability when generating code under various interventions. Using activation steering, we show that function, programming language, and implementation strategy can be independently manipulated. The independent interventions on language and function can be flexibly composed to control code generation, even in cases when the prompt contains no information about language and function. We additionally find that finetuning on examples of arbitrarily defined functions in one programming language transfers to other languages, consistent with the models reusing abstract features of code generation that are shared across different examples. Finally, to study how such abstract representations come to be, we implement a minimal model of shared, reusable, and composable structure in a synthetic setting, and show that transformers trained on such data learn representations that reuse these parts flexibly across contexts.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Shows LLM activations encode reusable, composable abstract representations of code across languages and strategies.",
+          "zh": "表明LLM激活值编码了跨语言和实现策略的可复用、可组合的代码抽象表示。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 4,
+        "transferability": 3,
+        "why_care": {
+          "en": "Connects to program synthesis and code generation, offering a clean representational view that may inform future compiler-LLM interfaces.",
+          "zh": "与程序合成和代码生成相关，提供了一种清晰的表示视角，可能启发未来的编译器-LLM接口。"
+        }
+      },
+      "authors": [
+        "Casper L. Christensen",
+        "Kyle J. Ray",
+        "Dmitry Manning-Coe",
+        "Adam Shai",
+        "Paul Riechers"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "semantic": 0.5002724528312683
+      },
+      "paper_id": "2610.19238",
+      "pdf_url": "https://arxiv.org/pdf/2610.19238v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "LLMs program using Reusable and Composable Abstract Representations",
+      "url": "https://arxiv.org/abs/2610.19238"
+    },
+    {
+      "abstract": "The semiconductor workforce shortage has renewed interest in making chip design accessible to students without conventional very-large-scale integration (VLSI) training. We present the AI Hardware Design League (AI-HDL), an international, project-based competition in which students use Large Language Models (LLMs) to generate and iteratively refine Verilog while simulation, synthesis, timing analysis, security review, and physical verification provide the engineering feedback needed to validate the result. Across two annual cycles, AI-HDL grew from 172 to 604 participants and from 40 to 108 teams, reaching 30 universities, six community colleges, and 19 countries. In the 2026 cohort, 68.7% of participants reported no prior Verilog experience. Twenty-two teams completed the four design phases and reached final evaluation. Two division-winning designs completed physical sign-off in the SkyWater 130 nm (Sky130) process, passing design-rule checking and layout-versus-schematic verification with zero violations before being submitted for fabrication. These results show that an LLM-assisted, tool-grounded workflow can be deployed at substantial scale while also revealing that completion, rather than initial access, remains the principal challenge. AI-HDL materials and finalist artifacts are released to support replication and future study.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "A large-scale LLM-assisted chip design competition with EDA feedback and fabricated designs.",
+          "zh": "大规模LLM辅助芯片设计竞赛，通过EDA反馈并流片验证。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Shows tool-grounded LLM workflows for hardware design, but is distant from core compiler optimization.",
+          "zh": "展示工具约束的LLM硬件设计流程，但与核心编译器优化较远。"
+        }
+      },
+      "authors": [
+        "Parsa Mirfasihi",
+        "Harish Kumar Dharavath",
+        "Muhtasim Alam Chowdhury",
+        "Sujan Ghimire",
+        "Banafsheh Saber Latibari",
+        "Rozhin Yasaei",
+        "Pratik Satam",
+        "Soheil Salehi"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.4958726465702057
+      },
+      "paper_id": "2610.18891",
+      "pdf_url": "https://arxiv.org/pdf/2610.18891v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "From Prompts to Silicon: Scaling LLM-Assisted Chip Design with the AI Hardware Design League",
+      "url": "https://arxiv.org/abs/2610.18891"
+    },
+    {
+      "abstract": "This paper presents CacheSmith, a KV cache reuse system for RAG prefill that maximizes quality-gated SLO attainment. While context caching lowers prefill latency by reusing precomputed KV states for retrieved chunks, it misses cross-chunk attention that a full prefill would compute over concatenated inputs. Prior selective recomputation schemes tackle this problem but enforce static, one-size-fits-all configurations that fail to effectively handle request heterogeneity or dynamic latency budgets. CacheSmith decomposes selective recomputation into a three-phase workflow of WarmUp, Probe, and Patch that can be dynamically configured to exploit a wide range of cost-accuracy trade-offs. At serving time, an SLO-aware scheduler in CacheSmith forms batches to mitigate inter-request interference during layer-by-layer prefill, while a budget-aware planner configures recomputation phases across the batch to maximize the number of requests satisfying both generation quality and latency targets. Both components make fast, solver-free decisions over profiled cost-accuracy bands. On four benchmarks across varying arrival rates and burstiness levels, CacheSmith improves quality-gated SLO attainment by up to 27.5%, over four state-of-the-art baselines.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "SLO-aware KV cache reuse and selective recomputation for RAG prefill serving.",
+          "zh": "面向RAG预填充的SLO感知KV缓存复用与选择性重计算。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Addresses LLM serving memory-latency tradeoffs, peripheral to compiler architecture.",
+          "zh": "涉及LLM服务的内存-延迟权衡，与编译器体系结构关系较边缘。"
+        }
+      },
+      "authors": [
+        "Xinyue Ma",
+        "Damin Lee",
+        "Aashaka Shah",
+        "Myeongjae Jeon"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.48065242171287537
+      },
+      "paper_id": "2610.18925",
+      "pdf_url": "https://arxiv.org/pdf/2610.18925v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "CacheSmith: Accurate RAG Serving under Latency SLOs with Adaptive KV Reuse",
+      "url": "https://arxiv.org/abs/2610.18925"
+    },
+    {
+      "abstract": "We introduce MorphingNet, a network for symbolic regression (SR) whose units change their function continuously. Instead of searching over expressions built from a fixed operator library, MorphingNet trains the form of each function as a parameter, so SR becomes one continuous optimization problem. Its units are either pole-free rational functions or complex exponential--logarithm functions, which move between exponentials, sinusoids, damped oscillations, power laws and logarithms as their parameters change. The network is a readable formula at every step of training, and no operator library is needed to train it; a structure-recovery step afterwards rewrites the trained formula into short elementary expressions. Training is dense linear algebra, so it is GPU-friendly and scales to large data. MorphingNet achieves state-of-the-art accuracy on SRBench, recovers most generating formulas on synthetic benchmarks, and on large data is up to two orders of magnitude faster than the strongest search method. By turning the search for a formula into the training of a network, MorphingNet offers a new paradigm for SR and for scientific discovery from data.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Trains a network whose units are continuous formulas, making symbolic regression a differentiable optimization.",
+          "zh": "训练单元为连续公式的网络，将符号回归变为可微优化。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Its clean continuous formulation of formula synthesis may inspire synthesis methods.",
+          "zh": "公式合成的连续化思路清晰，或可启发综合方法。"
+        }
+      },
+      "authors": [
+        "Jincheng Gao",
+        "Jiahe Yi",
+        "Shuo Sun"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.47701966762542725
+      },
+      "paper_id": "2610.19942",
+      "pdf_url": "https://arxiv.org/pdf/2610.19942v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "MorphingNet: Symbolic Regression Where the Network Is the Formula",
+      "url": "https://arxiv.org/abs/2610.19942"
+    },
+    {
+      "abstract": "Neural emulation need not require learning a substitute for known physics. We investigate PolyNets that couple a continuous-time neural representation of polynomial dynamics with a simple recurrent network for discrete-time integration. When the governing coefficients are known, the resulting tensor graph requires no training and preserves the prescribed numerical scheme while enabling efficient hardware execution and parallel simulation. Using the one-dimensional Korteweg-de Vries equation, we compare PolyNet with CPU and GPU finite-difference Runge-Kutta solvers and three trained neural models: a state-map emulator, a physics-informed predictor, and a learned-tendency integrator. Analytical soliton solutions provide a reference for amplitude and phase errors across grid resolutions, 10^6 dispersively scaled time steps, ensembles of up to 10^4 trajectories, and varying initial amplitudes. PolyNet achieves accuracy comparable to the numerical solvers, including at amplitudes outside the learned models' training conditions. It combines this fidelity with high GPU throughput, approximately constant over the tested resolution range, and favorable ensemble scaling.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Training-free PolyNet emulates polynomial PDE dynamics with tensor graphs and GPU parallel simulation.",
+          "zh": "免训练PolyNet以张量图和GPU并行仿真多项式PDE动力学。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Demonstrates tensor-graph hardware execution for physics emulation, outside the compiler core focus.",
+          "zh": "展示张量图硬件执行用于物理仿真，不在编译器核心关注内。"
+        }
+      },
+      "authors": [
+        "Luka Todorovic",
+        "Kaushal Gianchandani",
+        "Sai Ravela"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.SY",
+        "eess.SY",
+        "nlin.CD",
+        "stat.AP"
+      ],
+      "channel_scores": {
+        "lexical": 61.366645651625795,
+        "semantic": 0.4766775667667389
+      },
+      "paper_id": "2610.20525",
+      "pdf_url": "https://arxiv.org/pdf/2610.20525v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "The Physics Is the Network: Fast, Training-Free Neural Emulation",
+      "url": "https://arxiv.org/abs/2610.20525"
+    },
+    {
+      "abstract": "Transformer based intrusion detection has shown strong potential for identifying unknown malware variants, but its deployment on resource constrained edge devices remains difficult due to the high computational and memory cost of self attention. This paper presents an event sparse Linear Transformer framework for malware detection on FPGA edge platforms. Instead of relying on an explicit attention matrix, the proposed method derives token and channel importance directly from the accumulated key value state of Linear Transformer. A contribution aware scoring function is introduced to measure the perturbation of each token or kernel channel to the linear attention state, allowing redundant tokens and low contribution channels to be removed without constructing quadratic attention maps. To translate sparsity into practical hardware acceleration, the proposed design further replaces conventional binary mask based execution with a Top K active token buffer and a hardware compaction unit. The selected active tokens and channels are reorganized into dense fixed length data streams, enabling downstream processing elements to execute regular multiply accumulate operations with reduced redundant memory access and control overhead. This design is suitable for low power FPGA based malware detection, where both latency and on chip resource usage are critical. Experimental evaluation demonstrates that the proposed sparse Linear Transformer can reduce hardware cost while preserving malware classification accuracy.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "An FPGA-accelerated event-sparse linear Transformer with hardware token compaction for malware detection.",
+          "zh": "面向恶意软件检测的FPGA加速事件稀疏线性Transformer与硬件token压缩。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Sparse transformer hardware design is adjacent to accelerator compilation but application-specific.",
+          "zh": "稀疏Transformer硬件设计与加速器编译相邻，但偏应用专用。"
+        }
+      },
+      "authors": [
+        "Jun Yang",
+        "Yumeng Cao",
+        "Yingxuan Xiao",
+        "Changhong Li",
+        "Shangru Zhou"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.47002172470092773
+      },
+      "paper_id": "2610.19665",
+      "pdf_url": "https://arxiv.org/pdf/2610.19665v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "ESL-former: Event Sparse Linear Transformer for FPGA-Accelerated Malware Detection",
+      "url": "https://arxiv.org/abs/2610.19665"
+    },
+    {
+      "abstract": "Long-output inference in large language models suffers from severe KV cache memory and bandwidth bottlenecks. While KV cache quantization alleviates this issue, low-bit quantization (e.g., 2-bit) severely degrades model accuracy. Recent mixed-precision key-cache quantization methods mitigate this degradation by allocating higher precision to important key channels, but estimate channel saliency using only key statistics. Through attention logit perturbation analysis at the RoPE channel-pair level, we show that quantization errors in channel pairs with large query--key pair-norm products contribute significantly to logit variation. Based on this insight, we propose PN-Mix, a mixed-precision key-cache quantization method for RoPE-based decoder-only LLMs, which allocates higher precision to salient channel pairs identified once during the prefill stage and reused throughout decoding. Across standard reasoning, code-generation, and AIME benchmarks, PN-Mix with 2.26-bit average precision achieves comparable or better average accuracy than prior mixed-precision methods using 2.32--2.39 bits. Furthermore, in our Pareto sweep, PN-Mix degrades gracefully down to 1.5 bits, whereas the compared baselines exhibit sharper performance drops below 2.25 bits.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "RoPE pair-norm guided mixed-precision key-cache quantization for long-output LLM inference.",
+          "zh": "基于RoPE通道对范数的混合精度键缓存量化，用于长输出LLM推理。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Quantization and KV cache memory optimization are peripheral to compiler and architecture interests.",
+          "zh": "量化与KV缓存内存优化与编译器/体系结构兴趣较边缘。"
+        }
+      },
+      "authors": [
+        "Gil Jae Song",
+        "Sungjoo Yoo"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.CL"
+      ],
+      "channel_scores": {
+        "semantic": 0.46810904145240784
+      },
+      "paper_id": "2610.19605",
+      "pdf_url": "https://arxiv.org/pdf/2610.19605v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "PN-Mix: Pair-Norm Guided Mixed-Precision Key Cache Quantization for Efficient Long-Output LLM Inference",
+      "url": "https://arxiv.org/abs/2610.19605"
+    },
+    {
+      "abstract": "We introduce FormCraft, a framework for representing acquired operations as first-class capabilities that can be recursively composed, directly invoked, and selectively retained in a persistent library through domain-specific verification. The framework separates capability well-formedness and public callability from later admission to persistent storage while preserving formation provenance and operational identity. We formalize recursive compositional closure over a uniform capability space and show that formed composites can be reused through the same public interface without re-forming their historical derivation. Experiments across continuous, discrete, propositional, and sequence domains demonstrate instance-independent reuse, independent checking, persistent acquisition, and reduced reuse-time search work under first-class exposure.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "FormCraft represents acquired operations as first-class capabilities that can be recursively composed and persistently reused.",
+          "zh": "FormCraft将习得操作表示为可递归组合、可持久复用的第一类能力。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Compositional capability reuse and verification relate to program synthesis and IR library learning.",
+          "zh": "组合能力复用与验证关联程序合成和IR库学习。"
+        }
+      },
+      "authors": [
+        "Hang Lin"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "exploration": 0.5376273989677429
+      },
+      "paper_id": "2610.19414",
+      "pdf_url": "https://arxiv.org/pdf/2610.19414v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Recursive Formation and First-Class Reuse of Compositional Capabilities",
+      "url": "https://arxiv.org/abs/2610.19414"
+    },
+    {
+      "abstract": "Post-route power recovery changes cell choices under tightly coupled timing, electrical and physical constraints, and the value of each change depends on what it costs to repair its side effects. We propose an AI-driven framework in which a learned model drives both phases of the optimization: it ranks the powerrecovery edits to try and the repair actions that follow, while deterministic electronic design automation (EDA) analyses govern every acceptance. The framework records baseline constraint margins, identifies the damage a recovery transaction introduces in each analysis view, holds pre-existing violations at their baseline rather than working them inside the power step, and caps repair spending at a fraction of the measured saving. An ensemble of gradient-boosted models predicts power change, normalized damage reduction and constraint-regression risk from action and timing-context features available before each trial; calibrated, conservative estimates feed separate acquisition scores for recovery and repair, with a deterministic fallback when the model is uncertain. Recovery and repair remain speculative until physical implementation and fresh analysis establish baseline preservation and positive net saving. We specify the contract, the learned policy, the transactional flow and a pre-registered public evaluation protocol on open designs. Evidence from a companion study on public designs supports the contract; the learned policy is proposed, and no trained-model results or proprietary design measurements are reported.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "A learned model ranks post-route power recovery edits and repair actions under deterministic EDA checks.",
+          "zh": "学习模型在确定性EDA检查下排序布线后功耗恢复编辑与修复动作。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "ML-guided constrained optimization resembles compiler pass tuning but targets EDA power.",
+          "zh": "ML引导的约束优化类似编译器pass调优，但目标为EDA功耗。"
+        }
+      },
+      "authors": [
+        "Amit Sharma"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.5908496379852295
+      },
+      "paper_id": "2610.18890",
+      "pdf_url": "https://arxiv.org/pdf/2610.18890v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "AI-Driven, Timing-Aware Power Optimization",
+      "url": "https://arxiv.org/abs/2610.18890"
+    },
+    {
+      "abstract": "Chemical chain-of-thought can contain hallucinated structural and property claims. We thereby introduce MolLean, a process-verifiable language that grounds chemical reasoning in an explicit molecular state. A layered Lean-based kernel checks state transitions and assertions over molecular readouts, from primitive graph edits to compound transformations. Meanwhile, a typed witness protocol separates native structural checks from externally supplied measurements. We further introduce MolLean-MCP, a stateful tool interface that exposes these transitions, checks, and readouts during generation: the model receives feedback to decide its next action, and rejected actions leave the state unchanged. MolLean supports one-pass trace execution, whole-trace refinement, and interactive reasoning through MolLean-MCP. We evaluate these three modes with direct chain-of-thought on 8,800 matched examples across 12 tasks spanning molecular generation, editing, optimization, and reactions. With Qwen3.6-27B, whole-trace refinement outperforms direct chain-of-thought on all 12 tasks. MolLean-MCP complements whole-trace refinement with stepwise verification feedback, reaching better performance in reaction tasks. Together, these results highlight an executable foundation for chemical reasoning, in which explicit chemical commitments can be checked and revised rather than remaining solely in free-form explanations.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces a Lean-based verifiable language for chemical reasoning, checking molecular state transitions via typed witnesses.",
+          "zh": "提出基于 Lean 的分子推理可验证语言，以显式状态和见证协议检查化学推理步骤。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Its checked state-transition and witness mechanism may transfer to compiler IR verification, though the domain is distant.",
+          "zh": "其可验证状态转换与见证机制或可迁移到编译器 IR 验证，但领域距离较远。"
+        }
+      },
+      "authors": [
+        "Jiatong Li",
+        "Yatao Bian"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.CE",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "exploration": 0.5012028813362122
+      },
+      "paper_id": "2610.20459",
+      "pdf_url": "https://arxiv.org/pdf/2610.20459v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "MolLean: A Process-Verifiable Language for Chemical Reasoning",
+      "url": "https://arxiv.org/abs/2610.20459"
+    },
+    {
+      "abstract": "Self-distillation in agentic reinforcement learning has produced a growing number of methods. However, existing evaluations often reuse published baseline scores under differing experimental conditions, provide few direct comparisons among contemporaneous methods, and give limited attention to training stability and computational cost. These limitations obscure the source of reported gains and the practical strengths and weaknesses of competing methods. Costly agent training further motivates a common basis for comparison. To address these gaps, we compare ten representative methods against GRPO on ALFWorld, ScienceWorld, Search-QA, and WebShop across three model sizes. Our study comprises 132 training runs totaling 12,124.4 recorded H800 GPU-hours, with repeated evaluations over eight rollout seeds for the pretrained backbones and all eleven trained methods. Beyond final task performance, we examine training progress, stability, and measured computational cost. Our evaluation yields three key findings. First, gains over GRPO remain limited in scope, with no method consistently outperforming it across settings. Second, strong final performance can mask unstable training. Third, additional training cost does not consistently translate into better performance. We establish this benchmark to support fair, comprehensive comparison and guide future research toward reliable and cost-effective improvements in agent training. Project page: https://aim-uofa.github.io/Self-Distillation-AgentRL/",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Provides a large-scale comparison of ten self-distillation methods in agentic RL, finding limited gains and unstable training.",
+          "zh": "对十种自蒸馏智能体强化学习方法进行大规模复现比较，揭示收益有限且训练不稳定。"
+        },
+        "elegance": 3,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "It has no direct compiler relevance, though its empirical evaluation methodology may be informative.",
+          "zh": "与编译器研究无直接关联，但其经验评估方法可借鉴。"
+        }
+      },
+      "authors": [
+        "Linhao Zhong",
+        "Bozhen Fang",
+        "Xuehao Wang",
+        "Duochao Shi",
+        "Zekai Luo",
+        "Guangming Yao",
+        "Yi Yuan",
+        "Hao Chen",
+        "Jingdong Chen",
+        "Chunhua Shen"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.5493918657302856
+      },
+      "paper_id": "2610.19789",
+      "pdf_url": "https://arxiv.org/pdf/2610.19789v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "More Methods, Better Agents? A Reality Check on Self-Distillation in Agentic Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2610.19789"
+    },
+    {
+      "abstract": "Model signing authenticates the full-precision weights W an LLM is released with, yet users run a quantized artifact Q whose producing transformation is not uniquely determined under current disclosure. We separate the non-environment inputs from the execution environment E and measure a quantity that, to our knowledge, has not been measured before: the Independent Verifiability Rate (IVR), the fraction of a popularity-sampled GGUF ecosystem that a third party can re-derive bit-for-bit. Across the 200 most-downloaded Hugging Face GGUF repositories (198 in scope), no artifact or model card records the build environment, so under a recorded-inputs protocol the IVR is 0/198. Yet the artifacts are not irreproducible. On four in-sample repositories that disclose their inputs, the card's information alone reproduces no Q4_K_M file, but two coordinates the card omits - the build's floating-point-contraction setting and, for hybrid models, the per-tensor quantization recipe - re-derive 7/8 target-quant files bit-for-bit on x86 (5/8 on arm64); the fp16 re-derives from the provider's checkpoint, but the calibration imatrix must be shipped and hash-bound, since recomputing it did not match. An older release additionally pins the instruction set and did not re-derive. Reproducing the divergence reported with llama.cpp PR #25353, we show that E is a necessary coordinate and that one compiler setting yields a unique output across the tested platforms at negligible quality cost (+0.06% perplexity). As a security characterization, benign floating-point non-determinism separates from uniformly placed nibble-flip tampering above a detection floor that grows with the environments a verifier must allow, but a targeted embedding edit evades the statistic, so the proposed protocol rests on exact re-derivation; adversarial-fp16 attacks lie outside it. We release the audit data and a re-runnable harness.",
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Measures a reproducibility gap in quantized LLM supply chains, showing build coordinates like FP-contraction settings affect bit-exact reproduction.",
+          "zh": "测量量化 LLM 供应链的可复现性缺口，指出编译器浮点收缩设置等构建坐标影响比特级复现。"
+        },
+        "elegance": 6,
+        "novelty": 8,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Highlights the value of compiler determinism, build environment tracking, and rebuild verification for deployable systems.",
+          "zh": "提醒编译确定性、构建环境和重编译验证对可部署系统的价值。"
+        }
+      },
+      "authors": [
+        "Wei-Liang Liu",
+        "Cheng-Yen Tsai"
+      ],
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.5386030673980713
+      },
+      "paper_id": "2610.19498",
+      "pdf_url": "https://arxiv.org/pdf/2610.19498v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "What You Sign Is Not What You Run: The Verifiability Gap in Quantized LLM Supply Chains",
+      "url": "https://arxiv.org/abs/2610.19498"
+    },
+    {
+      "abstract": "Computational compressive imaging, such as single-pixel imaging and lensless imaging, is a promising imaging technique, enabling the reconstruction of objects from under-sampled measurements through compressed sensing algorithms or deep learning methods. However, the demand for electronic computational resources grows rapidly when recovering high-resolution and multi-dimensional images and training neural networks with numerous parameters, which has become a bottleneck for the widespread adoption of this technique. Here, we propose a physics-driven reconstruction framework that formulates imaging inverse problems as Ising models and directly recovers target objects through the self-evolution of non-von Neumann Ising machines toward the ground state of the Hamiltonian. We employ a simulated-annealing-based Ising solver to demonstrate this proof-of-concept by reconstructing objects in both single-pixel imaging and a lensless diffuser camera at sampling rates ranging from 1% to 25%. By further incorporating a foreground-sparsity constraint and a smoothness constraint, the reconstruction quality of our method is comparable to or even better than that of mainstream algorithms. This approach has the potential to substantially reduce the electronic computational burden of inverse reconstruction, paving the way for real-time, low-power computational imaging.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Formulates computational compressive imaging inverse problems as Ising models solved by simulated-annealing-based Ising machines.",
+          "zh": "将计算压缩成像反问题建模为 Ising 模型，并用模拟退火 Ising 求解器重建。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It is a non-von Neumann computing application but weakly connected to compilers, IRs, or code generation.",
+          "zh": "属于非冯诺依曼计算应用，但与编译器、IR 或代码生成关联弱。"
+        }
+      },
+      "authors": [
+        "Ze Zheng",
+        "Xiaoyan Wu",
+        "Hang Xu",
+        "Jingzheng Huang",
+        "Tailong Xiao",
+        "Guihua Zeng"
+      ],
+      "categories": [
+        "physics.optics",
+        "cs.CV",
+        "cs.DC",
+        "math-ph",
+        "math.MP",
+        "physics.app-ph"
+      ],
+      "channel_scores": {
+        "exploration": 0.5804623961448669
+      },
+      "paper_id": "2610.19778",
+      "pdf_url": "https://arxiv.org/pdf/2610.19778v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Computational compressive imaging reconstruction with a simulated-annealing-based Ising solver",
+      "url": "https://arxiv.org/abs/2610.19778"
+    },
+    {
+      "abstract": "An edge server and nearby devices can train language models of different sizes together by mutual distillation. Federated unlearning (FU) and unlearning for large language models (LLMs) execute a removal request on one model. Under mutual distillation, however, the effect of the removed data has been copied into many students, and their uploads teach it back to the corrected teacher. We propose Holder-level Erasure via Replication-weighted Delta-closure (HERD), which decides which holders must be corrected. HERD records a knowledge lineage graph from the transfers that the server already performs and weights each edge by its transfer type. It computes how many times the residual at each holder will be copied and selects the cheapest set of holders whose correction bounds the cumulative residual after the request. A transfer guard and a rejoin rule cover the holders left uncorrected or offline. We prove that partial correction suffices only when the copy number of the lineage graph is below one, that averaging alone never reaches one, and that the correction set remains valid under link outages. On TOFU, HERD leaves 18% to 52% less cumulative residual than the strongest baseline at 6% to 12% of its correction cost.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Proposes lineage-tracing federated unlearning under mutual distillation to select holders needing correction.",
+          "zh": "提出基于知识谱系追踪的联邦遗忘方法，在互蒸馏场景中确定需修正的持有者集合。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "It concerns distributed training systems but has no direct link to compiler optimization or architecture.",
+          "zh": "涉及分布式训练系统，但与编译器优化和架构无直接关系。"
+        }
+      },
+      "authors": [
+        "Zihao Ding",
+        "Jun Huang",
+        "Guodong Wang"
+      ],
+      "categories": [
+        "cs.NI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.536317765712738
+      },
+      "paper_id": "2610.19072",
+      "pdf_url": "https://arxiv.org/pdf/2610.19072v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Tracing Knowledge Lineage for Federated Unlearning under Mutual Distillation",
+      "url": "https://arxiv.org/abs/2610.19072"
+    },
+    {
+      "abstract": "Spatial reception under directed molecule transport requires balancing useful molecule capture against intersymbol interference (ISI). To characterize this balance, we study a fully absorbing spherical receiver that counts absorption events only within a prescribed cap. Using the known joint first-hitting law under aligned drift, we derive exact cap impulse, cumulative, and eventual responses. We perform stable cumulative evaluation. We then assess the derived responses through particle simulations and time-step comparisons, and demonstrate that our conditional-timing analysis explains when opposite drifts of equal magnitude can favor the same wider aperture. We also show that for the studied geometry and a symbol duration of $0.15$ s, the aperture that maximizes the signal-to-interference difference (SID) increases from $29.13^\\circ$ at zero drift to $61.86^\\circ$ at a drift magnitude of $40$ $\\mu$m/s. These results (i) connect joint arrival-time and location statistics to spatial reception design, (ii) characterize the tradeoff between useful molecule capture and ISI, (iii) support SID-based aperture selection for a given drift and symbol duration, and (iv) quantify the SID loss incurred by retaining the zero-drift optimal aperture for the same symbol duration.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Derives exact cap responses for molecular communication under aligned drift and applies them to aperture selection.",
+          "zh": "在定向漂移下推导分子通信球形接收器的精确 cap 响应并用于孔径选择。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "It is nearly unrelated to computer architecture or compiler research.",
+          "zh": "与计算机体系结构或编译研究几乎无关。"
+        }
+      },
+      "authors": [
+        "Yen-Chi Lee",
+        "Chun-An Yang",
+        "Nan Yang"
+      ],
+      "categories": [
+        "cs.IT",
+        "cs.ET",
+        "eess.SP",
+        "math.IT"
+      ],
+      "channel_scores": {
+        "exploration": 1.0
+      },
+      "paper_id": "2610.20233",
+      "pdf_url": "https://arxiv.org/pdf/2610.20233v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Exact Cap Response and Aperture Selection for Molecular Communication under Aligned Drift",
+      "url": "https://arxiv.org/abs/2610.20233"
+    },
+    {
+      "abstract": "Orthogonal transforms have emerged as an effective tool for low-bit quantization of large language models (LLMs), as they reshape activation distributions without changing the underlying model function. Existing approaches typically rely either on fixed data-agnostic transforms, such as Hadamard rotations, or on calibration-time optimization of learned rotations. We study rotation selection from first principles and show that maximizing covariance leads to spectral alignment and provides a principled criterion for constructing quantization-friendly orthogonal transforms. Based on this insight, we propose SpectrumQuant, a closed-form rotation method that estimates activation covariance from calibration data and uses it to construct a covariance-aware orthogonal transform for post-training quantization. Our formulation characterizes quantization-friendly rotations as compositions of alignment and mixing components, while recovering Hadamard matrices as a special case. Interestingly, a class of butterfly matrices belongs to this category. In the realm of LLM quantization, SpectrumQuant bridges the gap between data-agnostic structured rotations and learned rotations, providing an effective and efficient data-aware alternative for post-training quantization. Experiments on Llama and Mistral models show that SpectrumQuant is competitive with state-of-the-art rotation strategies while requiring less than one-third of the GPU memory and significantly less time than learned rotations approaches like SpinQuant and DartQuant.",
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Proposes a closed-form covariance-spectrum-aligned orthogonal rotation for low-bit LLM post-training quantization.",
+          "zh": "提出基于协方差谱对齐的闭式正交旋转方法，用于低比特 LLM 后训练量化。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Quantization techniques can serve ML compilers, but this paper does not address compilation optimization.",
+          "zh": "量化技术可服务于 ML 编译器，但本文本身不涉及编译优化。"
+        }
+      },
+      "authors": [
+        "Dwaipayan Haldar",
+        "Indranil Patra",
+        "Azhar Yousuf",
+        "Chandra Sekhar Seelamantula"
+      ],
+      "categories": [
+        "cs.LG",
+        "stat.ML"
+      ],
+      "channel_scores": {
+        "exploration": 0.5185114145278931
+      },
+      "paper_id": "2610.20303",
+      "pdf_url": "https://arxiv.org/pdf/2610.20303v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "SpectrumQuant: Spectrum Alignment for LLM Quantization",
+      "url": "https://arxiv.org/abs/2610.20303"
+    },
+    {
+      "abstract": "Much of Ethereum's most consequential code is immutable bytecode: old output of unverified compilers, and protocol logic run as contract code. We show that such bytecode can be verified as it is, without trusting what produced it, without simplifying the machine it runs on, and with no axioms beyond Lean's own. Blanc, a Lean 4 verification stack, reads fixed runtime bytes via kernel-checked certificates and states every theorem against Jaune, an executable semantics of the EVM and block processing that passes all 34,205 blockchain-test cases of Ethereum's fixture release v20.0.2 that involve only forks that have governed mainnet since May 2025. Eight artifacts, deployed from 2017 to 2026, come from seven compiler versions and an assembler. For the EIP-7002 contract, we prove that the end-of-block call to it, whose failure would invalidate the block, succeeds whatever its storage holds, and that each block's withdrawal requests are exactly the oldest pending submissions; mainnet met these theorems' starting premises when Prague began. For a Uniswap V2 pair, we prove that after any valid history whose hashed slots stay apart, from any checkpoint representing its Solidity model's state, the storage represents that model replayed over exactly the committed calls, a balanced liquidity ledger stays balanced, and, under a premise on token answers, geometric-mean reserves per share fall only through the protocol fee. Exact gas makes liveness provable: a tracked WETH9 holder without code can withdraw by a transaction whose gas has a closed form, matching all 3,748 comparable mainnet receipts of its shape in 30,000 blocks. On Curve pool bytes compiled with the lock bug exploited in 2023, Jaune executes such a reentrancy from deployment; for bytes from a fixed compiler, we prove the lock excludes it. AI agents wrote the proofs in fifteen days under one author's direction, atop an existing stack.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Verifies deployed EVM bytecode against executable EVM semantics with exact gas in Lean 4 without extra axioms.",
+          "zh": "在 Lean 4 中以可执行 EVM 语义和精确 gas 验证已部署字节码，无需额外公理。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Bytecode-level verification and semantics can inform compiler correctness, binary translation, and trusted code generation.",
+          "zh": "字节码级验证与语义建模可启发编译器正确性、二进制翻译和可信代码生成。"
+        }
+      },
+      "authors": [
+        "Seulkee Baek"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.LO"
+      ],
+      "channel_scores": {
+        "exploration": 0.5880701541900635
+      },
+      "paper_id": "2610.19764",
+      "pdf_url": "https://arxiv.org/pdf/2610.19764v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Verifying deployed bytecode against executable EVM semantics, with exact gas and no added axioms",
+      "url": "https://arxiv.org/abs/2610.19764"
+    }
+  ],
+  "date": "2026-10-15",
+  "delivery_status": "sent",
+  "error": null,
+  "recommendation_count": 5,
+  "recommendations": [
+    {
+      "abstract": "Sparse tensor compilers are commonly used high-performance tools that optimize tensor algebra programs over notoriously complex sparse data structures. Despite the ever-increasing size and scale of sparse datasets, there exists astonishingly little research on developing a parallel sparse tensor compiler. Existing approaches fail to parallelize or make assumptions about access patterns or output formats that limit generality. This paper presents Birdseed, the first tensor compiler to support all loop orderings over any standard sparse format in parallel. More specifically, Birdseed supports parallel sparse scatters and directly writes into list, bytemap, hash, and dense levels of fibertree sparse formats. Our approach exhibits asymptotic memory and time improvements over all previous work. We additionally demonstrate empirical speedups on challenging kernels to parallelize, such as histogram construction and SpMSpV.",
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Presents Birdseed, the first parallel sparse tensor compiler supporting all loop orderings and standard sparse formats with parallel writes into fibertree levels.",
+          "zh": "提出Birdseed，首个支持任意循环序和标准稀疏格式的并行稀疏张量编译器，可直接并行写入fibertree的多种level。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 8,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly overlaps with tensor compilers, parallel code generation, and sparse IR, potentially informing compiler handling of parallel scatters and format generality.",
+          "zh": "与张量编译器、并行代码生成和稀疏IR直接重合，可能启发编译器对并行scatter和格式通用化的处理。"
+        }
+      },
+      "authors": [
+        "Adrian Gushin",
+        "Pau Sum",
+        "Willow Ahrens"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.43999989986419674,
+        "semantic": 0.6529181003570557
+      },
+      "paper_id": "2610.19308",
+      "pdf_url": "https://arxiv.org/pdf/2610.19308v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "rank": 1,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Parallel Sparse Outputs for Tensor Compilers",
+      "url": "https://arxiv.org/abs/2610.19308"
+    },
+    {
+      "abstract": "Much of Ethereum's most consequential code is immutable bytecode: old output of unverified compilers, and protocol logic run as contract code. We show that such bytecode can be verified as it is, without trusting what produced it, without simplifying the machine it runs on, and with no axioms beyond Lean's own. Blanc, a Lean 4 verification stack, reads fixed runtime bytes via kernel-checked certificates and states every theorem against Jaune, an executable semantics of the EVM and block processing that passes all 34,205 blockchain-test cases of Ethereum's fixture release v20.0.2 that involve only forks that have governed mainnet since May 2025. Eight artifacts, deployed from 2017 to 2026, come from seven compiler versions and an assembler. For the EIP-7002 contract, we prove that the end-of-block call to it, whose failure would invalidate the block, succeeds whatever its storage holds, and that each block's withdrawal requests are exactly the oldest pending submissions; mainnet met these theorems' starting premises when Prague began. For a Uniswap V2 pair, we prove that after any valid history whose hashed slots stay apart, from any checkpoint representing its Solidity model's state, the storage represents that model replayed over exactly the committed calls, a balanced liquidity ledger stays balanced, and, under a premise on token answers, geometric-mean reserves per share fall only through the protocol fee. Exact gas makes liveness provable: a tracked WETH9 holder without code can withdraw by a transaction whose gas has a closed form, matching all 3,748 comparable mainnet receipts of its shape in 30,000 blocks. On Curve pool bytes compiled with the lock bug exploited in 2023, Jaune executes such a reentrancy from deployment; for bytes from a fixed compiler, we prove the lock excludes it. AI agents wrote the proofs in fifteen days under one author's direction, atop an existing stack.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Verifies deployed EVM bytecode against executable EVM semantics with exact gas in Lean 4 without extra axioms.",
+          "zh": "在 Lean 4 中以可执行 EVM 语义和精确 gas 验证已部署字节码，无需额外公理。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Bytecode-level verification and semantics can inform compiler correctness, binary translation, and trusted code generation.",
+          "zh": "字节码级验证与语义建模可启发编译器正确性、二进制翻译和可信代码生成。"
+        }
+      },
+      "authors": [
+        "Seulkee Baek"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.LO"
+      ],
+      "channel_scores": {
+        "exploration": 0.5880701541900635
+      },
+      "paper_id": "2610.19764",
+      "pdf_url": "https://arxiv.org/pdf/2610.19764v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "rank": 2,
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Verifying deployed bytecode against executable EVM semantics, with exact gas and no added axioms",
+      "url": "https://arxiv.org/abs/2610.19764"
+    },
+    {
+      "abstract": "We introduce FormCraft, a framework for representing acquired operations as first-class capabilities that can be recursively composed, directly invoked, and selectively retained in a persistent library through domain-specific verification. The framework separates capability well-formedness and public callability from later admission to persistent storage while preserving formation provenance and operational identity. We formalize recursive compositional closure over a uniform capability space and show that formed composites can be reused through the same public interface without re-forming their historical derivation. Experiments across continuous, discrete, propositional, and sequence domains demonstrate instance-independent reuse, independent checking, persistent acquisition, and reduced reuse-time search work under first-class exposure.",
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "FormCraft represents acquired operations as first-class capabilities that can be recursively composed and persistently reused.",
+          "zh": "FormCraft将习得操作表示为可递归组合、可持久复用的第一类能力。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Compositional capability reuse and verification relate to program synthesis and IR library learning.",
+          "zh": "组合能力复用与验证关联程序合成和IR库学习。"
+        }
+      },
+      "authors": [
+        "Hang Lin"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "exploration": 0.5376273989677429
+      },
+      "paper_id": "2610.19414",
+      "pdf_url": "https://arxiv.org/pdf/2610.19414v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "rank": 3,
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Recursive Formation and First-Class Reuse of Compositional Capabilities",
+      "url": "https://arxiv.org/abs/2610.19414"
+    },
+    {
+      "abstract": "Lane-based RISC-V vector processors exploit data parallelism well but pay a recurring cost for two common patterns: reductions, which require a separate tree pass, and deep dependent expression chains, which cannot be fused and are issued as serial vector instructions. We present TALU, a 5-stage RISC-V core whose execute stage is an NxN grid of registered ALU tiles instead of a single ALU. The grid is a reconfigurable, feed-forward spatial fabric: tiles route operands only from non-backward neighbours, and added diagonal forwarding lets a reduction collapse spatially. A minimal custom extension configures the per-tile operation, routing, and per-tile constants, and streams operands through the array. On a single fabric, TALU runs ordinary scalar code, single deep-path expressions, and multi-lane vector kernels. On the benchmark suite of the RISC-V2 vector processor, TALU is 1.8-5.5x faster than RISC-V2 and 4.5-15.5x faster than Vicuna at equal lane count, with a reduction cost (dot{\\div}add) of 1.05x versus 1.96x and 1.26x for the vector cores. A retimed implementation places and routes at 1.03 GHz in 45 nm in 0.30 mm2, half the area of RISC-V2.",
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces TALU, a RISC-V core replacing the execute-stage ALU with an NxN reconfigurable ALU tile grid to accelerate reductions and deep dependent expression chains.",
+          "zh": "提出TALU，一种用NxN可配置ALU tile网格替换单ALU执行级的RISC-V核，加速归约和深依赖表达式链。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 6,
+        "why_care": {
+          "en": "Relates to SIMD/vectorization, heterogeneous architecture, and compiler-architecture co-design, potentially influencing instruction selection and vector code generation.",
+          "zh": "与SIMD/向量化、异构架构和编译-架构协同相关，可能影响指令选择与向量代码生成。"
+        }
+      },
+      "authors": [
+        "Ali Emre Oztas",
+        "Can Erim Karsal",
+        "Mahir Demir",
+        "Mikel Luj\\'an"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.325969762802124,
+        "lexical": 52.88653072415262,
+        "semantic": 0.5899530053138733
+      },
+      "paper_id": "2610.19277",
+      "pdf_url": "https://arxiv.org/pdf/2610.19277v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "rank": 4,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TALU: A Reconfigurable Tiled-ALU Grid for RISC-V",
+      "url": "https://arxiv.org/abs/2610.19277"
+    },
+    {
+      "abstract": "Sparse matrices, in which most entries are zero, are central to scientific simulation, graph analytics and machine learning, and their multiplication with dense inputs is a core parallel kernel. In many applications the matrix stays fixed while only a few input rows change per step, so the result can be updated from those rows alone, which we call the dirty set. Sparse kernels often add a second optimization based on the inspector-executor principle, in which a tiled schedule is prepared once and reused across calls. However, when this reuse remains profitable as the dirty set moves is not well characterized. In this paper, we show that retained tiled execution rarely beats direct CSC in incremental sparse matrix multiplication, although incremental execution itself remains highly profitable. Across 21 SuiteSparse matrices and controlled patterns of motion, a direct column-wise incremental update is 2.1-8.2x faster than the best of eight full-recomputation codes, among them Intel oneMKL and PyTorch. Yet the same direct update outperforms a tiled executor that retains tile preparation and caches assembled schedules in 779 of 837 workloads. Separating reuse into per-tile preparation and cached schedules shows that the benefit comes from preparation; extra cache capacity seldom helps because a tile set rarely returns after a different one has intervened. Tiling is faster only when tiles merge many entries into each output write, a structural property that we predicted before measurement and confirmed on four held-out matrices of the same family. These results show that the structure of the matrix and the motion of the dirty set, rather than the sophistication of the schedule, determine whether reuse is profitable. We anticipate that our methodology and guidelines will help developers decide when to build schedule reuse into incremental sparse runtimes.",
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Characterizes incremental sparse matrix multiplication and finds retained tiled schedule reuse rarely beats direct CSC updates.",
+          "zh": "刻画增量稀疏矩阵乘法，发现保留的分块调度复用很少优于直接CSC更新。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Challenges assumptions about inspector-executor schedule reuse, informing compiler and runtime decisions for incremental sparse kernels.",
+          "zh": "挑战了inspector-executor调度复用的假设，为增量稀疏内核的编译器和运行时决策提供依据。"
+        }
+      },
+      "authors": [
+        "Hunter Horne (HorneSci)",
+        "Eric Spencer (Loyola University Chicago",
+        "HorneSci)",
+        "Alex Henningfield (HorneSci)",
+        "Arslan Bisharat (Loyola University Chicago)"
+      ],
+      "categories": [
+        "cs.PF",
+        "cs.DC",
+        "cs.MS"
+      ],
+      "channel_scores": {
+        "lexical": 49.985549830238604,
+        "semantic": 0.5147795081138611
+      },
+      "paper_id": "2610.19489",
+      "pdf_url": "https://arxiv.org/pdf/2610.19489v1",
+      "published_at": "2026-10-15T04:00:00+00:00",
+      "rank": 5,
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "How the Dirty Set Moves: Characterizing Schedule Reuse in Incremental Sparse Matrix Multiplication",
+      "url": "https://arxiv.org/abs/2610.19489"
+    }
+  ],
+  "retrieved_count": 548,
+  "schema_version": 1,
+  "status": "complete"
+}
