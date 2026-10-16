@@ -44,6 +44,35 @@ class Executor:
         }
         self.openai_client = OpenAI(api_key=config.llm.api.key, base_url=config.llm.api.base_url)
         self.candidate_generator = CandidateGenerator(config)
+
+    def extract_recommendation_affiliations(self, recommendations):
+        """Use arXiv source front matter and the configured LLM for shortlisted papers."""
+        arxiv_retriever = self.retrievers.get("arxiv")
+        extract_context = getattr(arxiv_retriever, "extract_affiliation_context", None)
+        if not callable(extract_context):
+            return
+
+        for paper in recommendations:
+            if paper.source != "arxiv" or paper.affiliations:
+                continue
+            try:
+                paper.full_text = extract_context(paper)
+                if not paper.full_text:
+                    logger.warning(f"No affiliation source text available for {paper.title}")
+                    continue
+                affiliations = paper.generate_affiliations(self.openai_client, self.config.llm)
+                if affiliations:
+                    logger.info(
+                        "Extracted {} affiliations for {}",
+                        len(affiliations),
+                        paper.title,
+                    )
+                else:
+                    logger.info(f"No affiliations found in paper front matter: {paper.title}")
+            except Exception as exc:
+                # Affiliation enrichment is optional and must not block the digest.
+                logger.warning(f"Affiliation extraction failed for {paper.title}: {exc}")
+
     def fetch_zotero_corpus(self) -> list[CorpusPaper]:
         logger.info("Fetching zotero corpus")
         zot = zotero.Zotero(self.config.zotero.user_id, 'user', self.config.zotero.api_key)
@@ -181,6 +210,7 @@ class Executor:
                 batch_size=int(research_config.get("assessment_batch_size", 8)),
             )
             recommendations = build_slate(candidates, self.config.get("research", {}))
+            self.extract_recommendation_affiliations(recommendations)
         except Exception as exc:
             failed_record = build_daily_record(
                 report_date,

@@ -23,6 +23,7 @@ T = TypeVar("T")
 DOWNLOAD_TIMEOUT = (10, 60)
 PDF_EXTRACT_TIMEOUT = 180
 TAR_EXTRACT_TIMEOUT = 180
+AFFILIATION_EXTRACT_TIMEOUT = 90
 
 HTML_TAG_PATTERN = re.compile(
     r"</?(?:p|a|span|div|b|i|strong|em|br|hr|h[1-6]|ul|ol|li|sub|sup|table|tr|td|th)\b(?:\s+[^>]*)?/?>",
@@ -95,6 +96,18 @@ def _extract_text_from_pdf_worker(pdf_url: str) -> str:
         path = os.path.join(temp_dir, "paper.pdf")
         _download_file(pdf_url, path)
         return extract_markdown_from_pdf(path)
+
+
+def _extract_first_pdf_page_worker(pdf_url: str) -> str | None:
+    import pymupdf
+
+    with TemporaryDirectory() as temp_dir:
+        path = os.path.join(temp_dir, "paper.pdf")
+        _download_file(pdf_url, path)
+        with pymupdf.open(path) as document:
+            if not document:
+                return None
+            return document[0].get_text("text")
 
 
 def _extract_text_from_html_worker(html_url: str) -> str | None:
@@ -295,6 +308,33 @@ class ArxivRetriever(BaseRetriever):
             paper_id=paper_id,
             categories=list(getattr(raw_paper, "categories", []) or []),
             published_date=published,
+        )
+
+    def extract_affiliation_context(self, paper: Paper) -> str | None:
+        """Get only shortlisted papers' front matter for affiliation extraction."""
+        if not paper.paper_id:
+            return None
+
+        source_url = f"https://arxiv.org/src/{paper.paper_id}"
+        source_text = _run_with_hard_timeout(
+            _extract_text_from_tar_worker,
+            (source_url, paper.paper_id, paper.title),
+            timeout=AFFILIATION_EXTRACT_TIMEOUT,
+            operation="arXiv source extraction for affiliations",
+            paper_title=paper.title,
+        )
+        if source_text and source_text.strip():
+            return source_text
+
+        if not paper.pdf_url:
+            return None
+        logger.info(f"Falling back to the first PDF page for affiliations: {paper.title}")
+        return _run_with_hard_timeout(
+            _extract_first_pdf_page_worker,
+            (paper.pdf_url,),
+            timeout=AFFILIATION_EXTRACT_TIMEOUT,
+            operation="PDF first-page extraction for affiliations",
+            paper_title=paper.title,
         )
 
 

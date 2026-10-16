@@ -157,7 +157,7 @@ class Paper:
 
     def _generate_affiliations_with_llm(self, openai_client:OpenAI,llm_params:dict) -> Optional[list[str]]:
         if self.full_text is not None:
-            prompt = f"Given the beginning of a paper, extract the affiliations of the authors in a python list format, which is sorted by the author order. If there is no affiliation found, return an empty list '[]':\n\n{self.full_text}"
+            prompt = f"Extract only affiliations explicitly stated in this paper's front matter. Do not infer an affiliation from an author's name or outside knowledge. Return a JSON array of unique top-level institution names in first-author order; if none are explicit, return [].\n\nPaper title: {self.title}\nAuthors: {', '.join(self.authors)}\n\nFront matter:\n{self.full_text}"
             # use gpt-4o tokenizer for estimation
             enc = tiktoken.encoding_for_model("gpt-4o")
             prompt_tokens = enc.encode(prompt)
@@ -169,7 +169,7 @@ class Paper:
                 [
                     {
                         "role": "system",
-                        "content": "You are an assistant who perfectly extracts affiliations of authors from a paper. You should return a python list of affiliations sorted by the author order, like [\"TsingHua University\",\"Peking University\"]. If an affiliation is consisted of multi-level affiliations, like 'Department of Computer Science, TsingHua University', you should return the top-level affiliation 'TsingHua University' only. Do not contain duplicated affiliations. If there is no affiliation found, you should return an empty list [ ]. You should only return the final list of affiliations, and do not return any intermediate results.",
+                        "content": "Extract author affiliations only from the supplied paper front matter. Do not guess or use outside knowledge. Return only a JSON array of unique top-level institution names, preserving first occurrence order. For example: [\"Tsinghua University\", \"Peking University\"]. If no affiliation is explicitly stated, return [].",
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -177,8 +177,7 @@ class Paper:
 
             affiliations = re.search(r'\[.*?\]', affiliations, flags=re.DOTALL).group(0)
             affiliations = json.loads(affiliations)
-            affiliations = list(set(affiliations))
-            affiliations = [str(a) for a in affiliations]
+            affiliations = list(dict.fromkeys(str(a).strip() for a in affiliations if str(a).strip()))
 
             return affiliations
     

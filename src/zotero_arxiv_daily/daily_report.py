@@ -27,6 +27,7 @@ def paper_to_record(paper: Paper, *, rank: int | None = None) -> dict[str, Any]:
         "source": paper.source,
         "title": paper.title,
         "authors": paper.authors,
+        "affiliations": paper.affiliations,
         "abstract": paper.abstract,
         "url": paper.url,
         "pdf_url": paper.pdf_url,

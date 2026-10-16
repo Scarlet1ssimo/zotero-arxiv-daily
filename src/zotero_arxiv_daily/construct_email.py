@@ -172,7 +172,7 @@ def render_email(papers:list[Paper]) -> str:
             authors = ', '.join(author_list)
         else:
             authors = ', '.join(author_list[:3] + ['...'] + author_list[-2:])
-        if p.affiliations is not None:
+        if p.affiliations:
             affiliations = p.affiliations[:5]
             affiliations = ', '.join(affiliations)
             if len(p.affiliations) > 5:
