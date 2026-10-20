@@ -1,0 +1,2071 @@
+{
+  "candidate_count": 40,
+  "candidates": [
+    {
+      "abstract": "DRAM-based Processing-in-Memory (PIM) addresses the \"memory wall\" by executing computations directly inside main memory. However, memory interleaving and virtual memory limit contiguous data size visible to PIM units, constraining PIM task granularity. To mitigate this, existing PIM systems drastically isolate PIM memory or disable memory interleaving. These design choices, however, decrease the CPU memory bandwidth and introduce extra data transfer, leading to an additional \"system memory wall\" that must be resolved to realize PIM's full potential. In this work, we propose GUMPIM, a PIM system that allows interleaved CPU pages and non-interleaved PIM pages to coexist in a Unitary and Malleable memory space with Guaranteed PIM page allocation. GUMPIM enables zero-copy during PIM task offloading and maintains CPU memory bandwidth while ensuring low PIM offloading overhead. First, we propose a dual-track memory management mechanism consisting of independent page allocation and address translation for CPU and PIM pages. Second, we design GUMPIM interface hardware on PIM-enabled DRAMs to provide a dynamic address mapping for the different data layouts of CPU and PIM pages. Third, we propose a PIM-assisted page migration mechanism that transparently migrates pages while preserving CPU access bandwidth, thereby enabling guaranteed and accelerated PIM page allocation. GUMPIM requires no changes to commodity DRAM standards; all hardware modifications are limited to the DRAM side, ensuring full compatibility with existing CPUs and enabling immediate deployment on current HBMx- and LPDDRx-based PIM platforms. Our results show only <0.1% performance degradation for CPU workloads on GUMPIM. For PIM workloads, GUMPIM reduces memory allocation and CPU-part computation times by 2.7x and 4.93x, respectively, yielding an end-to-end 2.3x speedup over a state-of-the-art baseline system.",
+      "affiliations": [
+        "Shanghai Jiao Tong University",
+        "Shanghai Qi Zhi Institute",
+        "Tsinghua University",
+        "ETH Zurich",
+        "The Chinese University of Hong Kong",
+        "Fudan University",
+        "Yizhu Technology Co., Ltd.",
+        "Huawei Technologies Co., Ltd."
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes a unitary PIM memory space with guaranteed PIM pages, dual-track translation, and migration to enable zero-copy offload without sacrificing CPU bandwidth.",
+          "zh": "提出统一PIM内存空间与保证PIM页、双轨地址转换和迁移机制，实现零拷贝卸载且不牺牲CPU带宽。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "Informs PIM runtime and data-placement constraints that compiler-managed PIM offloading must respect.",
+          "zh": "揭示编译器管理PIM卸载时必须遵守的运行时与数据放置约束。"
+        }
+      },
+      "authors": [
+        "Yilong Zhao",
+        "Fangxin Liu",
+        "Yiwei Hu",
+        "Zongwu Wang",
+        "Mingyu Gao",
+        "Onur Mutlu",
+        "He Xian",
+        "Hanlin Dong",
+        "Naifeng Jing",
+        "Xiaoyao Liang",
+        "Haibing Guan",
+        "Qiang Xu",
+        "Chixiao Chen",
+        "Shuxue Quan",
+        "Tao Yang",
+        "Li Jiang"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.440000033378601,
+        "lexical": 64.94618403317587,
+        "semantic": 0.7723469734191895
+      },
+      "paper_id": "2610.23406",
+      "pdf_url": "https://arxiv.org/pdf/2610.23406v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "GUMPIM: Unitary and Malleable Memory for Processing-in-Memory with Guaranteed PIM Pages",
+      "url": "https://arxiv.org/abs/2610.23406"
+    },
+    {
+      "abstract": "Modern GPU compilers expose rich layout abstractions for mapping tensors to threads and on-chip resources, but compute-unit-local (CU-local) 3D DRAM architectures lack a corresponding abstraction for specifying how operand-tile data are arranged within the DRAM address space. Without such an abstraction, conventional placement under the existing DRAM address mapping can subject structured tile accesses to severe row-buffer conflicts. We present TileDRAM, a compiler-runtime toolchain that introduces tile-to-DRAM layouts as a compiler-visible abstraction for DRAM placement. TileDRAM extends the GPU Linear Layout abstraction from compute-side mapping targets to DRAM placement coordinates and selects layouts per tile access signature, using recurring tile-local access behavior as the specialization unit. Since row-buffer locality depends on ordered request history, TileDRAM evaluates candidate layouts through their row-buffer behavior under fixed DRAM address mappings. Accesses under the selected layouts are realized through ordinary address arithmetic, without new address-remapping hardware or ISA support. In full-trace replay on Accel-Sim/Ramulator2 across 108 mixture-of-experts (MoE) feed-forward network (FFN) cases, TileDRAM reduces the request-weighted row-conflict rate from 75.7% to 15.2% and achieves a 1.77x geomean speedup. Retargeting six traces to six 3D DRAM organizations yields a 2.20x geomean speedup under the same compiler abstraction. On an RTX 3090, address transformation adds 0.17% geomean overhead over identity.",
+      "affiliations": [
+        "ShanghaiTech University",
+        "MetaX Integrated Circuits (Shanghai) Co., Ltd."
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.87,
+        "contribution": {
+          "en": "Introduces compiler-visible tile-to-DRAM layouts and selects them per tile access signature to reduce row-buffer conflicts in 3D DRAM GPGPUs.",
+          "zh": "引入编译器可见的tile到DRAM布局，并按tile访问特征选择布局以降低3D DRAM GPGPU行缓冲冲突。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly connects tiling and layout code generation with DRAM address mapping and GPU memory locality.",
+          "zh": "直接将tiling/布局代码生成与DRAM地址映射和GPU内存局部性联系起来。"
+        }
+      },
+      "authors": [
+        "Guangyuan Xu",
+        "Lanxuan Zhang",
+        "Ziyang Li",
+        "Zhaoshi Li",
+        "Yajun Ha"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.2266442394256591,
+        "lexical": 67.45978622120948,
+        "semantic": 0.6276221871376038
+      },
+      "paper_id": "2610.23767",
+      "pdf_url": "https://arxiv.org/pdf/2610.23767v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TileDRAM: Compiler-Controlled Tile-to-DRAM Layouts for 3D DRAM GPGPUs",
+      "url": "https://arxiv.org/abs/2610.23767"
+    },
+    {
+      "abstract": "This work describes qGAMMA, a flexible framework for exploring and optimizing the mapping of mixed-precision Deep Neural Network (DNN) models onto general-purpose spatial accelerators that support a range of fixed- and floating-point precisions. qGAMMA navigates the design space using a domain-specific genetic algorithm and an analytical performance model based on hardware synthesis results. The framework identifies the optimal mapping and accelerator configuration that minimizes target metrics. Extensive evaluations across DNN workloads show that qGAMMA offers valuable insights for designing mixed-precision applications, enabling better trade-offs between performance, energy efficiency, and resource utilization.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "Presents a genetic-algorithm and analytical-model framework for mapping mixed-precision DNNs onto multi-precision spatial accelerators.",
+          "zh": "提出结合遗传算法与解析模型的框架，将混合精度DNN映射到多精度空间加速器。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "Offers a design-space-exploration view of precision-aware mapping, though not a compiler IR or codegen advance.",
+          "zh": "提供精度感知映射的设计空间探索视角，但并非编译IR或代码生成突破。"
+        }
+      },
+      "authors": [
+        "Leandro Fiorin",
+        "Luigi Altamura",
+        "Cristina Silvano"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.222184476852417,
+        "lexical": 57.59026492442099,
+        "semantic": 0.6245970129966736
+      },
+      "paper_id": "2610.23222",
+      "pdf_url": "https://arxiv.org/pdf/2610.23222v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "qGAMMA: A Framework for Optimal DNN Mapping on Multi-Precision Accelerators",
+      "url": "https://arxiv.org/abs/2610.23222"
+    },
+    {
+      "abstract": "Mixture-of-Experts (MoE) models reduce inference computation through sparse expert activation, but their large expert memory footprint often exceeds GPU capacity, making expert offloading necessary for memory-constrained inference. However, existing systems typically handle GPU-missed experts by either transferring them to the GPU, incurring substantial PCIe transfer latency, or executing them on the CPU, making the slower CPU computation the bottleneck. To address these limitations, we present \\method, a CPU-GPU collaborative MoE inference system that adaptively assigns these missed experts to the CPU or GPU for efficient execution. By exploiting differences in expert token-loads, \\method selectively transfers high-load experts to the GPU while executing low-load experts on the CPU. To minimize inference latency, \\method adaptively adjusts expert assignments to balance the CPU computation path against the GPU transfer-and-computation path, allowing both execution paths to complete as early as possible. Extensive experiments on three representative MoE LLMs show that \\method improves prefill speed by up to 51.9\\% and decode throughput by up to 39.5\\% over the strongest baseline across the evaluated batch sizes, with consistent gains under different GPU-memory budgets.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Adaptively assigns GPU-missed MoE experts to CPU or GPU to balance transfer and computation latency.",
+          "zh": "自适应将GPU未命中的MoE专家分配到CPU或GPU，以平衡传输与计算延迟。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Peripheral to compiler work, but illustrates heterogeneous scheduling tradeoffs.",
+          "zh": "与编译器核心较远，但展示异构调度权衡。"
+        }
+      },
+      "authors": [
+        "Wenhui Lv",
+        "Yunming Liao",
+        "Hongli Xu",
+        "Yang Xu",
+        "Junhao Cheng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.2134387588500976,
+        "semantic": 0.618664562702179
+      },
+      "paper_id": "2610.23006",
+      "pdf_url": "https://arxiv.org/pdf/2610.23006v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Efficient CPU-GPU collaborative MoE inference via Adaptive Expert Assignment",
+      "url": "https://arxiv.org/abs/2610.23006"
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) on edge devices enables personalized large language model (LLM) inference while preserving privacy. However, RAG's inherent length asymmetry makes the prefill phase the dominant bottleneck. While precomputing the KV caches offline alleviates the prefill cost on server systems, the multi-gigabyte caches over the narrow interconnect create a severe I/O wall for on-device systems. To mitigate this, we propose MemLLM, an end-to-end in-storage processing (ISP) architecture that executes the complete attention pipeline based on precomputed KV caches within the SSD. MemLLM utilizes per-channel accelerators to fully utilize the aggregated NAND channel bandwidth and accelerates all KV cache-related computations on the storage-side to minimize PCIe transfers. To efficiently handle the sparse updates required by RAG, MemLLM introduces a fused recomputation-query kernel paired with a hardware-based filter logic to halve the NAND read volume and eliminate write-back penalties. Furthermore, MemLLM's global SRAM-based stateful reduction engine enables a completely DRAM-less dataflow, thereby removing the internal memory bottlenecks and bounding the PCIe egress to an $O(1)$ footprint. A full-stack software stack allows asynchronous, zero-copy transfers from the ISP to the host and provides transparent execution within modern ML frameworks. Evaluated across eight real-world RAG datasets and six on-device LLM models, MemLLM achieves an average end-to-end speedup of 4.06$\\times$ over the GPU baseline.",
+      "affiliations": [
+        "KAIST"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Designs an in-storage processor that runs full KV-cache-based attention inside the SSD to cut PCIe transfers for on-device RAG.",
+          "zh": "设计在SSD内执行完整KV缓存注意力流程的存内处理器，以减少端侧RAG的PCIe传输。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "A near-memory and storage-acceleration point relevant to PIM dataflow and compiler-architecture co-design.",
+          "zh": "属于近内存/存储加速方向，与PIM数据流及编译架构协同设计相关。"
+        }
+      },
+      "authors": [
+        "Seungkwan Kang",
+        "Hyungseok Ko",
+        "Heemin Kim",
+        "Myoungsoo Jung"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.2094525146484375,
+        "lexical": 65.70423447180464,
+        "semantic": 0.6159605383872986
+      },
+      "paper_id": "2610.22579",
+      "pdf_url": "https://arxiv.org/pdf/2610.22579v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "MemLLM: End-to-end In-Storage Acceleration of On-device Retrieval-Augmented Generation using Precomputed KV Caches",
+      "url": "https://arxiv.org/abs/2610.22579"
+    },
+    {
+      "abstract": "Real-time inference on small devices needs low activation memory without extra latency, which makes operator order the most valuable memory lever: it is free in time. We show that the usual way of deploying a better order, handing it back to the compiler and regenerating code, is unreliable. In PyTorch Inductor the regenerated program misses its predicted peak in 22 of 54 CPU configurations. It is worse than the stock program in 9 of them and in 19 of 50 on a GPU, and on the GPU it also changes numerical results. We instead profile the generated program, model its memory exactly from its own statements and their read/write effects, and permute those statements. We prove that this realizes the modeled peak whenever allocation does not depend on history. It does so to the byte, with bitwise-identical results, in all our CPU runs. On the GPU we characterize why the caching allocator breaks the condition. To know when to stop, we give forward and reverse \"trap\" lower bounds, each computable with $O(n^2)$ minimum cuts. They certify the found order optimal for 94% of held-out wrapper graphs and all 16 microcontroller-class models we study, in under a second. So most inference graphs are already scheduled optimally. Branching networks are the exception, where reordering is free and pays, e.g. 10.0% on DeepLabV3. In compiled training we save up to 7.6%. Beyond the certified optimum we study selective recomputation with per-operator caps. It is strongly NP-hard for every fixed cap even at treewidth two, encodes knapsack exactly on series-parallel graphs, and is solvable exactly on bounded treewidth. It is useless on public tiny models whose peak is a single layer, but on architectures that hold a cheap value for a late reuse it pays: on the public ReDimNet speaker networks, whose order is already optimal, it lowers the peak by 5.2-6.1% at under 0.4% extra MACs, with bitwise-identical outputs.",
+      "affiliations": [
+        "Yandex"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Profiles compiled programs, exactly models activation memory, permutes statements, and certifies optimality while characterizing recomputation limits.",
+          "zh": "对编译生成程序进行剖析、精确建模激活内存、置换语句并给出最优性证书，同时刻画重计算的边界。"
+        },
+        "elegance": 9,
+        "novelty": 9,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly addresses trust, memory scheduling, and IR-level transformation optimality in production compilers.",
+          "zh": "直接涉及生产编译器的可信调度、内存优化与IR级变换最优性。"
+        }
+      },
+      "authors": [
+        "Ivan Fomin",
+        "Ivan Koryabkin",
+        "Boris Sheludko"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DS",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "diversity": 0.20161298274993888,
+        "lexical": 52.126718018238186,
+        "semantic": 0.6106428503990173
+      },
+      "paper_id": "2610.23328",
+      "pdf_url": "https://arxiv.org/pdf/2610.23328v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Peak-Memory Schedules You Can Trust: Exact Realization, Certified Optimality, and the Limits of Recomputation for Inference",
+      "url": "https://arxiv.org/abs/2610.23328"
+    },
+    {
+      "abstract": "Fine-grained Mixture-of-Experts (MoE) is the de facto architecture for scaling large language models. However, dynamic expert load imbalance causes severe memory fluctuations that degrade training efficiency. Existing systems rely on static memory provisioning: they either over-provision, leaving GPU memory idle during normal execution, or under- provision, inviting out-of-memory crashes and costly manual rollbacks when load spikes occur. To address these challenges, we propose BaGuaLu-2, a large-scale MoE training system that eliminates this dilemma through flexible provisioning. By transforming memory allocation from a static, one-time tuning choice into a continuous and fine-grained control. BaGuaLu-2 grants exact activation memory on demand for each training batch. Furthermore, it offsets any dynamic management overhead through system optimizations. BaGuaLu-2 demonstrates exceptional scalability, training a model with 1040 billion parameters across 12,288 GPUs while sustaining over 2 EFlops at 35% MFU. Compared with state-of-the-art systems, BaGuaLu-2 delivers 1.14x and 1.13x average throughput improvements over Megatron-Kuai and AdaPipe, respectively.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Provides dynamic fine-grained activation-memory provisioning for large-scale MoE training across 12,288 GPUs.",
+          "zh": "面向12,288 GPU的大规模MoE训练提供动态细粒度激活内存供给。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "Large-scale GPU memory management is relevant context but not core compiler optimization.",
+          "zh": "大规模GPU内存管理提供背景相关，但不属于编译器优化核心。"
+        }
+      },
+      "authors": [
+        "Mingshu Zhai",
+        "Minkun Guo",
+        "Hongrui Lian",
+        "Shuangyu Li",
+        "Qi Zhang",
+        "Chen Hu",
+        "Xiawei Du",
+        "Yuyang Jin",
+        "Zan Zong",
+        "Jidong Zhai"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.1966035413742065,
+        "semantic": 0.6072447896003723
+      },
+      "paper_id": "2610.23064",
+      "pdf_url": "https://arxiv.org/pdf/2610.23064v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "BaGuaLu-2: Taming Dynamic Memory Fluctuation for Efficient MoE Model Training over 10,000 GPUs",
+      "url": "https://arxiv.org/abs/2610.23064"
+    },
+    {
+      "abstract": "The design space of modern AI/HPC systems has expanded rapidly across compute architectures, including GPUs, dataflow processors, and RISC-V accelerators; memory tech- nologies, including HBM, GDDR, and SRAM; and interconnects such as NVLink, UALink, Infinity Fabric, InfiniBand, Slingshot, and Ultra Ethernet. No single architecture is optimal across LLM training, LLM serving, and AI-coupled HPC workloads, while the resulting combinatorial design space is too large for manual exploration. We present ArchAgent, a hierarchical multi- agent framework in which an LLM-based planner decomposes system design into chip, scale-up, and scale-out subproblems, each handled by specialist agents. A deterministic analytical evaluator closes the loop, ensuring that all performance estimates are derived from analytical models rather than generated by the LLM. On a mixed AI+HPC workload under a 1 MW power budget, ArchAgent discovers heterogeneous designs that achieve a 1.93x weighted geometric mean speedup over a homogeneous GPU baseline, while requiring only 18 evaluations compared with 100 evaluations for hill climbing, which achieves 1.65x speedup.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Uses a hierarchical LLM-agent planner with deterministic analytical evaluation to explore heterogeneous chip, scale-up, and scale-out designs.",
+          "zh": "使用分层LLM智能体规划器加确定性解析评估来探索芯片、scale-up和scale-out异构设计。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "Suggests AI-assisted design-space exploration for heterogeneous systems, outside core compiler methods.",
+          "zh": "提示异构系统的AI辅助设计空间探索，但偏离核心编译方法。"
+        }
+      },
+      "authors": [
+        "Murali Emani",
+        "Kashyap R Manjusha"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.1941733121871948,
+        "lexical": 75.79301938825526,
+        "semantic": 0.6055962443351746
+      },
+      "paper_id": "2610.23724",
+      "pdf_url": "https://arxiv.org/pdf/2610.23724v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Agentic AI for Heterogeneous System Design Across Chip, Scale-Up, and Scale-Out Domains",
+      "url": "https://arxiv.org/abs/2610.23724"
+    },
+    {
+      "abstract": "On AWS Trainium2, every component of a diffusion model runs as a program compiled ahead of time for fixed shapes, while pipelines differ across models, prompt lengths across requests, and caching decisions across denoising steps. We present Difflet, a serving engine in which five model pipelines share one compilation backend, joint attention is split across cores by attention head, and a host controller decides at each denoising step whether to run the denoiser or reuse its earlier output. A small probe program computes the caching signal on the device and returns one number per step, and a resident model process keeps every program loaded across requests. Across five image and video model families, fused attention accelerates denoiser steps by 1.2-4.3x over the same framework using PyTorch/XLA attention, and at 32.8k visual tokens it is the only attention that compiles. On four of the five models, resident serving is 1.5-3.4x faster than standalone runs that reload weights from a warm file cache for each generation.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "A diffusion-transformer serving engine for AWS Trainium that shares a compilation backend and optimizes fused attention and resident serving.",
+          "zh": "面向 AWS Trainium 的扩散 Transformer 推理引擎，共享编译后端并优化融合注意力与常驻服务。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "It shows accelerator-specific compilation/runtime tradeoffs in fixed shapes, attention splitting, and caching decisions.",
+          "zh": "展示了加速器专用编译与运行时协同中的固定形状、注意力切分和缓存决策取舍。"
+        }
+      },
+      "authors": [
+        "Bin Ma",
+        "Min Yu",
+        "Vijay Kodamalla",
+        "Jialin Liu",
+        "Dong Li"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "diversity": 0.16998871803283688,
+        "semantic": 0.5891913175582886
+      },
+      "paper_id": "2610.23047",
+      "pdf_url": "https://arxiv.org/pdf/2610.23047v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "DIFFLET: A Fast Inference Engine for Diffusion Transformer Models on AWS Trainium",
+      "url": "https://arxiv.org/abs/2610.23047"
+    },
+    {
+      "abstract": "CXL Memory Module - Memory Pooling (CMM-MP) introduces a novel memory pooling architecture to meet the unique requirements of emerging memory-intensive workloads. This industry-first, purpose-built memory-pooling device combines the benefits of Compute Express Link (CXL) with the scalability and cost advantages of Ethernet. Multiple CMM-MP devices together provide a flexible, composable, and disaggregated memory expansion solution. The CMM-MP enables 100s of TB capacity for GPU/CPU applications without modifications. The memory pool is exposed as a large-capacity logical aggregate memory, with all pool discovery, composition, and backend network datapath tasks fully offloaded to the device. CMM-MP supports both memory pooling and sharing usage modes. It provides an application latency of 2.7 us and up to 23 GB/s of memory throughput. Our evaluations demonstrate that CMM-MP significantly outperforms RDMA-based solutions in latency and throughput. We also evaluated real-world use cases of Valkey+YCSB and DiskANN using CMM-MP.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "A composable memory-pooling architecture combining CXL and Ethernet for large-capacity memory expansion.",
+          "zh": "结合 CXL 与以太网的可组合内存池化架构，面向大容量内存扩展。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Memory disaggregation may affect future compiler and architecture assumptions about data placement and bandwidth.",
+          "zh": "内存解耦可能影响未来编译器和体系结构对数据放置与带宽的假设。"
+        }
+      },
+      "authors": [
+        "Michael Wasef",
+        "Gongjin Sun",
+        "Edmund Au",
+        "Ranjitha Gopalakrishna",
+        "Elham Movahedian",
+        "Dongyang Li",
+        "Senthil Murugesapandian",
+        "Caroline Kahn",
+        "Shuyu Lyu",
+        "Brian Luu",
+        "Jason Scott",
+        "Namita Kumar",
+        "Mehdi Nik",
+        "Kwan Huen",
+        "Xuebin Yao",
+        "Amir Beygi",
+        "Luis Vitorio Cargnini",
+        "Ramdas Kachare"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.16492349147796626,
+        "semantic": 0.5857552886009216
+      },
+      "paper_id": "2610.22716",
+      "pdf_url": "https://arxiv.org/pdf/2610.22716v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "CMM-MP: A Novel Memory Pooling Architecture using Purpose-built Memory Device with CXL and Ethernet",
+      "url": "https://arxiv.org/abs/2610.22716"
+    },
+    {
+      "abstract": "Query-based segmentation models achieve strong performance even under real-time inference on workstation GPUs. On edge devices, however, we show their transformer decoders are deeply memory-bandwidth-bound, a bottleneck invisible to standard FLOP analysis that worsens with input resolution and limited DRAM bandwidth. An FP16 roofline analysis with tensor-core GEMMs active and hardware DRAM counters shows that the non-tensor-core aggregates of FastInst and Mask2Former reach only $2.5\\%$ to $6\\%$ of the CUDA-core ridge yet account for $53\\%$ to $70\\%$ of decoder time and $61\\%$ to $71\\%$ of decoder bytes. The largest individual kernels sustain up to $90\\%$ of nominal peak DRAM bandwidth, effectively saturating the memory bus. The bottleneck is therefore not primarily low GEMM intensity, but cross-kernel activation traffic. CompactInst addresses this bottleneck using parameter-free spatial pooling at $4{\\times}$, which reduces the bytes moved within the transformer decoder, while a two-convolution refinement head recovers spatial detail. Under TensorRT FP16 on Jetson Orin Nano, CompactInst delivers decoder speedups from $2.35{\\times}$ to $4.74{\\times}$ and model speedups from $1.57{\\times}$ to $2.62{\\times}$ as input resolution grows, while closely matching accuracy ($-0.4$ AP on COCO val2017, $+0.2$ AP on Cityscapes test). A heavier variant with $2.57{\\times}$ more decoder FLOPs still runs its decoder $1.74{\\times}$ faster on the most bandwidth-constrained device, confirming at the deployment level that decoder bytes, not FLOPs, govern latency.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "Profiles memory-bandwidth-bound segmentation decoders on edge GPUs and accelerates them with spatial pooling and convolution refinement.",
+          "zh": "剖析边缘 GPU 上分割解码器受内存带宽限制，并提出空间池化与卷积细化加速。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "The memory-bandwidth bottleneck analysis informs code generation, tiling, and fusion for edge accelerators.",
+          "zh": "内存带宽瓶颈分析可为边缘加速器上的代码生成、分块和融合优化提供依据。"
+        }
+      },
+      "authors": [
+        "Oliver Busemann (Osnabr\\\"uck University",
+        "CLAAS E-Systems GmbH)",
+        "Torben T\\\"oniges (CLAAS E-Systems GmbH)",
+        "Martin Atzmueller (Semantic Information Systems Group",
+        "Osnabr\\\"uck University",
+        "German Research Center for Artificial Intelligence)"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.LG",
+        "cs.PF",
+        "eess.IV"
+      ],
+      "channel_scores": {
+        "semantic": 0.5711843371391296
+      },
+      "paper_id": "2610.22377",
+      "pdf_url": "https://arxiv.org/pdf/2610.22377v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Memory Bandwidth, Not FLOPs: Profiling and Accelerating Query-Based Segmentation Decoders on Edge GPUs",
+      "url": "https://arxiv.org/abs/2610.22377"
+    },
+    {
+      "abstract": "Distributed Transformer inference across co-located edge devices is fundamentally communication-bound, as exchanging activations between sequence-parallel partitions dominates inference latency under commodity edge bandwidths. Existing compression schemes reduce this cost but retain a structural bottleneck: the received data must still undergo key/value projection before attention can proceed, serializing computation behind communication. This paper presents Transformer Residual Activation Codebook Encoding (Trace), a framework that addresses these limitations. Trace places a Vector Quantizer (VQ) at the post-attention residual of every Transformer layer and precomputes codebook-indexed key/value representations. During inference, exchanged activations are encoded into compact codebook indices, allowing receivers to directly recover keys and values through table lookup instead of executing the downstream computations required to derive them. By eliminating the received data downstream computation, Trace enables communication--computation overlap and reduces a key latency bottleneck in distributed Transformer inference. A hierarchical clustering further structures the learned codebook into a multi-resolution hierarchy, enabling runtime adaptation of the communication bitrate without retraining. The framework supports two operating variants: one prioritizing accuracy and the other balancing accuracy and efficiency through buffer-compatible quantization. Experiments on ViT-Base (ImageNet-1K and CIFAR-100) and ViViT-B (UCF-101) show that Trace achieves up to 1.89% higher accuracy and up to 1.27x end-to-end inference speedup compared with the state-of-the-art VQ-based distributed inference framework. Compared with uncompressed sequence-parallel inference, Trace reduces communication overhead by up to 22,624x.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "Places a vector-quantized codebook at Transformer residuals so receivers recover keys/values by lookup and overlap communication with computation.",
+          "zh": "在 Transformer 残差处加入向量量化码本，使接收端通过查表直接恢复 KV 以重叠通信与计算。"
+        },
+        "elegance": 7,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Though aimed at distributed inference, its codebook lookup idea is suggestive for communication-aware representations and compilation.",
+          "zh": "这种码本查表思路虽偏分布式推理，但对通信感知的表示与编译有启发。"
+        }
+      },
+      "authors": [
+        "Muhammad Azlan Qazi",
+        "Alexandros Iosifidis",
+        "Qi Zhang"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5585707426071167
+      },
+      "paper_id": "2610.22435",
+      "pdf_url": "https://arxiv.org/pdf/2610.22435v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "TRACE: Transformer Residual Activation Codebook Encoding for Communication-efficient Distributed Edge Inference",
+      "url": "https://arxiv.org/abs/2610.22435"
+    },
+    {
+      "abstract": "Streaming data analytics helps businesses identify opportunities and spot risks in a timely fashion. As large language model (LLM) usage grows, people are exploring incorporating agents or LLMs in streaming data pipelines to help find patterns in datasets without supervision or interpret natural languages for content moderation. However, most streaming systems are currently optimized for data movement and perform poorly on GPU intensive workloads such as performing inference with LLMs. We introduce a system on Google Cloud Dataflow designed to tackle hybrid streaming machine learning workloads with co-designed autoscaling on heterogeneous worker pools and prefix-aware batching. This increases throughput 1.5x to 2x for streaming pipelines using LLMs while maintaining similar latency with up to 75% peak resource savings and 84% lower peak tail latency compared with existing streaming data processing systems.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "A heterogeneous autoscaling and prefix-aware batching system for LLM inference in streaming analytics.",
+          "zh": "面向流式数据分析中 LLM 推理的异构自动扩缩与前缀感知批处理系统。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It is cloud-service scheduling work with limited direct connection to compiler, IR, and architecture co-design.",
+          "zh": "偏云服务调度，与编译器、IR 和体系结构协同研究的直接关联较弱。"
+        }
+      },
+      "authors": [
+        "RuiLong Jiang",
+        "Dustin Rhodes",
+        "Danny McCormick",
+        "Yuta Labur",
+        "Reza Rokni"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "lexical": 54.813166442375156,
+        "semantic": 0.5579808950424194
+      },
+      "paper_id": "2610.22731",
+      "pdf_url": "https://arxiv.org/pdf/2610.22731v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Accelerated Dataflow: scaling inference in streaming data analytics with efficiency",
+      "url": "https://arxiv.org/abs/2610.22731"
+    },
+    {
+      "abstract": "Serving DNN inference is costly, yet a single task seldom saturates both the compute units and the memory bandwidth of a GPU. GPU sharing raises utilization by co-locating several tasks on one GPU, at the cost of interference among them. Existing systems estimate this interference with binary compute-memory rules, standalone scaling curves, or model-level predictors. However, these estimates rest on a limited understanding of interference. They leave the software and hardware properties of co-located operators largely unexplored and give no slowdown prediction that is both interpretable and accurate. We conduct an operator-level study of interference under SM partitioning and use hardware counters to trace it to contention on the shared memory path, where the slowdown depends jointly on both co-located operators. Based on these findings, we propose PairSight, a hardware-aware interference predictor that learns how the hardware behaviors of co-located tasks interact and predicts the latency of each task before co-location. On six DNN models including LLMs, PairSight predicts latency under sharing with 4.3% mean error, against 19.0% for a compute-memory intensity rule, and adapts to unseen models and inputs with a few samples.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "An operator-level GPU-sharing interference characterization and latency predictor using hardware counters.",
+          "zh": "基于硬件计数器的算子级 GPU 共享干扰刻画与延迟预测器。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "It can help GPU compilers and schedulers reason about shared-memory-path contention and placement decisions.",
+          "zh": "可帮助 GPU 编译器和调度器理解共享内存路径竞争并做放置决策。"
+        }
+      },
+      "authors": [
+        "Xiao Liu",
+        "Yujia Fu",
+        "Yue Yu",
+        "Dan Huang"
+      ],
+      "categories": [
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "semantic": 0.5548263192176819
+      },
+      "paper_id": "2610.23086",
+      "pdf_url": "https://arxiv.org/pdf/2610.23086v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "PairSight: Characterizing and Predicting Operator-Level Interference in GPU Sharing for DNN Inference",
+      "url": "https://arxiv.org/abs/2610.23086"
+    },
+    {
+      "abstract": "Transformer prefill reuses weights across tokens and is dominated by matrix multiplication and activation data movement; single-token decode has limited reuse and is dominated by weight and KV-cache reads. We present FUTRANSFORMER, a CUDA implementation of a Llama-style Transformer block for NVIDIA Hopper GPUs. It applies CODA's GEMM-plus-epilogue approach to inference, adding direct KV-cache placement, folding the fixed RMSNorm gain into weights, writing FP8 output directly with delayed scaling, and supporting prefill without padding. Decode uses INT4 projection weights and an INT4 KV-cache copy. Weights and keys follow Tensor Core fragment layouts for direct dequantization into MMA operands without full intermediate tiles. A block-diagonal Hadamard transform reduces cache quantization error from outlier channels. On one H100, prefill is up to 1.48x faster than compiled PyTorch FP8 and reaches 1.29 PFLOP/s. For gate/up projection with SwiGLU at the 8B shape, our BF16 path is 1.13x faster than CODA. Our FP8 path is 2.02-2.18x faster than the evaluated BF16 CODA path. Across 8B and 70B shapes at batches 1-32, INT4 decode is 1.3-2.4x faster than the faster of PyTorch's BF16 and INT4 blocks at each point: 2.1-3.3x faster than compiled, CUDA-graphed BF16 and 1.3-6.3x faster than the same block using PyTorch's INT4 projection kernel, which targets a single query row and loses to BF16 at batch 32. It is also 31-51% faster than our FP8 path. Complete Llama-3.1-8B decode takes 2.8 ms per step at batch one, versus 8.1 ms for the compiled transformers implementation. Decoding every WikiText-2 token through the INT4 weight path raises perplexity from 6.24 to 7.23 with round-to-nearest weights or 6.99 with GPTQ in the same format; the rotated INT4 cache adds 0.20. The kernels match a quantized reference computation within 0.001 perplexity.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "A Hopper CUDA implementation of Llama-style Transformer blocks combining FP8 prefill, INT4 decode, and direct KV-cache layouts.",
+          "zh": "面向 Hopper 的 Llama 式 Transformer CUDA 实现，结合 FP8 prefill、INT4 decode 与直接 KV-cache 布局。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "Its tensor-core layouts and quantization kernel techniques transfer to GPU code generation and backend optimization.",
+          "zh": "其张量核心布局与量化内核技巧可迁移到 GPU 代码生成和后端优化。"
+        }
+      },
+      "authors": [
+        "Wei Wang"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.552030622959137
+      },
+      "paper_id": "2610.23796",
+      "pdf_url": "https://arxiv.org/pdf/2610.23796v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "FuTransformer: FP8 prefill and INT4 decode for Llama-style inference on Hopper",
+      "url": "https://arxiv.org/abs/2610.23796"
+    },
+    {
+      "abstract": "AI-RAN is driving the convergence of radio access network (RAN) processing and artificial intelligence (AI) workloads on GPU-enabled computing platforms, ranging from GPU-accelerated base stations to cloud-native infrastructures. While GPU acceleration improves the efficiency of virtualized RAN functions, the computational demand of latency-critical baseband processing varies with traffic load, creating transient spare GPU capacity that can be reclaimed by co-located AI applications. Existing GPU-sharing mechanisms rely on coarse-grained hardware partitioning or static resource allocation, limiting their ability to adapt to slot-level workload fluctuations while preserving strict timing requirements. This paper presents ScaleRAN, a node-local runtime for elastic GPU resource management in AI-RAN. ScaleRAN leverages NVIDIA Green Contexts to dynamically partition Streaming Multiprocessors (SMs) between RAN and AI workloads through a ladder of pre-created GPU partitions, enabling low-overhead resource reallocation at RAN slot granularity. The proposed runtime naturally supports Open-RAN (O-RAN) O-Cloud deployments, one representative AI-RAN deployment scenario. To drive these reallocations, we propose a reactive controller inspired by Kubernetes autoscaling and a proactive controller based on quantile regression and conformal prediction. We also develop LDPCSim, a GPU-accelerated workload generator built on NVIDIA Aerial for reproducible evaluation. Results show that predictive fine-grained GPU partitioning satisfies slot-level RAN deadlines while increasing the GPU resources available to co-located AI workloads, demonstrating the practicality of elastic GPU sharing for future AI-RAN platforms.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "A runtime using Green Contexts to elastically partition GPU SMs at slot granularity in AI-RAN.",
+          "zh": "利用 Green Contexts 在 AI-RAN 中按 slot 粒度弹性划分 GPU SM 资源的运行时。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "GPU resource-sharing runtime work is farther from compiler research and closer to networking and system scheduling.",
+          "zh": "GPU 资源共享运行时与编译器研究相关较远，主要偏网络与系统调度。"
+        }
+      },
+      "authors": [
+        "Arthur Hamard",
+        "J\\'er\\'emie Leguay",
+        "Gopalasingham Aravinthan",
+        "Alberto Conte",
+        "Julien Lallet",
+        "Abdelkader Outtagarts"
+      ],
+      "categories": [
+        "cs.NI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5497622489929199
+      },
+      "paper_id": "2610.23072",
+      "pdf_url": "https://arxiv.org/pdf/2610.23072v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "ScaleRAN: A Runtime for Elastic GPU Resource Management in AI-RAN",
+      "url": "https://arxiv.org/abs/2610.23072"
+    },
+    {
+      "abstract": "Neural operators approximate solution operators of partial differential equations at a fraction of the cost of numerical solvers. Efficient grid-based architectures such as the Fourier neural operator (FNO) assume uniform rectangular grids, whereas engineering simulations use large, irregular, and locally refined meshes. We introduce L-SplineFNO, a memory-efficient neural operator that couples an FNO backbone with a sparse, learnable tensor-product B-spline transfer between unstructured meshes and a latent Cartesian grid. A local normalised scatter avoids the geometry-dependent solve of analytic spline transformation while preserving compact support, partition of unity, and spline smoothness by construction. The neural operator, conditioned on global design and operating parameters, learns the mapping of geometry to the field solution. Across six three-dimensional engineering benchmarks, L-SplineFNO achieves strong predictive accuracy while requiring substantially less memory and compute than baseline operators, scaling to 26.6 million nodes in training and 46 million in inference on a single A100 GPU. It also supports zero-shot super-resolution and efficient closed-form spatial derivatives. Uniquely, the analytic spline decoder yields rigorous prediction bounds over continuous space and uncertain parameters, via Bernstein convex hulls and Taylor models, demonstrated on a 29.2-million-node MAST-U tokamak model.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Introduces L-SplineFNO, coupling an FNO backbone with sparse learnable B-spline transfer for unstructured meshes at low memory cost.",
+          "zh": "提出 L-SplineFNO，用稀疏可学习 B 样条在非结构网格与笛卡尔隐网格间传输，提升神经算子内存效率。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It has little compiler or architecture overlap and is only a distant neighbor in numerical operator acceleration.",
+          "zh": "与编译器或体系结构关联弱，仅可视为数值算子加速的远邻工作。"
+        }
+      },
+      "authors": [
+        "Vignesh Gopakumar",
+        "Zhuoyuan Wang",
+        "Ander Gray",
+        "Valentin Duruisseaux",
+        "Josh Williams",
+        "William Michael Edward Ellis",
+        "Nuno Nobre",
+        "Matthew Field",
+        "James Panayis",
+        "Alexander I. Blair",
+        "Andrew Davis",
+        "Stanislas Pamela",
+        "Robert Akers",
+        "Marc Peter Deisenroth",
+        "Anima Anandkumar"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "physics.comp-ph"
+      ],
+      "channel_scores": {
+        "lexical": 56.38978808787424,
+        "semantic": 0.5463300347328186
+      },
+      "paper_id": "2610.22446",
+      "pdf_url": "https://arxiv.org/pdf/2610.22446v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Learnable Splines for Unstructured Neural Operators",
+      "url": "https://arxiv.org/abs/2610.22446"
+    },
+    {
+      "abstract": "High Bandwidth Flash (HBF) has recently emerged as a promising technology that provides terabyte-scale accelerator-local capacity at bandwidths approaching HBM, with a potential cost-per-bit advantage over HBM. However, its NAND foundation brings long latency, out-of-place updates, and finite write endurance directly into the accelerator memory hierarchy, making its effects on performance and lifetime difficult to predict. To study this emerging design space, we present HBFSim, an LLM-aware event-driven simulator for heterogeneous HBM+HBF memory systems that preserves application-level memory semantics while modeling flash-internal behavior. HBFSim models HBM, HBF with host-managed flash translation, and conventional capacity tiers in one simulation driven by a calibrated serving frontend. Using HBFSim, we study decoding of Llama-3.1-70B and Qwen3-235B-A22B under three workloads that differ in their input and output lengths. HBF serves data that does not fit in HBM 11.0--19.0$\\times$ faster than host DRAM; HBM is better used to hold the running sequences' KV cache than as a cache for HBF; and at a published peak load of Llama-3.1-70B, HBF lasts 2.0 to 6.9 years, in proportion to the stacks that share the KV writes. The artifact is available at https://github.com/FlashLabAE/HBFSim and will track public HBF device data as it becomes available.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "HBFSim is an LLM-aware event-driven simulator for heterogeneous HBM+HBF memory systems, modeling flash latency, updates, and lifetime.",
+          "zh": "HBFSim 是面向 LLM 的 HBM+HBF 异构内存事件驱动模拟器，建模 NAND 延迟、更新与寿命。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "It offers LLM workload evaluation for memory-hierarchy design, though it is distant from compiler optimization.",
+          "zh": "为近存/内存层次设计提供 LLM 负载评估，但与编译优化距离较远。"
+        }
+      },
+      "authors": [
+        "Jinheng Li",
+        "Guosheng Wang",
+        "Hongchao Du",
+        "Shangyu Wu",
+        "Qiao Li",
+        "Chun Jason Xue"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "lexical": 53.35565935219267,
+        "semantic": 0.5429052114486694
+      },
+      "paper_id": "2610.23503",
+      "pdf_url": "https://arxiv.org/pdf/2610.23503v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "HBFSim: A Simulator for Exploring HBF in Memory Hierarchies for LLMs",
+      "url": "https://arxiv.org/abs/2610.23503"
+    },
+    {
+      "abstract": "The Levenberg-Marquardt (LMA) algorithm is a widely used nonlinear least-squares solver known for its rapid convergence. For small-scale neural networks, LMA provides better convergence and architectural robustness than first-order optimizers like Adam. However, LMA imposes prohibitive memory and computational costs. These costs are primarily from the Jacobian matrix, whose dimensions scale with both the number of samples and parameters. This bottleneck prevents its use in large-scale neural networks. Recent efforts scale LMA using preconditioned conjugate gradient (PCG) solvers to avoid materializing the Jacobian. However, PCG only approximates the solution, requiring many network propagations and a task-specific preconditioner. Other studies optimize LMA to reduce costs, but they restrict their methods to specific tasks or network architectures. As a result, LMA remains impractical for training general large-scale neural networks. In this paper, we propose LeMA, a distributed LMA algorithm for large-scale neural network training on multi-GPU platforms. Our contributions are twofold: First, an exact dual formulation of LMA removes the memory dependence on the parameter dimension. Second, a Jacobian sharding strategy computes Jacobian shards on the fly and in parallel to avoid materializing the full Jacobian. For large-scale neural networks, LeMA reduces the memory footprint of LMA from quadratic in the number of parameters to quadratic in the batch size. This makes exact LMA steps feasible for billion-parameter models without approximate PCG solves. Furthermore, for a convolutional neural network with 1,000,022,632 parameters on an 8-GPU node, LeMA achieves a 7.97x speedup over a single GPU, corresponding to a 99.7% strong scaling efficiency.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "LeMA uses an exact dual formulation and Jacobian sharding to scale Levenberg-Marquardt training on multiple GPUs.",
+          "zh": "LeMA 用精确对偶形式与 Jacobian 分片实现多 GPU 上的可扩展 Levenberg-Marquardt 训练。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It is distributed training algorithm optimization, not a core compiler or architecture line.",
+          "zh": "属于分布式训练算法优化，非编译器或体系结构主线。"
+        }
+      },
+      "authors": [
+        "Xianghao Wang",
+        "Johan Barth\\'elemy",
+        "John Taylor"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5345199704170227
+      },
+      "paper_id": "2610.22925",
+      "pdf_url": "https://arxiv.org/pdf/2610.22925v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Scalable Levenberg-Marquardt Training Framework for Deep Learning",
+      "url": "https://arxiv.org/abs/2610.22925"
+    },
+    {
+      "abstract": "The recurrent neural network transducer (RNN-T) remains a practical choice for streaming speech recognition, but training requires large intermediate tensors. We present Flash RNN-T, a joint and loss implementation combining specialized kernels with optional tiled recomputation over the full alignment space and vocabulary. Tiled and untiled Flash form the entire measured throughput-memory frontier on medium and long workloads. On H100, untiled Flash achieves 24-39% higher throughput with 26-56% less memory than the fastest baseline on these workloads wherever it fits. Tiling reduces memory further through recomputation. On medium, tiled Flash uses ninefold less memory than that baseline at 16% lower throughput when both use one backward call per batch. On long, it fits where all tested alternatives with that backward schedule run out of memory with 80 GB. These comparisons use each implementation's lowest-memory configuration reaching at least 95% of its peak throughput.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Flash RNN-T uses specialized kernels and optional tiled recomputation to reduce memory for joint-network and loss computation.",
+          "zh": "Flash RNN-T 通过专用核与可选分块重计算降低 RNN-T 联合网络和损失的内存占用。"
+        },
+        "elegance": 5,
+        "novelty": 4,
+        "relevance": 3,
+        "transferability": 5,
+        "why_care": {
+          "en": "Its throughput-memory tradeoff is relevant to GPU kernel optimization, but it is highly domain-specific.",
+          "zh": "其吞吐-内存权衡与 GPU kernel 优化相关，但域特化强。"
+        }
+      },
+      "authors": [
+        "Mahmoud Ashraf"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DC",
+        "cs.SD"
+      ],
+      "channel_scores": {
+        "lexical": 50.40918410970274,
+        "semantic": 0.533801257610321
+      },
+      "paper_id": "2610.23409",
+      "pdf_url": "https://arxiv.org/pdf/2610.23409v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Flash RNN-T: Memory-Efficient Joint Network and Transducer Loss Computation",
+      "url": "https://arxiv.org/abs/2610.23409"
+    },
+    {
+      "abstract": "As large language models (LLMs) are increasingly deployed across diverse inference services, serving workloads span a wide range of batch sizes, context lengths, and performance requirements. Speculative decoding improves inference throughput, but conventional approaches require a separate draft model and KV cache, while existing self-speculative methods suffer from workload-insensitive draft configurations and inefficient mixed-precision execution. In this paper, we present BS-Spec, a block floating point (BFP)-based bit-sharing framework that jointly optimizes draft construction, workload-aware precision selection, and hardware execution. BS-Spec derives multiple draft representations directly from a single BFP target model by partially loading the most significant bits of weights and the KV cache while preserving shared exponents, eliminating separate draft-model storage. Offline calibration selects the weight and KV-cache precision pair that maximizes estimated speedup for each serving regime, and a precision lookup table applies the selected configuration at runtime. To support this adaptive execution, we design a mixed-precision BFP accelerator with a lookup table (LUT)-based variable-precision datapath for both draft and target computation. Experimental results show that BS-Spec achieves up to $1.9\\times$ speedup over conventional autoregressive decoding and improves speedup over the evaluated bit-sharing self-speculative decoding baselines by $67.2\\%$ on average, demonstrating the benefits of jointly co-designing bit sharing, precision adaptation, and specialized hardware for diverse LLM serving workloads.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "BS-Spec uses BFP-based bit sharing for self-speculative decoding with a LUT-driven mixed-precision accelerator.",
+          "zh": "BS-Spec 用 BFP 位共享构造自推测解码，并配 LUT 驱动的混合精度加速器。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "It touches precision adaptation and accelerator co-design, adjacent to compiler-architecture co-design.",
+          "zh": "涉及精度自适应与加速器协同设计，与编译器-体系结构协同相邻。"
+        }
+      },
+      "authors": [
+        "Jiwoo Kim",
+        "Gunho Park",
+        "Sunwoo Yoo",
+        "Baeseong Park",
+        "Dongsoo Lee",
+        "Youngjoo Lee"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.5243571996688843
+      },
+      "paper_id": "2610.22877",
+      "pdf_url": "https://arxiv.org/pdf/2610.22877v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "BS-Spec: BFP-Based Bit-Sharing for Self-Speculative LLM Decoding with LUT-Driven Mixed-Precision Acceleration",
+      "url": "https://arxiv.org/abs/2610.22877"
+    },
+    {
+      "abstract": "The companion MPI-extension paper validated the first communication-bearing machine-shape ensemble: four NVIDIA A100 ranks and four CPU ranks on one NCSA Delta node under one Open MPI job, reassembled by MPI_Gatherv. This paper extends it to a multi-vendor communicator. A Slurm heterogeneous job spanning Delta's A100 and AMD MI100 partitions places A100, MI100 and CPU ranks (nine in all) under one communicator for the first time. We give the theory (a w_i proportional to 1/t_i weight split for three concurrent realizations; a het-job specification as an admissible directive) and report real results, including what the run exposed: the 1/t split assumes time linear in rows, and this fails for the MI100 rank (6 rows took 597 ms against a linear prediction of 1.6 ms). A launch-geometry model, with predictions recorded before measuring, succeeds for the A100 (time flat from 128 to 3456 rows, stepping at exactly 3520 and 6976) and places the MI100 floor in the key loop; changing its launch settings cut about 600 ms to 14.6 ms and the energy per call at 6 rows by 32x, though the MI100 remains about 95x slower than an A100 at 8192 rows. Controlled reruns show that the companion paper's 8.1x A100 result and 22 ms Gatherv were artifacts of four ranks sharing one GPU under Open MPI's default transport. A key/value-split partition whose message sizes are derived from shapes alone is then run: the ring Allreduce of the 8.5 MB message took 11.3, 16.0 and 15.3 ms against a predicted 11-12 ms, the small Allreduce missed its prediction in every run, and compute times reproduce to about 1% while communication times vary up to 4x between runs. Each idea is introduced with a figure and closed with worked examples.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Validates a 1/t weight model and launch-geometry model in a heterogeneous NVIDIA+AMD+CPU MPI ensemble, exposing cross-vendor performance gaps.",
+          "zh": "在 NVIDIA+AMD+CPU 异构 MPI 环境中验证 1/t 权重与启动几何模型，并暴露跨厂商性能差异。"
+        },
+        "elegance": 5,
+        "novelty": 4,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "It provides empirical lessons for heterogeneous parallel runtimes and performance modeling, but not compiler core.",
+          "zh": "为异构并行运行时与性能建模提供实测经验，但非编译核心。"
+        }
+      },
+      "authors": [
+        "Lenore Mullin",
+        "Gaetan Hains"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.5195024013519287
+      },
+      "paper_id": "2610.22769",
+      "pdf_url": "https://arxiv.org/pdf/2610.22769v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "One Communicator, Three Vendors: Extending the MoA Predictive Theory to a Real NVIDIA+AMD+CPU MPI Ensemble",
+      "url": "https://arxiv.org/abs/2610.22769"
+    },
+    {
+      "abstract": "The Arcade Learning Environment (ALE) has been a cornerstone of Deep Reinforcement Learning research, providing a standardized benchmark for evaluating general agents. However, its lack of native support for object-extraction and environment modification restricts research into evaluating whether agents learn robust causal models or rely on brittle visual heuristics. Furthermore, the ALE's dependence on CPU-based emulation creates a significant bottleneck in modern GPU-accelerated training pipelines, limiting both experimental scale and iteration frequency. In this work, we introduce JAXtari, an open-source, high-performance reimplementation of Atari 2600 environments. By leveraging massive GPU parallelization, JAXtari allows PPO agents to finish training on 100M environment steps on a single A100-GPU in under an hour. Beyond speed, it provides object-centric observations and a flexible modification system, allowing researchers to, e.g. develop neuro-symbolic methods or discover novel shortcuts and subsequently train and adapt their agents rapidly, sometimes in only minutes.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "JAXtari is a GPU-parallelized Atari 2600 environment reimplementation with object-centric observations and environment modification.",
+          "zh": "JAXtari 是 GPU 并行化的 Atari 2600 环境重实现，支持对象观测与环境修改。"
+        },
+        "elegance": 5,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "GPU-accelerated RL environments are far from compiler or architecture research.",
+          "zh": "GPU 加速 RL 环境与编译器或体系结构研究相距很远。"
+        }
+      },
+      "authors": [
+        "Quentin Delfosse",
+        "Raban Emunds",
+        "Paul Seitz",
+        "Sebastian Wette",
+        "Jannis Bl\\\"uml",
+        "Daniel Kirn",
+        "Dominik Mandok",
+        "Kristian Kersting"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.5193246603012085
+      },
+      "paper_id": "2610.23650",
+      "pdf_url": "https://arxiv.org/pdf/2610.23650v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "JAXtari: High-Throughput and Easy-to-Modify Arcade Learning Environment",
+      "url": "https://arxiv.org/abs/2610.23650"
+    },
+    {
+      "abstract": "Neural combinatorial optimization (NCO) rapidly produces high-quality solutions for problem structures encountered during training, but operational requirements may change after deployment and be communicated in natural language. We propose LangNCO, a framework that compiles instance-specific requirements into structured inference-time interventions for a frozen NCO solver, without changing the pretrained policy's architecture, learned input representation, or parameters. A pretrained LLM serves as a replaceable semantic front end, translating each requirement into a schema-validated domain-specific language (DSL) rule set. A deterministic Rule Executor applies the rules as nonexpansive hard action masks. Because local masking prevents immediate violations but does not ensure that a complete feasible continuation remains reachable, Critical-Offset Decoding extracts rule-referenced critical nodes and reallocates part of a fixed rollout budget to multi-strength biased rollouts. Using controlled task-specific language to isolate solver adaptation from open-ended language robustness, we evaluate a CVRP policy on road closures, time windows, vehicle assignments, visit-order requirements, all pairwise combinations, and twelve additional constraint types. LangNCO achieves 100% feasibility on the four primary datasets with mean reference gaps of 1.63--3.26%, 97.33--100% feasibility when separately generated rules are composed for pairwise constraints, and 98.67% feasibility across the additional constraints. These results demonstrate modular post-training adaptation of a frozen NCO solver through inspectable language-derived rules, without retraining.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "LangNCO compiles natural-language constraints into DSL rules used as inference-time interventions for a frozen NCO solver.",
+          "zh": "LangNCO 将自然语言约束编译为 DSL 规则并作为冻结 NCO 求解器的推理时干预。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "It involves language-to-rule compilation but does not address compiler optimization or hardware code generation.",
+          "zh": "涉及语言到规则编译，但不触及编译器优化或硬件代码生成。"
+        }
+      },
+      "authors": [
+        "Hironori Ohigashi"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5189347863197327
+      },
+      "paper_id": "2610.23190",
+      "pdf_url": "https://arxiv.org/pdf/2610.23190v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "LangNCO: Compiling Natural-Language Constraints into Inference-Time Interventions for Neural Combinatorial Optimization",
+      "url": "https://arxiv.org/abs/2610.23190"
+    },
+    {
+      "abstract": "Speed-limit sign recognition on an automotive camera system-on-chip (SoC) must fit a detector and a classifier (the reader) into the memory, arithmetic, and energy budgets of the device. In our two-stage recognizer, the detector, a YOLO-family network with ReLU and hard-sigmoid operators, is compressed by channel replay: an iterative pruning cascade identifies the channels to remove, the recorded deletions are replayed on the original task-trained network, the parent, and one continuous knowledge-distillation recovery follows. On a YOLOv5n, replay removes 60.3% of the parameters at the accuracy of the parent and, in validation mAP50-95 over five matched seeds, outperforms iterative pruning and training from scratch, and its per-step variant (per-step replay) is the most accurate pruning method. On a YOLOv8n, replay and per-step replay outperform every other method and the unpruned parent. The reader, a five-layer CNN with 18k parameters, and the post-processing of the YOLOv5n and YOLOv8n heads use integer arithmetic only. With 4-bit weights and 8-bit activations (W4A8), the reader matches FP32 accuracy in 12.1 KB of on-chip memory, and an executable streaming model reproduces the INT8 class predictions of its runtime on all 9,850 test crops. On a Jetson AGX Orin, INT8 is faster than FP16 only in the implicit formulation of TensorRT, and the replay detector runs fastest on the deep-learning accelerator (DLA). Trained on public data only, the combined system of 0.72 M parameters recognizes 95.2% of the signs of a held-out automotive camera at 90% precision and 94 frames per second.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Presents replay pruning and a W4A8 integer classifier to fit speed-sign recognition on an automotive SoC.",
+          "zh": "提出回放剪枝和W4A8整型分类器，使限速标志识别适配车载SoC。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Edge inference compression and integer deployment are only peripheral to compiler optimization interests.",
+          "zh": "边缘推理压缩与整型部署仅与编译器优化兴趣边缘相关。"
+        }
+      },
+      "authors": [
+        "Se Un Park",
+        "Kyungkeon Chung",
+        "Huigeol Kim",
+        "Junyoung Park"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.AR",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.5159801840782166
+      },
+      "paper_id": "2610.22811",
+      "pdf_url": "https://arxiv.org/pdf/2610.22811v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Replay Pruning and Few-Bit Integer Inference for Hardware-Efficient Speed-Sign Recognition",
+      "url": "https://arxiv.org/abs/2610.22811"
+    },
+    {
+      "abstract": "Deploying quantum neural networks (QNNs) on sparse hardware requires preserving task accuracy while reducing compiler-induced two-qubit gates, SWAPs, and depth. We present ConQUESTA (\\underline{C}onstrained \\underline{Qu}antum \\underline{E}ntangler \\underline{S}election with \\underline{T}opology \\underline{A}wareness), a post training pruning framework that combines task saliency with compiler cost, screens candidate entanglers, and searches complete pruning masks under an explicit accuracy constraint. Unlike one-shot ranking, each mask is transpiled as a whole across multiple coupling topologies. Across 4-, 6-, and 8-qubit QNNs and eight model seeds at 55% pruning, ConQUESTA achieves mean resource reductions of 61.6% on Breast Cancer, 72.0% on Digits01, and 82.2% on Iris, exceeding the strongest matched simple baseline by 3.5, 1.7, and 8.9 percentage points, respectively. Fixed-mask recovery raises feasibility from 16/24 to 22/24 runs. In a fixed-k=4 scaling study on a scaling probe of 4 to 12-qubits, the raw mask space grew from 495 to 12.1M while the evaluated masks increase only from 189 to 305. Resource-weight changes alter depth/routing priorities with at most a 0.44-point mean validation shift.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Topology-aware post-training pruning of quantum entanglers using task saliency and transpilation cost.",
+          "zh": "结合任务显著性与转译成本，对量子纠缠器进行拓扑感知的训练后剪枝。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Compiler-cost-aware pruning is a distant analog to hardware-aware compiler optimization, not a core match.",
+          "zh": "编译成本感知剪枝与硬件感知编译优化只是远距离类比，并非核心契合。"
+        }
+      },
+      "authors": [
+        "Saim Rehman",
+        "Muhammad Shafique"
+      ],
+      "categories": [
+        "quant-ph",
+        "cs.AR",
+        "cs.SY",
+        "eess.SY"
+      ],
+      "channel_scores": {
+        "semantic": 0.5141187310218811
+      },
+      "paper_id": "2610.23415",
+      "pdf_url": "https://arxiv.org/pdf/2610.23415v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "ConQUESTA: Topology-Aware Post-Training Structural Pruning of Quantum Neural Networks",
+      "url": "https://arxiv.org/abs/2610.23415"
+    },
+    {
+      "abstract": "Large language models (LLMs) are increasingly used to automate AI research, including language-model (LM) development, offering a potential path toward recursive self-improvement. However, turning experimental feedback into a learned ability to propose effective improvements across models faces two challenges. First, training such an ability with real feedback is expensive: reinforcement learning (RL) requires evaluating tens of thousands of proposals, each potentially requiring a full model-training run. Even at ten GPU-hours per run, reward collection alone would consume hundreds of thousands of GPU-hours, motivating a cheaper surrogate. Second, surrogate feedback can become unreliable as policy optimization favors overestimated proposals when the proposal distribution shifts. To address these challenges, we propose LM2LM, which trains LLMs with RL to generate effective LM improvement proposals. To provide scalable feedback, we use a research world model (RWM), a frozen LLM that predicts proposal gains from real experimental records provided in context, as the reward model for RL. To maintain feedback reliability, we periodically execute current-policy proposals ranked highly by the RWM and add their measured outcomes to its context. Across eight autoregressive and diffusion LM development environments, real-execution evaluations on held-out tasks show that LM2LM enables Qwen3.8-27B to outperform GPT-6-sol, even when GPT-6-sol is given 300 real experimental records in context, while requiring 33% lower data-generation cost. LM2LM also generalizes to a model family unseen during training.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Trains an LLM with RL and a research world model to propose improvements to language models.",
+          "zh": "利用强化学习和研究世界模型训练LLM提出语言模型改进方案。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Automated ML research is outside compiler optimization, though feedback-driven proposals could loosely inspire autotuning.",
+          "zh": "自动化机器学习研究不属于编译器优化，尽管反馈驱动的方案生成可略为启发自动调优。"
+        }
+      },
+      "authors": [
+        "Minhua Lin",
+        "Zijun Wang",
+        "Zewen Liu",
+        "Zhaotian Weng",
+        "Bing He",
+        "Zhan Shi",
+        "Benoit Dumoulin",
+        "Xiang Zhang",
+        "Suhang Wang",
+        "Hanqing Lu"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5002188682556152
+      },
+      "paper_id": "2610.23344",
+      "pdf_url": "https://arxiv.org/pdf/2610.23344v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Language Models Learn to Improve Language Models",
+      "url": "https://arxiv.org/abs/2610.23344"
+    },
+    {
+      "abstract": "Small Language Models (SLMs) are increasingly attractive for resource-constrained environments due to their low computational footprint. These characteristics also make them candidates for future autonomous malware, where connectivity, latency, privacy, or operational constraints may preclude cloud-based inference. Yet the ability of ultra-compact models to support malware during post-exploitation remains poorly understood. We systematically evaluate seven open-source SLMs (20M-1.5B parameters) on two post-exploitation code-generation tasks: Directory Enumeration and Backdoor Generation. We compare Python (high-resource) and Lua (low-resource) across prompting strategies, task formulations, iterative reasoning, grammar-constrained decoding, and execution-feedback loops. Results show that offensive code-generation capabilities do not increase linearly with model size. Successful execution depends on the interaction of model capacity, task formulation, and prompting strategy, with task formulation exerting a greater influence than prompt engineering alone. Algorithmic formulation combined with few-shot prompting enables Qwen2.5-Coder 1.5B to reach Pass@5 of 100% in both Python and Lua for Directory Enumeration, 100% in Python for Backdoor Generation, and 99.2% in Lua. Although the evaluated models remain too computationally demanding for widespread deployment in contemporary malware, rapid progress in compact models may reduce this barrier. These findings help anticipate AI-assisted malware and inform future countermeasures.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Evaluates compact language models for offensive code generation in embedded post-exploitation tasks.",
+          "zh": "评估小型语言模型在嵌入式后渗透任务中的攻击性代码生成能力。"
+        },
+        "elegance": 4,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Security-focused SLM code generation has no direct bearing on compiler optimization or architecture.",
+          "zh": "面向安全的小模型代码生成与编译器优化或体系结构无直接关系。"
+        }
+      },
+      "authors": [
+        "Gabriel Hortea",
+        "Simon Pietro Romano",
+        "Juan Tapiador",
+        "Mario Varlese"
+      ],
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.4997541010379791
+      },
+      "paper_id": "2610.23534",
+      "pdf_url": "https://arxiv.org/pdf/2610.23534v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "From Billion-Scale to Million-Scale Language Models: Operational Capabilities for Embedded Post-Exploitation",
+      "url": "https://arxiv.org/abs/2610.23534"
+    },
+    {
+      "abstract": "Agentic large language model (LLM) applications turn one user request into a sequence of model and tool calls over a growing context. Retaining this context's key-value (KV) state in GPU memory lets later calls reuse it instead of recomputing it, but at fleet scale this needs substantial memory. We characterize four production Microsoft M365 workload traces (Deep Research, Enterprise Assistant, Coding Agent and Enterprise Chat) spanning more than 121 million model calls. In Deep Research, the application issues 89% of model calls and the median context grows from about 10K to 68K tokens by the 30th call. About 80% of context tokens are served from the prefix cache. With the public Llama-2-70B KV layout standing in for confidential models, one 99th-percentile Deep Research session exceeds the 80 GB HBM of an NVIDIA H100, and holding all live sessions at their peak needs an estimated 501.8 TB of HBM, although inference occupies only 5.6% of that retention time. Trace-driven replay shows that a one-hour idle cap cuts this ceiling by 3.6x while raising the share of calls that recompute context only from 4.07% to 4.53%. Under tighter budgets, eviction alone is insufficient: at one tenth of the busiest hour's demand, LRU eviction makes 63% of Deep Research calls recompute and clairvoyant furthest-next-use 31%, whereas multi-resolution retention (MRR), which demotes the LRU session's KV state to int4, lowers this to 13.6%. Placement imposes a separate limit: when the next call reaches a different deployment, cached-context reuse drops from 89% to 29%, and treating KV state as deployment-local raises the recompute floor under unlimited memory from 5.4% to 20.2%. These findings motivate retention that changes the representation of KV state, together with deployment-aware routing or migration. We plan to release AgenticTraceSim, a parametric trace generator, and a residency replay framework.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Characterizes KV-cache residency in production agentic LLM traces and evaluates retention strategies.",
+          "zh": "刻画生产级代理式LLM负载中的KV缓存驻留并评估保留策略。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Memory-centric serving insights may inform architecture assumptions but not compiler techniques.",
+          "zh": "内存中心的服务洞察可影响体系结构假设，但不直接适用于编译器技术。"
+        }
+      },
+      "authors": [
+        "Mayank Arya",
+        "Agrim Bari",
+        "Anjaly Parayil",
+        "Yogesh Simmhan",
+        "Renee St. Amant",
+        "Victor R\\\"uhle",
+        "Saravan Rajmohan"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.49972257018089294
+      },
+      "paper_id": "2610.22863",
+      "pdf_url": "https://arxiv.org/pdf/2610.22863v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Understanding KV Residency in Production-Scale Agentic LLM Workloads",
+      "url": "https://arxiv.org/abs/2610.22863"
+    },
+    {
+      "abstract": "Evaluating candidate changes (hypotheses) to recommendation models requires full-scale training runs consuming thousands of GPU-hours, severely limiting the hypothesis space engineers can feasibly explore. We introduce Predictable Scaling (PS), a systematic framework that exploits empirically verified regularity conditions to predict full-scale model performance from small-scale proxies. PS constructs scaled-down variants via composable scaling functions along distinct resource axes, and projects metrics to the target scale via curve fitting with calibrated uncertainty estimates. We compare three prediction strategies of increasing expressiveness: even the simplest (raw proxy) achieves prediction error within the empirical noise floor of repeated-run variance; the most expressive (Gaussian Process) provides an indicative 15% relative MAE improvement and calibrated uncertainty. Evaluation on two ranking models of increasing complexity---a task-specific model and a foundation model---demonstrates that PS correctly ranks actionable hypotheses across diverse hypothesis types at 79-88% compute reductions.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Predicts full-scale model performance from scaled-down proxies using composable scaling functions.",
+          "zh": "使用可组合缩放函数从缩小代理预测全规模模型性能。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Scaling-law proxies are unrelated to compiler IR, code generation, or scheduling.",
+          "zh": "缩放律代理与编译器IR、代码生成或调度无关。"
+        }
+      },
+      "authors": [
+        "Aishwarya Wesanekar",
+        "Sheng-Tao Yang",
+        "Jiawei Zhang",
+        "Flavio Sales Truzzi",
+        "Chen Chen",
+        "Nader Beigiparast",
+        "Shengyuan Huang",
+        "Roshanak Zilouchian Moghaddam",
+        "Vitor Cid",
+        "Colin Clement",
+        "Vinayak Thapliyal",
+        "Sebastian Ament",
+        "Jihao Andreas Lin",
+        "Vincent Huang",
+        "Kai Han",
+        "Boyi Jiang",
+        "Wenlin Chen",
+        "Chaorong Chen",
+        "Ashwin Kumar",
+        "Maximilian Balandat",
+        "David Eriksson",
+        "Yifei Zhang",
+        "Pan Zhong"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.4949106276035309
+      },
+      "paper_id": "2610.23453",
+      "pdf_url": "https://arxiv.org/pdf/2610.23453v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Predictable Scaling: Efficient Model Exploration via Scaling-Law Prediction",
+      "url": "https://arxiv.org/abs/2610.23453"
+    },
+    {
+      "abstract": "Accurate atomistic simulations of materials under electric fields require long-range electrostatics and electrical-response modeling at length scales beyond the reach of conventional first-principles methods. Yet these capabilities remain difficult to reconcile with the scalability of machine-learning interatomic potentials (MLIPs). Strictly local models enable efficient spatial parallelization but neglect long-range interactions, whereas existing electrostatic extensions introduce global dependencies that hinder distributed computation. Here, we overcome this limitation by analytically separating the long-range electrostatic forces and Born effective charges (BECs) into a global electrostatics calculation and strictly local derivatives of learned latent charges. This formulation preserves the spatial decomposability of equivariant MLIPs while enabling distributed evaluation of energies, forces, stresses, and BECs across different boundary conditions. Implemented as DPA4C-LR on the \\texttt{nvalchemi} platform, the framework scales to 5.2 million atoms on four GPUs at approximately twice the computational cost of its short-range backbone. Trained on energies and forces, DPA4C-LR accurately infers BECs and reproduces the field-dependent infrared spectra of water. We further demonstrate its capabilities by recovering the characteristic slim polarization hysteresis of relaxor \\ce{Pb(Mg_{1/3}Nb_{2/3})O3}, which is obscured by finite-size effects in smaller simulations; predicting a room-temperature field-driven ionic conductivity of $6.8 \\pm 0.7$~mS/cm in amorphous \\ce{Li_{0.9}NbO_{0.9}Cl_{4.1}}; and modeling interfacial thermal transport across Si/diamond interfaces with slab-corrected electrostatics. By combining long-range physics, electrical-response inference, and distributed computation, this framework extends predictive atomistic modeling toward device-relevant length scales.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Separates long-range electrostatics from local learned charges to scale ML interatomic potentials.",
+          "zh": "将长程静电与局部学习电荷分离，以扩展机器学习原子间势。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Distributed scientific ML is a workload application, not a compiler or architecture method.",
+          "zh": "分布式科学机器学习是负载应用，而非编译器或体系结构方法。"
+        }
+      },
+      "authors": [
+        "Yicheng Chen",
+        "Xiaoyun Yu",
+        "Hyejeong Song",
+        "Xintian Wang",
+        "Zihui Li",
+        "Zixi Xia",
+        "Junmin Chen",
+        "Peichen Zhong"
+      ],
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.7523049712181091
+      },
+      "paper_id": "2610.23643",
+      "pdf_url": "https://arxiv.org/pdf/2610.23643v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Scalable long-range machine learning interatomic potentials with electrical response for atomistic material modeling",
+      "url": "https://arxiv.org/abs/2610.23643"
+    },
+    {
+      "abstract": "Verifier-guided self-repair conditions a model on feedback from failed attempts before it tries again, without weight updates. Yet two findings in prior work are in tension: verifier feedback can improve repair of failures, but self-repair itself can provide little-to-no advantage over independent resampling. We reconcile these findings in Lean theorem proving through controlled one-step experiments that hold the preceding failure fixed while varying whether the failed proof is shown, whether the compiler error corresponds to that failure, and the retry instruction. We test frozen Qwen3.6-27B, a general-purpose model, and DeepSeek-Prover-V2-7B, a specialized prover, on difficult MiniF2F problems. We find two opposing effects. Showing the model its failed predecessor reduces success and sharply increases copying of it, while on Qwen adding that attempt's compiler error recovers the loss, to the level of the diagnostic alone. Replacing the predecessor with another theorem's failed proof largely removes the degradation on both models; on Qwen, replacing the diagnostic with another problem's error substantially reduces the recovery. Without the failed proof, correct diagnostics show no resolved advantage over wrong-diagnostic controls on either model. The failed-proof penalty persists with and without the retry instruction, whereas Qwen's diagnostic recovery is weaker without it. In 11-problem sequential experiments through 64 attempts, Qwen retains a correct-diagnostic benefit within failed-proof histories, while DeepSeek-Prover shows no resolved recovery. However, no tested one-step feedback condition establishes an advantage over instruction-only resampling, nor does 64-attempt sequential repair with failed proofs and correct diagnostics at equal token budgets. Verifier feedback can thus improve repair without overcoming the performance loss from conditioning on a failed attempt.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Controlled study shows failed-proof conditioning and verifier diagnostics have opposing effects in Lean theorem-proving repair.",
+          "zh": "受控研究表明，失败证明条件和验证器诊断在Lean定理证明修复中产生相反效果。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Verifier-feedback repair is adjacent to program synthesis and compiler-diagnostic-guided optimization.",
+          "zh": "验证器反馈修复与程序合成及编译器诊断引导优化相邻。"
+        }
+      },
+      "authors": [
+        "Jack Li",
+        "Sophia Li"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "exploration": 0.8887872695922852
+      },
+      "paper_id": "2610.22698",
+      "pdf_url": "https://arxiv.org/pdf/2610.22698v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Repair, Retry, and the Cost of Hindsight: Verifier Feedback in Formal Theorem Proving",
+      "url": "https://arxiv.org/abs/2610.22698"
+    },
+    {
+      "abstract": "While hallucinations in Large Language Models (LLMs) have been extensively studied from a software perspective, limited attention has been paid to hardware-level factors. In this paper, we performed a case study to understand LLM hallucination caused by soft errors on hardware. We introduce LLMEI to inject soft errors into LLMs during inference, based on what we evaluate the impact of soft error across diverse LLM architectures and tasks, including mathematical reasoning and code generation. We summarize the taxonomy of different failure modes based on LLM hallucination behaviors and analyze their distributions under different error rates. Our find- ings underscore the hallucination-specific diagnostics within the reliability of LLM implementation on hardware.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.76,
+        "contribution": {
+          "en": "Introduces LLMEI to inject soft errors into LLM inference and taxonomize hallucination failure modes.",
+          "zh": "提出 LLMEI 对 LLM 推理注入软错误并归类幻觉失效模式。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Tangentially relevant to compiler/architecture reliability; may inform fault-tolerant accelerators or code-generation reliability evaluation.",
+          "zh": "与编译器/架构可靠性相关但非核心，可借鉴到容错加速器或代码生成可靠性评估。"
+        }
+      },
+      "authors": [
+        "Jinghao Wen",
+        "Dongning Ma",
+        "Ruixuan Wang",
+        "Shaohuang Wang",
+        "Xun Jiao"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "exploration": 0.6533057689666748
+      },
+      "paper_id": "2610.22520",
+      "pdf_url": "https://arxiv.org/pdf/2610.22520v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Understanding LLM Hallucinations Caused by Soft Errors",
+      "url": "https://arxiv.org/abs/2610.22520"
+    },
+    {
+      "abstract": "Decentralized Finance (DeFi) transactions involve complex interactions among accounts, smart contracts, and tokens. We investigate whether network topology can identify transaction methods that describe DeFi operations. We extract directed graphlet features to classify the 30 most frequent methods. Our results show that graphlet features complement event log counts in improving classification performance. Using SHapley Additive exPlanations (SHAP), we further derive model explanations that reveal method-specific graphlet structural patterns.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Uses directed graphlet features to classify DeFi transaction methods with SHAP explanations.",
+          "zh": "用有向图模体特征对 DeFi 交易方法分类并结合 SHAP 解释。"
+        },
+        "elegance": 4,
+        "novelty": 3,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "No direct connection to compilers, parallel computing, or architecture.",
+          "zh": "与编译器、并行计算和体系结构无直接关联。"
+        }
+      },
+      "authors": [
+        "C\\'{e}lestin Coquid\\'{e}",
+        "Alessio Brini",
+        "Natkamon Tovanich"
+      ],
+      "categories": [
+        "cs.SI",
+        "cs.CE",
+        "cs.CY",
+        "cs.ET",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.8228920698165894
+      },
+      "paper_id": "2610.23466",
+      "pdf_url": "https://arxiv.org/pdf/2610.23466v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Graphlet-based Decentralized Finance Transaction Method Classification",
+      "url": "https://arxiv.org/abs/2610.23466"
+    },
+    {
+      "abstract": "Large language model (LLM) unlearning aims to forget certain information while preserving others, without retraining from scratch. SoTA methods such as NPO, SimNPO, and SatImp balance forgetting and retain through whole model fine-tuning, while FOM-UL explores selective layer updates. Prior works show that suppressing target information can damage retained knowledge. This trade-off can vary across layers even under the same unlearning loss. In this work, we propose Confidence-Weighted Layerwise Unlearning (CoLU), which combines a novel confidence-weighted forgetting and retain regularization while updating a single selected transformer layer, rather than the whole model for unlearning. To reduce CoLU compute cost, we further propose Brief Layer Screening (BLS), which uses a newly defined normalized forgetting-retention (NFR) score to first rank layers through a brief unlearning trials using a subset of forgetting dataset and fewer epochs. BLS pre-selects top-k ranked layer candidates, which will then be fully profiled using full data analysis. BLS is proven to reduce the runtime of CoLU by 60.2-79.7% with almost the same performance. On TOFU dataset, CoLU improves both forgetting and retention over NPO, SatImp, and GA-based FOM-UL in all six TOFU settings, and over SimNPO in five of the six settings. On MUSE Books and News datasets, CoLU achieves the highest retained KnowMem and the PrivLeak closest to zero among the compared SOTA unlearning methods. CoLU presents a new record performance in both unlearning and retain in most settings up to date. Moreover, across the measured settings, average CoLU GPU memory usage is 77.4% to 79.5% lower than full-model unlearning.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.88,
+        "contribution": {
+          "en": "Proposes confidence-weighted single-layer unlearning and brief layer screening to reduce LLM unlearning cost.",
+          "zh": "提出置信加权单层遗忘与简要层筛选以降低 LLM 遗忘成本。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "An LLM unlearning method with no direct link to compiler optimization or accelerator compilation.",
+          "zh": "属于 LLM 遗忘方法，与编译器优化或加速器编译无直接关系。"
+        }
+      },
+      "authors": [
+        "Jingkai Guo",
+        "Ziyi Zhao",
+        "Chaitali Chakrabarti",
+        "Deliang Fan"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.6780072450637817
+      },
+      "paper_id": "2610.22721",
+      "pdf_url": "https://arxiv.org/pdf/2610.22721v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "CoLU: Confidence-Weighted Layerwise Unlearning for Large Language Models",
+      "url": "https://arxiv.org/abs/2610.22721"
+    },
+    {
+      "abstract": "EIP-1559 has become the dominant transaction fee mechanism in permissionless blockchains, regulating scarce block space through an adaptive base fee. The design balances a trade-off between responsiveness to demand fluctuations and stability of long-term resource usage. On a single chain, this trade-off is well understood and empirically stable. In multi-chain systems, however, cross-chain flows introduce delayed economic interactions across otherwise independent fee markets. These interactions alter the control dynamics and create stability risks that existing models do not capture. Deployed systems have already polarized. Polkadot enforces conservative update rates, effectively disabling fee adaptivity and reverting the market to inefficient first-price auctions. Cosmos adopts aggressive update rates without formal guarantees. To fill this gap, we propose a control-theoretic framework that formalizes multi-chain fee markets as a nonlinear dynamical system with delayed feedback. We identify delay-amplified over-correction as the structural root of instability. Experiments show that cross-chain coupling erodes stability relative to monolithic blockchains, reducing the safe parameter space for base fee update rates by up to 84.8%. Moreover, instability propagates across chains, contaminating the otherwise stable peer chains. At Ethereum's update rate, which leaves a monolithic chain stable, the multi-chain system exhibits extreme load oscillation between full and near-empty blocks, with over half of all blocks at full capacity. Mainstream Cosmos chains already exceed their safe bounds under their default configurations, and the resulting load oscillation raises their block failure rate by an order of magnitude. Guided by this mechanism, we design a lightweight protocol-level mitigation that removes the over-correction and stabilizes dynamics in multi-chain environments.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Models multi-chain fee markets as delayed nonlinear dynamical systems and proposes a stabilization mitigation.",
+          "zh": "用带延迟反馈的非线性动力系统分析多链费用机制稳定性并提出缓解。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "Control-theoretic blockchain fee analysis, outside the compiler/architecture mainline.",
+          "zh": "控制论与区块链费用机制分析，不属于编译器或体系结构主线。"
+        }
+      },
+      "authors": [
+        "Yifan Zhou",
+        "Jiang Xiao",
+        "Xuechao Wang",
+        "Ru Cheng",
+        "Shijie Zhang"
+      ],
+      "categories": [
+        "cs.CR",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.9226378202438354
+      },
+      "paper_id": "2610.23305",
+      "pdf_url": "https://arxiv.org/pdf/2610.23305v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "On the (In)stability of Adaptive Fee Mechanisms in Multi-Chain Systems",
+      "url": "https://arxiv.org/abs/2610.23305"
+    },
+    {
+      "abstract": "Multimodal data are commonly fused into latent representations that improve downstream task performance but are not interpretable, limiting their application in domains that require explainable model decisions. Vision-language alignment has made image embeddings interpretable through language, but requires vast image-caption training data. However, captioned data are typically not available for multimodal embeddings, as relevant features cannot directly be observed and annotated from embeddings alone. Here, we propose a framework to language-align any embedding space that can be linked to interpretable auxiliary data. Captioning functions convert auxiliary data into partial captions; a soft contrastive loss weights pairs by the similarity of their properties that each caption describes; and a rank-based concept retrieval task evaluates alignment against the auxiliary data rather than the captions. We apply this framework to multimodal Earth embeddings to facilitate explainable predictions for two species distribution modelling tasks: S2BMS and SatBird. AlphaEarth embeddings beat previous state-of-the-art models on 6/7 metrics, while our framework language-aligns domain-specific concepts of the embedding space, outperforming previous Earth observation vision-language models on average concept retrieval for both datasets. Finally, aligned concepts recover species-habitat associations ($\\rho$=0.44) and relate habitat descriptions to species predictions, showing that abstract embeddings can be interrogated in the language of domain experts.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.88,
+        "contribution": {
+          "en": "Proposes a framework to language-align multimodal embeddings via auxiliary data, applied to Earth embeddings.",
+          "zh": "提出将多模态嵌入与领域辅助数据语言对齐的框架并用于 Earth embeddings。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Multimodal representation alignment has no direct link to compilers, program synthesis, or architecture.",
+          "zh": "多模态表示对齐与编译器、程序合成和体系结构无直接关联。"
+        }
+      },
+      "authors": [
+        "Gabriel\\.e Tij\\=unaityt\\.e",
+        "Thijs L. van der Plas",
+        "Mohamed-Bachir Belaid",
+        "Rob Knapen",
+        "Maciej J. Soja",
+        "Ioannis N. Athanasiadis"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.CV"
+      ],
+      "channel_scores": {
+        "exploration": 0.8893686532974243
+      },
+      "paper_id": "2610.23110",
+      "pdf_url": "https://arxiv.org/pdf/2610.23110v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Domain-specific language alignment of multimodal embeddings towards explainable predictions",
+      "url": "https://arxiv.org/abs/2610.23110"
+    },
+    {
+      "abstract": "Data availability sampling (DAS) lets blockchain nodes verify a block's data availability by downloading only a few random pieces of it. Its network layer must disseminate each block in time for validators to attest (PUT), store it, and serve any piece on request (GET). A trustless DAS must sustain any number of Byzantine peers. The only known design with this guarantee, Robust Distributed Arrays (RDA), achieves it by full replication: each group of nodes responsible for part of a block stores that part in full, so a single good node per group suffices. The price to pay is a PUT load on the critical path to finality that grows with the network and cannot be tuned, hence the data may not reach validators before the attestation deadline. Coding is the natural remedy, but it was not known when a coded layer remains robust against an unbounded adversary, what it costs, or what it gains. We propose TCDA, a coded layer that is provably robust given enough good nodes, wherever they lie, with a tunable knob: how much of its assigned data each node keeps. Turning the knob trades PUT and storage costs against GET cost. It can be set per data type and adjusted as the good-node population changes. At Ethereum's parameters, our evaluation for a 32 MiB block at the recommended uplink shows that RDA misses the attestation deadline at any network size, whereas TCDA can be tuned to meet it from 868 good nodes up to the 40,000 tested, storing 1.7 to 32 times less per node than replication, at the price of 2.5 to 7.7 round-trips per sample instead of about one.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.84,
+        "contribution": {
+          "en": "Proposes TCDA, a tunable coded distributed array trading PUT/storage against GET cost for DAS under Byzantine peers.",
+          "zh": "提出可调编码分布式数组 TCDA，在拜占庭环境下权衡 DAS 的 PUT/存储与 GET 成本。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "Distributed coding and data-availability sampling are not central to the compiler/parallel-architecture profile.",
+          "zh": "分布式编码与数据可用性采样不属于编译器或并行体系结构核心兴趣。"
+        }
+      },
+      "authors": [
+        "Duc A. Tran",
+        "Dung Truong",
+        "Duy Le"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.NI"
+      ],
+      "channel_scores": {
+        "exploration": 0.7221560478210449
+      },
+      "paper_id": "2610.22508",
+      "pdf_url": "https://arxiv.org/pdf/2610.22508v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "TCDA: Tunable Coded Distributed Arrays for Data Availability Sampling",
+      "url": "https://arxiv.org/abs/2610.22508"
+    },
+    {
+      "abstract": "Automated markets increasingly host autonomous, learning trading agents and are powered by formulaic automated market makers (AMMs). We study how heterogeneous agent behavior shapes stress, risk-adjusted performance, liquidity, and volatility in these types of markets. Three behavioral archetypes are modeled as agentic reinforcement learning (RL) systems: a rational arbitrageur, a manipulator, and a retail herd-follower. Each archetype is defined by its reward function within a common, asset-agnostic exposure-control environment, and each is trained with a value-based Deep Q-Network (DQN) and with REINFORCE using a learned baseline. A pilot on hourly cryptocurrency data (AAVE, ETC, SUI) motivates the hypotheses. Herd-followers produce the most frequent but shortest stress episodes, manipulators the fewest but most persistent, and rational agents the most stable rolling Sharpe ratios despite higher return volatility. SHAP attributions tie these patterns to drawdown and cross-asset signals, short-term volatility and position state, and momentum, respectively. The results motivate behavior-specific regulation rather than uniform limits on volatility or turnover.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Models arbitrageur, manipulator, and herd-follower RL agents in automated markets and analyzes risk.",
+          "zh": "用 RL 智能体建模自动市场中的套利者、操纵者和羊群行为并分析风险。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Financial multi-agent modeling has no direct relation to compilers, GPU programming, or hardware abstraction.",
+          "zh": "金融多智能体建模与编译器、GPU 编程或硬件抽象无直接关系。"
+        }
+      },
+      "authors": [
+        "Irene Aldridge",
+        "Lourenco Belleau-Bhowmik",
+        "James Chan",
+        "Josh Chang",
+        "Kelly Deng",
+        "Pranav Dhingra",
+        "Xinda Ding",
+        "Haodong Fang",
+        "Satya Hanumanchi",
+        "Carter He",
+        "Shuang He",
+        "Yadong Hou",
+        "Vallab Karanam",
+        "Rithvik Kasarla",
+        "Tishya Khanna",
+        "Jihyun Kim",
+        "Sarah Konety",
+        "Abhinav Kotta",
+        "Anderson Lo",
+        "Jake Luther",
+        "Omar Mian",
+        "Ishan Patwardhan",
+        "Matteo Perona",
+        "Chenyue Qi",
+        "Shashank Ramachandran",
+        "Shubham Rateria",
+        "Jake Swain",
+        "David Thai",
+        "Michael Twersky",
+        "Susan Wu",
+        "Dean Xu",
+        "Helenna Yin",
+        "Jiachun Zheng"
+      ],
+      "categories": [
+        "econ.EM",
+        "cs.ET",
+        "q-fin.RM",
+        "q-fin.TR"
+      ],
+      "channel_scores": {
+        "exploration": 0.8755475282669067
+      },
+      "paper_id": "2610.22522",
+      "pdf_url": "https://arxiv.org/pdf/2610.22522v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Agentic AI in Automated Markets",
+      "url": "https://arxiv.org/abs/2610.22522"
+    },
+    {
+      "abstract": "Agent skills have proven to be an effective technique for improving agent ability on specific tasks, including software engineering, natural science, and mathematics. During such a process, using agent skills often involves manually discovering and organizing skills from heterogeneous sources, while existing skill retrieval methods mainly focus on selecting relevant skills from established skill libraries. However, with the rapidly increasing number and variety of reusable agent skills, manually searching for relevant skills across heterogeneous sources is becoming impractical at scale. In this paper, we introduce the Code Skill Server (CSS), a large-scale search engine for finding the most useful code generation skills for a target task. CSS consists of a skill server that incrementally collects and indexes publicly available code generation skills from multiple sources, with 993 skills included in the corpus used in this work. Extensive experiments across different retrieval methods and code generation benchmarks show that the best CSS configuration improves Pass@1 by up to 13.91% and consistently improves all evaluated models by at least 4.21% in the cross-model evaluation. These results demonstrate that CSS can effectively search for and serve relevant skills, improving code generation quality and enhancing models' code generation capabilities. Code and the CSS-993 corpus are available at {https://github.com/haoyuli-sdu/CodeSkillServer}.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Builds CSS, a large-scale search engine for code-generation skills, showing retrieval improves Pass@1.",
+          "zh": "构建大规模代码生成技能搜索引擎 CSS 并验证检索可提升 Pass@1。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Adjacent to LLM-assisted code generation/program synthesis, but not compiler IR or optimization.",
+          "zh": "与 LLM 辅助代码生成/程序合成相邻，但未触及编译器 IR 或优化。"
+        }
+      },
+      "authors": [
+        "Xiaoyong Li",
+        "Haolong Li",
+        "Dongliang Xu",
+        "Haoyu Li",
+        "Yifan Wang",
+        "Jingyuan Shi",
+        "Yanghua Wang",
+        "Yanbin Sun",
+        "Shidong Pan",
+        "Yue Yao"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.IR"
+      ],
+      "channel_scores": {
+        "exploration": 0.6632553339004517
+      },
+      "paper_id": "2610.23186",
+      "pdf_url": "https://arxiv.org/pdf/2610.23186v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Code Skill Server: A Large-Scale Search Engine for Code Generation Skills",
+      "url": "https://arxiv.org/abs/2610.23186"
+    }
+  ],
+  "date": "2026-10-19",
+  "delivery_status": "sent",
+  "error": null,
+  "recommendation_count": 4,
+  "recommendations": [
+    {
+      "abstract": "Real-time inference on small devices needs low activation memory without extra latency, which makes operator order the most valuable memory lever: it is free in time. We show that the usual way of deploying a better order, handing it back to the compiler and regenerating code, is unreliable. In PyTorch Inductor the regenerated program misses its predicted peak in 22 of 54 CPU configurations. It is worse than the stock program in 9 of them and in 19 of 50 on a GPU, and on the GPU it also changes numerical results. We instead profile the generated program, model its memory exactly from its own statements and their read/write effects, and permute those statements. We prove that this realizes the modeled peak whenever allocation does not depend on history. It does so to the byte, with bitwise-identical results, in all our CPU runs. On the GPU we characterize why the caching allocator breaks the condition. To know when to stop, we give forward and reverse \"trap\" lower bounds, each computable with $O(n^2)$ minimum cuts. They certify the found order optimal for 94% of held-out wrapper graphs and all 16 microcontroller-class models we study, in under a second. So most inference graphs are already scheduled optimally. Branching networks are the exception, where reordering is free and pays, e.g. 10.0% on DeepLabV3. In compiled training we save up to 7.6%. Beyond the certified optimum we study selective recomputation with per-operator caps. It is strongly NP-hard for every fixed cap even at treewidth two, encodes knapsack exactly on series-parallel graphs, and is solvable exactly on bounded treewidth. It is useless on public tiny models whose peak is a single layer, but on architectures that hold a cheap value for a late reuse it pays: on the public ReDimNet speaker networks, whose order is already optimal, it lowers the peak by 5.2-6.1% at under 0.4% extra MACs, with bitwise-identical outputs.",
+      "affiliations": [
+        "Yandex"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Profiles compiled programs, exactly models activation memory, permutes statements, and certifies optimality while characterizing recomputation limits.",
+          "zh": "对编译生成程序进行剖析、精确建模激活内存、置换语句并给出最优性证书，同时刻画重计算的边界。"
+        },
+        "elegance": 9,
+        "novelty": 9,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly addresses trust, memory scheduling, and IR-level transformation optimality in production compilers.",
+          "zh": "直接涉及生产编译器的可信调度、内存优化与IR级变换最优性。"
+        }
+      },
+      "authors": [
+        "Ivan Fomin",
+        "Ivan Koryabkin",
+        "Boris Sheludko"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DS",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "diversity": 0.20161298274993888,
+        "lexical": 52.126718018238186,
+        "semantic": 0.6106428503990173
+      },
+      "paper_id": "2610.23328",
+      "pdf_url": "https://arxiv.org/pdf/2610.23328v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "rank": 1,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Peak-Memory Schedules You Can Trust: Exact Realization, Certified Optimality, and the Limits of Recomputation for Inference",
+      "url": "https://arxiv.org/abs/2610.23328"
+    },
+    {
+      "abstract": "Modern GPU compilers expose rich layout abstractions for mapping tensors to threads and on-chip resources, but compute-unit-local (CU-local) 3D DRAM architectures lack a corresponding abstraction for specifying how operand-tile data are arranged within the DRAM address space. Without such an abstraction, conventional placement under the existing DRAM address mapping can subject structured tile accesses to severe row-buffer conflicts. We present TileDRAM, a compiler-runtime toolchain that introduces tile-to-DRAM layouts as a compiler-visible abstraction for DRAM placement. TileDRAM extends the GPU Linear Layout abstraction from compute-side mapping targets to DRAM placement coordinates and selects layouts per tile access signature, using recurring tile-local access behavior as the specialization unit. Since row-buffer locality depends on ordered request history, TileDRAM evaluates candidate layouts through their row-buffer behavior under fixed DRAM address mappings. Accesses under the selected layouts are realized through ordinary address arithmetic, without new address-remapping hardware or ISA support. In full-trace replay on Accel-Sim/Ramulator2 across 108 mixture-of-experts (MoE) feed-forward network (FFN) cases, TileDRAM reduces the request-weighted row-conflict rate from 75.7% to 15.2% and achieves a 1.77x geomean speedup. Retargeting six traces to six 3D DRAM organizations yields a 2.20x geomean speedup under the same compiler abstraction. On an RTX 3090, address transformation adds 0.17% geomean overhead over identity.",
+      "affiliations": [
+        "ShanghaiTech University",
+        "MetaX Integrated Circuits (Shanghai) Co., Ltd."
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.87,
+        "contribution": {
+          "en": "Introduces compiler-visible tile-to-DRAM layouts and selects them per tile access signature to reduce row-buffer conflicts in 3D DRAM GPGPUs.",
+          "zh": "引入编译器可见的tile到DRAM布局，并按tile访问特征选择布局以降低3D DRAM GPGPU行缓冲冲突。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly connects tiling and layout code generation with DRAM address mapping and GPU memory locality.",
+          "zh": "直接将tiling/布局代码生成与DRAM地址映射和GPU内存局部性联系起来。"
+        }
+      },
+      "authors": [
+        "Guangyuan Xu",
+        "Lanxuan Zhang",
+        "Ziyang Li",
+        "Zhaoshi Li",
+        "Yajun Ha"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.2266442394256591,
+        "lexical": 67.45978622120948,
+        "semantic": 0.6276221871376038
+      },
+      "paper_id": "2610.23767",
+      "pdf_url": "https://arxiv.org/pdf/2610.23767v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "rank": 2,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TileDRAM: Compiler-Controlled Tile-to-DRAM Layouts for 3D DRAM GPGPUs",
+      "url": "https://arxiv.org/abs/2610.23767"
+    },
+    {
+      "abstract": "DRAM-based Processing-in-Memory (PIM) addresses the \"memory wall\" by executing computations directly inside main memory. However, memory interleaving and virtual memory limit contiguous data size visible to PIM units, constraining PIM task granularity. To mitigate this, existing PIM systems drastically isolate PIM memory or disable memory interleaving. These design choices, however, decrease the CPU memory bandwidth and introduce extra data transfer, leading to an additional \"system memory wall\" that must be resolved to realize PIM's full potential. In this work, we propose GUMPIM, a PIM system that allows interleaved CPU pages and non-interleaved PIM pages to coexist in a Unitary and Malleable memory space with Guaranteed PIM page allocation. GUMPIM enables zero-copy during PIM task offloading and maintains CPU memory bandwidth while ensuring low PIM offloading overhead. First, we propose a dual-track memory management mechanism consisting of independent page allocation and address translation for CPU and PIM pages. Second, we design GUMPIM interface hardware on PIM-enabled DRAMs to provide a dynamic address mapping for the different data layouts of CPU and PIM pages. Third, we propose a PIM-assisted page migration mechanism that transparently migrates pages while preserving CPU access bandwidth, thereby enabling guaranteed and accelerated PIM page allocation. GUMPIM requires no changes to commodity DRAM standards; all hardware modifications are limited to the DRAM side, ensuring full compatibility with existing CPUs and enabling immediate deployment on current HBMx- and LPDDRx-based PIM platforms. Our results show only <0.1% performance degradation for CPU workloads on GUMPIM. For PIM workloads, GUMPIM reduces memory allocation and CPU-part computation times by 2.7x and 4.93x, respectively, yielding an end-to-end 2.3x speedup over a state-of-the-art baseline system.",
+      "affiliations": [
+        "Shanghai Jiao Tong University",
+        "Shanghai Qi Zhi Institute",
+        "Tsinghua University",
+        "ETH Zurich",
+        "The Chinese University of Hong Kong",
+        "Fudan University",
+        "Yizhu Technology Co., Ltd.",
+        "Huawei Technologies Co., Ltd."
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes a unitary PIM memory space with guaranteed PIM pages, dual-track translation, and migration to enable zero-copy offload without sacrificing CPU bandwidth.",
+          "zh": "提出统一PIM内存空间与保证PIM页、双轨地址转换和迁移机制，实现零拷贝卸载且不牺牲CPU带宽。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "Informs PIM runtime and data-placement constraints that compiler-managed PIM offloading must respect.",
+          "zh": "揭示编译器管理PIM卸载时必须遵守的运行时与数据放置约束。"
+        }
+      },
+      "authors": [
+        "Yilong Zhao",
+        "Fangxin Liu",
+        "Yiwei Hu",
+        "Zongwu Wang",
+        "Mingyu Gao",
+        "Onur Mutlu",
+        "He Xian",
+        "Hanlin Dong",
+        "Naifeng Jing",
+        "Xiaoyao Liang",
+        "Haibing Guan",
+        "Qiang Xu",
+        "Chixiao Chen",
+        "Shuxue Quan",
+        "Tao Yang",
+        "Li Jiang"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.440000033378601,
+        "lexical": 64.94618403317587,
+        "semantic": 0.7723469734191895
+      },
+      "paper_id": "2610.23406",
+      "pdf_url": "https://arxiv.org/pdf/2610.23406v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "rank": 3,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "GUMPIM: Unitary and Malleable Memory for Processing-in-Memory with Guaranteed PIM Pages",
+      "url": "https://arxiv.org/abs/2610.23406"
+    },
+    {
+      "abstract": "Retrieval-augmented generation (RAG) on edge devices enables personalized large language model (LLM) inference while preserving privacy. However, RAG's inherent length asymmetry makes the prefill phase the dominant bottleneck. While precomputing the KV caches offline alleviates the prefill cost on server systems, the multi-gigabyte caches over the narrow interconnect create a severe I/O wall for on-device systems. To mitigate this, we propose MemLLM, an end-to-end in-storage processing (ISP) architecture that executes the complete attention pipeline based on precomputed KV caches within the SSD. MemLLM utilizes per-channel accelerators to fully utilize the aggregated NAND channel bandwidth and accelerates all KV cache-related computations on the storage-side to minimize PCIe transfers. To efficiently handle the sparse updates required by RAG, MemLLM introduces a fused recomputation-query kernel paired with a hardware-based filter logic to halve the NAND read volume and eliminate write-back penalties. Furthermore, MemLLM's global SRAM-based stateful reduction engine enables a completely DRAM-less dataflow, thereby removing the internal memory bottlenecks and bounding the PCIe egress to an $O(1)$ footprint. A full-stack software stack allows asynchronous, zero-copy transfers from the ISP to the host and provides transparent execution within modern ML frameworks. Evaluated across eight real-world RAG datasets and six on-device LLM models, MemLLM achieves an average end-to-end speedup of 4.06$\\times$ over the GPU baseline.",
+      "affiliations": [
+        "KAIST"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Designs an in-storage processor that runs full KV-cache-based attention inside the SSD to cut PCIe transfers for on-device RAG.",
+          "zh": "设计在SSD内执行完整KV缓存注意力流程的存内处理器，以减少端侧RAG的PCIe传输。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "A near-memory and storage-acceleration point relevant to PIM dataflow and compiler-architecture co-design.",
+          "zh": "属于近内存/存储加速方向，与PIM数据流及编译架构协同设计相关。"
+        }
+      },
+      "authors": [
+        "Seungkwan Kang",
+        "Hyungseok Ko",
+        "Heemin Kim",
+        "Myoungsoo Jung"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.2094525146484375,
+        "lexical": 65.70423447180464,
+        "semantic": 0.6159605383872986
+      },
+      "paper_id": "2610.22579",
+      "pdf_url": "https://arxiv.org/pdf/2610.22579v1",
+      "published_at": "2026-10-19T04:00:00+00:00",
+      "rank": 4,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "MemLLM: End-to-end In-Storage Acceleration of On-device Retrieval-Augmented Generation using Precomputed KV Caches",
+      "url": "https://arxiv.org/abs/2610.22579"
+    }
+  ],
+  "retrieved_count": 433,
+  "schema_version": 1,
+  "status": "complete"
+}
