@@ -1,0 +1,2138 @@
+{
+  "candidate_count": 43,
+  "candidates": [
+    {
+      "abstract": "Normalizing Flows (NFs) have shown strong results in generative modeling, recently reaching state-of-the-art image generation performance. However, their repetitive, sequential operations limit the computational and memory efficiency achievable with GPUs and TPUs. We propose M3D-FLOW, a novel monolithic 3D-stackable (M3D) DRAM-based processing-near-memory (PNM) architecture that eliminates memory bottlenecks using a Cu-Cu hybrid-bonded logic die integrated with an M3D DRAM die. The M3D DRAM provides dense bank integration and a tiered organization with variable access latencies that M3D-FLOW exploits for the efficient processing of different NF workloads. To maximize compute density while minimizing area, energy, and thermal overhead, M3D-FLOW employs hybrid binary--stochastic floating-point multipliers, performing mantissa multiplication in the stochastic domain and exponent operations in the binary domain. A pipelined execution strategy maps sequential NF stages across dynamically partitioned PE groups, and together with the stochastic hardware, enables M3D-FLOW to achieve at least $6.6\\times$ higher performance and $3\\times$ better energy efficiency than prior PNM accelerators, with only a 2.2% bits-per-dimension (BPD) increase over bfloat16 and 4.1% over FP32. An analysis of stochastic hardware variants further shows that shorter stochastic bitstreams reduce execution time by up to $3.3\\times$ at the cost of higher approximation error, providing a concrete design guide for latency--accuracy trade-offs.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Proposes a 3D-stackable processing-near-DRAM architecture for normalizing flows with hybrid binary-stochastic floating-point multipliers.",
+          "zh": "提出面向归一化流的可三维堆叠近DRAM架构，并采用二值-随机混合浮点乘法器。"
+        },
+        "elegance": 7,
+        "novelty": 8,
+        "relevance": 6,
+        "transferability": 6,
+        "why_care": {
+          "en": "It offers a memory-centric accelerator design point for generative workloads beyond mainstream GPU/TPU paths.",
+          "zh": "它为生成式负载提供了超越主流GPU/TPU路径的内存中心加速器设计点。"
+        }
+      },
+      "authors": [
+        "Bipin Thapa Magar",
+        "Ishan Thakkar",
+        "Sudeep Pasricha"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "diversity": 0.4399999332427978,
+        "lexical": 59.36158385713134,
+        "semantic": 0.6347563862800598
+      },
+      "paper_id": "2610.27371",
+      "pdf_url": "https://arxiv.org/pdf/2610.27371v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "M3D-FLOW: A Monolithic 3-D-Stackable Processing-Near-DRAM Architecture for Generative Normalizing Flow Applications",
+      "url": "https://arxiv.org/abs/2610.27371"
+    },
+    {
+      "abstract": "GPU kernels are critical to the performance of today's AI services, yet the same operators are rewritten repeatedly: for each GPU generation, numeric format, serving regime, and kernel language. Every rewrite must preserve the function computed by the implementation it replaces. Today, this obligation depends almost entirely on differential testing: run the new kernel and a trusted reference on randomly sampled tensors, then compare their outputs within a tolerance. This approach has blind spots that additional test cases cannot eliminate. For example, a logical bug may produce an error smaller than the tolerance required to accommodate a correct optimized kernel. We propose symbolic equivalence checking, which executes a kernel and its reference on symbolic inputs, turning each output cell into an exact algebraic expression, and then checks whether the paired expressions agree for all inputs. Because these expressions are exact, symbolic equivalence checking distinguishes floating-point error from logical bugs, while a single check covers the entire input space. We implement Racer, a PTX-level symbolic equivalence checking engine, with three techniques that make this approach practical for production kernels: (1) Shape Reduction to control checking cost, (2) a lockstep CTA scheduler to handle concurrency, and (3) idiom templates with exact numeric refutation for otherwise inconclusive results. Across 2,408 production kernels from 41 collection targets, Racer found 82 real bugs in 23 libraries, including 76 previously unknown bugs and 41 confirmed so far.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Introduces PTX-level symbolic equivalence checking to distinguish floating-point error from logical bugs in GPU kernels.",
+          "zh": "引入PTX级符号等价检查，以区分GPU内核中的浮点误差与逻辑错误。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "It directly supports GPU/PTX compiler and kernel correctness, complementing your verification and code-generation interests.",
+          "zh": "它直接支撑GPU/PTX编译器与内核正确性，与验证和代码生成兴趣互补。"
+        }
+      },
+      "authors": [
+        "Tuan Truong Vu",
+        "Cheng Tan"
+      ],
+      "categories": [
+        "cs.SC",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.37823964595794674,
+        "semantic": 0.6032780408859253
+      },
+      "paper_id": "2610.28429",
+      "pdf_url": "https://arxiv.org/pdf/2610.28429v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Racer: Hunting GPU Kernel Bugs with Symbolic Equivalence Checking",
+      "url": "https://arxiv.org/abs/2610.28429"
+    },
+    {
+      "abstract": "Processing-in-DRAM (PID) accelerators are emerging as a sustainable alternative to GPUs for transformer model inference. They bring compute to data, mitigate the memory bandwidth limitation, and reduce the overall energy footprint. Yet, carbon analysis of PID accelerators is covered for only a limited set of hardware and workloads. In this work, we present a carbon modeling framework for PID-enabled inference servers that captures embodied carbon along with idle and active operational carbon. Our evaluation spans three GPU baselines, six PID architectures, and eight transformer workloads. Additionally, we propose an aging-aware model that finds the carbon-optimal replacement period for PID accelerators over a 10-year horizon. Across evaluated configurations, our analysis shows that including PIDs in AI inference servers increases the total embodied carbon by at most 2.5\\%, while the total carbon is reduced by up to 1.14$\\times$ for encoder and 1.04$\\times$ for decoder transformer workloads. The results also depend on GPU selection for pairing, where introducing PID modules in high-end HGX-H100 servers incurs 5.4--5.9$\\times$ higher total carbon compared to A100 and H100 servers, due to their larger idle and embodied carbon. Introducing PID modules in higher-end GPU servers, compared to the A100-only baseline, increases (decreases) the total carbon-delay product (CDP) for encoder workloads (decoder workloads).",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Builds a carbon- and aging-aware framework for integrating processing-in-DRAM into transformer inference servers.",
+          "zh": "构建面向Transformer推理服务器的处理-DRAM集成碳排与老化感知评估框架。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 4,
+        "why_care": {
+          "en": "It informs PIM deployment trade-offs but is peripheral to compiler and architecture co-design work.",
+          "zh": "它有助于理解PIM部署权衡，但与编译器和架构协同设计关系较边缘。"
+        }
+      },
+      "authors": [
+        "Bipin Thapa Magar",
+        "Ishan Thakkar"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "diversity": 0.33025321006774894,
+        "semantic": 0.5788200497627258
+      },
+      "paper_id": "2610.27345",
+      "pdf_url": "https://arxiv.org/pdf/2610.27345v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Sustainable Processing-in-DRAM Integration and Replacement for Transformer Inference Servers",
+      "url": "https://arxiv.org/abs/2610.27345"
+    },
+    {
+      "abstract": "LLM agents have become capable kernel engineers on mainstream GPU stacks, but they struggle on emerging accelerators such as Ascend NPUs, whose programming model is barely represented in pretraining data. Recent NPU agents address this gap largely through experience: they accumulate memory from their own generation and optimization trials and reuse it on later tasks. We argue that experience alone is not enough for kernel generation. An agent can only remember what it has tried, and it rarely tries a mechanism it does not know. As a result, such memory offers little help when a new operator calls for a different mechanism, and even familiar operators raise unseen situations as optimization proceeds. We present ASCENDEVOLVE, which grounds every step of an evolutionary kernel search in a large external knowledge base built from platform documentation, toolkit headers, and operator repositories. Because this corpus far exceeds any context window, ASCENDEVOLVE indexes it and routes each agent to a small, task-specific slice of evidence instead of the corpus itself. The retrieved knowledge seeds diverse implementation strategies, guides repair when a candidate fails, and constrains how strong candidates are recombined. On 53 Ascend C operators from CANN-Bench spanning four difficulty levels, ASCENDEVOLVE achieves an overall score of 71.39, improving over Reflexion and OpenEvolve by 11.6% and 17.2%.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.84,
+        "contribution": {
+          "en": "Uses retrieval from platform knowledge to guide evolutionary LLM-agent generation of Ascend NPU kernels.",
+          "zh": "利用平台知识检索引导LLM智能体进化生成Ascend NPU内核。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "It shows a knowledge-guided alternative to experience-only agents for emerging accelerator code generation.",
+          "zh": "它展示了面向新兴加速器代码生成的知识引导替代方案，而非仅依赖经验积累。"
+        }
+      },
+      "authors": [
+        "Xi Chen",
+        "Ming Shen",
+        "Haotian Yan",
+        "Ruoyu Sun",
+        "Tianjun Yao"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.3265276670455932,
+        "semantic": 0.5769211649894714
+      },
+      "paper_id": "2610.27588",
+      "pdf_url": "https://arxiv.org/pdf/2610.27588v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Beyond Experience: Knowledge-Guided Evolution for NPU Kernel Generation",
+      "url": "https://arxiv.org/abs/2610.27588"
+    },
+    {
+      "abstract": "Sparse attention reduces the computational cost of long-sequence video Transformers, but three-dimensional token layouts often leave selected blocks partially occupied, wasting physical tile capacity. We present KPage, a block-sparse attention scheme that packs valid 16-row K/V pages across logical-block boundaries into large tiles directly during loading, without materializing compacted tensors in high-bandwidth memory. KPage also routes Q blocks between 64x256 and 128x128 tiles to reduce query-side padding. Exact masking and K/V-owned page packing preserve the original sparse graph in forward and backward execution. Across five representative workloads, KPage achieves 1.35x-2.06x bare forward-kernel speedup over NVIDIA Block-Sparse Attention (BSA), with a geometric mean of 1.77x. It is near parity for fully occupied blocks (1.03x) but achieves 2.29x geometric-mean speedup on 3D layouts with partial blocks. KPage reduces physical query-key pair capacity from 334.1G to 177.5G while preserving 160.6G useful interactions. Across eight layouts from open-source SSTA, STA, and VSA systems, KPage achieves 1.13x-4.25x forward and 1.02x-2.71x forward-plus-backward speedup over the strongest exact sparse baselines. With independent Q/K partitions, KPage also achieves 1.49x speedup over the strongest exact sparse baseline and 1.57x over BSA on the SVG2 Wan 14B/720p configuration. After compliance review, we will open-source KPage and submit a pull request to NVIDIA cuDNN Frontend.",
+      "affiliations": [
+        "KlingAI Research",
+        "NVIDIA"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.83,
+        "contribution": {
+          "en": "Packs sparse-attention K/V pages across block boundaries to improve GPU tile utilization.",
+          "zh": "跨块打包稀疏注意力K/V页以提升GPU瓦片利用率。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 6,
+        "why_care": {
+          "en": "It exemplifies data-layout and tiling optimizations for GPU attention kernels relevant to code generation.",
+          "zh": "它是与代码生成相关的GPU注意力内核数据布局与分块优化示例。"
+        }
+      },
+      "authors": [
+        "Junwei Feng",
+        "Qiaorui Chen",
+        "Chenyu Liang",
+        "Zhen Guo",
+        "Jingyi Yang",
+        "Xiaoling Zhou",
+        "Jiahao Zhang",
+        "Dongliang Huang",
+        "Yiqiao Liao",
+        "Chengru Song"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.3261232089996337,
+        "semantic": 0.5767150521278381
+      },
+      "paper_id": "2610.28096",
+      "pdf_url": "https://arxiv.org/pdf/2610.28096v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "KPage: Cross-Block Page Compaction for Hardware-Efficient Sparse Attention",
+      "url": "https://arxiv.org/abs/2610.28096"
+    },
+    {
+      "abstract": "Large language models can solve complex problems across a variety of subjects, such as mathematics and coding. For such complex analytical tasks, models with a long context perform better. Serving models with long context is currently mostly done on powerful systems with multiple GPUs, which are too expensive for most users. An alternative is local inference, or serving a model on a user's own machine, which removes per-token costs and rate limits, besides keeping sensitive data private and giving users full control over the models they run. The common understanding, however, is that local LLMs need compression (e.g., quantization) to run on a single GPU. In this paper, we set out to study the limitations that prevent serving long-context models for single users, besides the capacity issue. Rather than characterizing a single model on one GPU, we analyze how different models behave across several GPU generations. This lets us uncover not just individual bottlenecks but broader trends in where inefficiencies arise. Our analysis confirms that, as expected, self-attention dominates the runtime for long-context inference. More unexpectedly, our evaluation reveals that the current structure of self-attention leaves key GPU resources significantly underutilized, and the newest GPU is often the least well served. Many of these findings are fundamentally data management problems, from paging the KV cache to improving cache utilization and synchronization in the GPU, which is why we bring this study to the Data Systems community. To engage this community, we present our findings as a series of experimental observations and formulate recommendations for future work.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Characterizes long-context local LLM inference across GPU generations and frames bottlenecks as data-management problems.",
+          "zh": "跨GPU代际刻画长上下文本地LLM推理，并将瓶颈归结为数据管理问题。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "It highlights GPU resource underutilization in attention, useful context but not central to compiler/architecture work.",
+          "zh": "它揭示注意力中的GPU资源利用不足，是有用背景但非编译器/架构核心。"
+        }
+      },
+      "authors": [
+        "Mattias D\\\"urrmeier",
+        "Alberto Lerner"
+      ],
+      "categories": [
+        "cs.DB",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.3095870304107666,
+        "semantic": 0.5682867169380188
+      },
+      "paper_id": "2610.28223",
+      "pdf_url": "https://arxiv.org/pdf/2610.28223v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Local Inference of LLMs on Long Contexts: A Data Systems Perspective",
+      "url": "https://arxiv.org/abs/2610.28223"
+    },
+    {
+      "abstract": "Mixture-of-Experts (MoE) have become a mainstream way to scale Large Language Models (LLMs), because each token activates only a small subset of experts, reducing inference cost. However, MoE decode remains highly memory-bound and exhibits strongly skewed, time-varying expert loads. 3D-stacked DRAM near-memory processing (NMP) provides the bandwidth that decode demands, yet its tiled organization makes load balancing expensive: expert parallelism (EP) preserves locality but suffers from hotspot-induced imbalance, while more distributed strategies weaken locality and increase NoC traffic. To address this locality-balance conflict, we observe that domain-specialized token routing creates offsetting expert-load fluctuations across decode steps, a property we call expert complementarity. Using this insight, we propose 3D-MoE, a hardware--software co-designed system for MoE decode on 3D-stacked NMP. 3D-MoE uses offline, one-time complementarity-guided grouping and locality-aware mapping to establish coarse-grained inter-group balance, handles residual intra-group hotspots through a lightweight Collaborative Memory-Network (CMN) that streams each hot expert's weight tiles once from its host DRAM channel to helper cores over a reconfigured local broadcast path, and uses cost-aware online remapping to remain robust to workload drift. Across MoE models, 3D-MoE achieves an average 4.63$\\times$ MoE-layer speedup over EP and improves end-to-end throughput by 1.58$\\times$--1.86$\\times$ over the strongest NMP baselines, with 2.11\\% additional logic-die area.",
+      "affiliations": [
+        "Chinese Academy of Sciences",
+        "University of Chinese Academy of Sciences",
+        "University of Edinburgh"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Co-designs MoE decode on 3D-stacked near-memory processing using expert complementarity and locality-aware mapping.",
+          "zh": "利用专家互补性与局部性感知映射，在三维堆叠近存处理上协同设计MoE解码。"
+        },
+        "elegance": 7,
+        "novelty": 8,
+        "relevance": 8,
+        "transferability": 7,
+        "why_care": {
+          "en": "It directly advances memory-centric accelerator co-design for LLM serving workloads.",
+          "zh": "它直接推进面向LLM服务负载的内存中心加速器协同设计。"
+        }
+      },
+      "authors": [
+        "Yudong Pan",
+        "Lian Liu",
+        "Shixin Zhao",
+        "Yintao He",
+        "Kaiyan Chang",
+        "Tianhua Han",
+        "Chenyang Ai",
+        "Haonan Zhu",
+        "Mengdi Wang",
+        "Yinhe Han",
+        "Ying Wang"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.29188849925994864,
+        "lexical": 68.35393569506833,
+        "semantic": 0.5592661499977112
+      },
+      "paper_id": "2610.26991",
+      "pdf_url": "https://arxiv.org/pdf/2610.26991v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "3D-MoE: Complementarity-Guided Hardware-Software Co-Design for MoE Decode on 3D-Stacked NMP",
+      "url": "https://arxiv.org/abs/2610.26991"
+    },
+    {
+      "abstract": "As generative AI continues to evolve, retrieval-augmented generation (RAG) systems are driving rapid growth in vector database capacity requirements. As datasets outgrow host DRAM, vector databases rely on MMap-based serving over SSDs to extend capacity. However, high-fan-out ANN searches generate concurrent irregular accesses that contend for host memory and storage resources, degrading bulk throughput and inflating tail latency under mixed workloads. In this paper, we address these challenges through memory-semantic capacity and workload-aware compute placement. VS-Flash exposes flash as a large-capacity memory-semantic space and dynamically selects the execution engine according to runtime query and workload characteristics. It offloads throughput-oriented large-batch queries to a Computational Memory-Semantic Flash (CMS-Flash) device, while executing latency-sensitive small-batch queries on the host CPU. Both paths access the same resident segments, avoiding a separate host-DRAM replica. Across three billion-scale datasets, VS-Flash improves bulk-search throughput over vanilla Milvus by 36.8X on average, with up to a 57.4X improvement. Under mixed workloads, VS-Flash reduces the p99 latency of latency-sensitive requests by up to 24.8X while sustaining device-side bulk search. These results show that VS-Flash delivers scalable vector search beyond host DRAM capacity while jointly improving bulk throughput and small-request tail latency.",
+      "affiliations": [
+        "Samsung Semiconductor"
+      ],
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Exposes flash as memory-semantic capacity and dynamically places vector-search work between a computational flash device and host CPU.",
+          "zh": "将闪存暴露为内存语义容量，并在计算闪存设备与主机CPU间动态放置向量搜索工作。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "It extends near-memory compute to storage for RAG, relevant but outside your compiler-centric core.",
+          "zh": "它将近存计算扩展到面向RAG的存储，相关但偏离以编译器为核心的方向。"
+        }
+      },
+      "authors": [
+        "Donguk Kim",
+        "Sangjun Pae",
+        "Daeyoung Lee",
+        "Dong Kim"
+      ],
+      "categories": [
+        "cs.DB",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.2794943046569824,
+        "semantic": 0.5529489517211914
+      },
+      "paper_id": "2610.26960",
+      "pdf_url": "https://arxiv.org/pdf/2610.26960v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "VS-Flash: Harnessing Vector Search with Computational Memory-Semantic Flash",
+      "url": "https://arxiv.org/abs/2610.26960"
+    },
+    {
+      "abstract": "For efficient deployment of large language models (LLMs), methods of ultra-low-bit backbones reduce weight storage, memory traffic, and linear-layer execution cost, while multi-token prediction (MTP) methods reduce sequential decoding steps by predicting multiple future tokens in parallel. Although complementary, the direct combination of these methods cannot accelerate decoding at comparable quality: masked drafting lacks intermediate token input supplied in next-token training, while wider computation and causal key-value (KV) updates can offset the savings from fewer steps. To address these challenges, we propose BitMTP, an algorithm-system co-design framework for efficient MTP on ultra-low-bit LLM backbones. A joint next-token prediction and MTP objective equips a single model with both autoregressive (AR) generation and block-causal drafting. Confidence-only decoding, speculative-only decoding, and hybrid decoding provide different quality-throughput operating points without using separate draft and verifier models. Accepted-prefix alignment keeps the committed prefix, materialized causal KV boundary, and CUDA Graph replay state consistent for continued generation. BitMTP uses this contract to select width-specialized low-bit execution and reuse captured graphs over shared KV storage. On NVIDIA H20, BitMTP with hybrid decoding achieves five-task mean speedups of 2.2x on BitNet b1.58-2B and 2.1-2.4x on 1.7B-4B Bonsai models at comparable task quality. On RTX 3090 and Jetson Orin, it further achieves up to 2.0x in five-task mean throughput and 3.3x on MBPP+, respectively. These results demonstrate that BitMTP accelerates ultra-low-bit LLM generation across backbones, model sizes, and GPU types. The source code is released at https://github.com/PolyU-VCLab/BitMTP",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Co-designs multi-token prediction with ultra-low-bit LLM execution and CUDA graph replay.",
+          "zh": "将多 token 预测与超低位 LLM 执行及 CUDA 图重放进行协同设计。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "GPU runtime graph-state management may transfer, but it is mainly LLM-inference-specific rather than compiler-core work.",
+          "zh": "其 GPU 运行时图状态管理有一定借鉴意义，但主要面向 LLM 推理而非编译器核心。"
+        }
+      },
+      "authors": [
+        "Ning Zhang",
+        "Shihao Wang",
+        "Jinrui Zhang",
+        "Chaodong Xiao",
+        "Lei Zhang"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.DC",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "lexical": 65.33585687474931,
+        "semantic": 0.5519139766693115
+      },
+      "paper_id": "2610.28500",
+      "pdf_url": "https://arxiv.org/pdf/2610.28500v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "BitMTP: When Multi-Token Prediction Meets Low-Bit Large Language Models",
+      "url": "https://arxiv.org/abs/2610.28500"
+    },
+    {
+      "abstract": "Double-precision matrix multiplication, real (DGEMM) and complex (ZGEMM), dominates the run time of dense linear algebra and electronic-structure codes. On affordable GPUs, however, FP64 throughput is a small and shrinking fraction of the throughput of the low-precision matrix engines. Ozaki scheme II closes this gap by reducing a floating-point matrix product to a handful of exact INT8 products followed by a Chinese-remainder reconstruction; the number of products sets the accuracy. We present what is, to our knowledge, the first implementation of Ozaki scheme II for Intel GPUs. Written in SYCL on top of oneMKL, it runs entirely on the device and exposes the full BLAS dgemm/zgemm interface. Making the scheme fast on the Xe2 (Battlemage) architecture required keeping FP64 arithmetic out of all memory-bound kernels, a branch-free residue computation, an FP32 evaluation of the CRT quotient with a proven safety margin, 16-bit limb arithmetic in the reconstruction, and work-arounds for performance cliffs of the vendor INT8 GEMM. On an Intel Arc Pro B60 (24 GB) the emulated DGEMM reaches 17.3, 12.1 and 9.3 TFLOP/s with $s=8$, 12 and 16 moduli at $N=8192$, and up to 21.1 TFLOP/s overall, i.e. 12-28x the native FP64 DGEMM of the same board. The emulated ZGEMM, which uses the 3M form exactly in integer arithmetic, reaches up to 27.4 TFLOP/s and is 13.7-17.8x faster than native ZGEMM for $N\\ge4096$ at $s=16$. With $s\\ge16$ the results are correctly rounded for well-scaled inputs and, using an extended-width residue path ($s=20$-24), also for inputs with wide exponent ranges, whereas native DGEMM rounds only 2-13% of the entries correctly. We also report worst-case accuracy, phase breakdowns, energy, an ablation study, a comparison with Ozaki scheme I, and a validated performance model.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Implements Ozaki scheme II INT8 emulation of DGEMM/ZGEMM on Intel Xe2 GPUs.",
+          "zh": "在 Intel Xe2 GPU 上用 INT8 模拟 DGEMM/ZGEMM 的 Ozaki II 方案。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "Low-precision emulation and GPU microarchitecture tuning inform accelerator code generation, though not compiler IR or rewriting cores.",
+          "zh": "低精度模拟与 GPU 微架构调优可为加速器代码生成提供参考，但不涉及编译器 IR 或重写核心。"
+        }
+      },
+      "authors": [
+        "Rostislavs Rostovskis",
+        "Aleksandrs Platonenko"
+      ],
+      "categories": [
+        "cs.MS",
+        "cs.DC",
+        "cs.NA",
+        "math.NA"
+      ],
+      "channel_scores": {
+        "semantic": 0.5376908183097839
+      },
+      "paper_id": "2610.26945",
+      "pdf_url": "https://arxiv.org/pdf/2610.26945v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Emulating DGEMM and ZGEMM with INT8 Matrix Engines on Intel Arc GPUs: Ozaki Scheme II on the Xe2 Architecture",
+      "url": "https://arxiv.org/abs/2610.26945"
+    },
+    {
+      "abstract": "Homomorphic encryption allows a computing service to process encrypted data, but the client must first encode and encrypt its inputs. Sharing hardware between floating-point encoding and modular encryption reduces area but requires those transform roles to execute at different times. We present a streaming FPGA architecture for CKKS encoding and encryption that computes the shared floating-point encoding transform once and performs the integer transforms for six residue moduli in parallel. Dedicated transform pipelines exchange intermediate results on chip rather than through off-chip memory. DSP Builder generates the transform RTL, and Altera HLS IP Gen compiler compiles the surrounding SYCL pipeline into IP integrated with DMA and control logic in an accelerator functional unit. At polynomial degree N = 8192, the Altera Agilex 7 implementation delivers 5,143 complete ciphertexts per second at 471 MHz. One SEAL-Embedded CPU worker on the same workstation delivers 113 ciphertexts per second for real-valued inputs using all 4,096 slots. Measurements cover prepared-input computation through complete ciphertext construction, including FPGA submission and output delivery.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Presents a streaming FPGA design that shares encoding and encryption transforms for CKKS using SYCL/HLS.",
+          "zh": "面向 CKKS 的流式 FPGA 设计以 SYCL/HLS 共享编码与加密变换。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Hardware/software pipeline co-design is interesting but far from compiler optimization and program synthesis.",
+          "zh": "软硬件流水线协同设计有趣，但离编译器优化与程序合成较远。"
+        }
+      },
+      "authors": [
+        "Joseph Kurina",
+        "Bogdan Pasca",
+        "Suleyman Demirsoy",
+        "Sunwoong Kim"
+      ],
+      "categories": [
+        "cs.CR",
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.24579603672027583,
+        "lexical": 55.315441111747205,
+        "semantic": 0.5357734560966492
+      },
+      "paper_id": "2610.27204",
+      "pdf_url": "https://arxiv.org/pdf/2610.27204v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "A Combined Streaming FPGA Architecture for Client-Side CKKS Encoding and Encryption",
+      "url": "https://arxiv.org/abs/2610.27204"
+    },
+    {
+      "abstract": "Distance scans in partition-family approximate nearest-neighbor (ANN) search are typically limited by memory bandwidth. Existing systems therefore improve throughput by reading fewer bytes per candidate, often at the cost of recall. We present KatoANN, a CPU ANN search system that removes this tradeoff by batching distance scans on Intel AMX, a CPU matrix engine. Batching allows multiple queries to reuse each fetched vector code, shifting the scan from memory-bound to compute-bound and enabling near-exact distances at the speed of a lossy scan. KatoANN stores each vector once as a 16-bit SQ16 code split into high- and low-byte planes. Its adaptive rank-then-refine scan first ranks all candidates using only the high byte, then refines a small survivor set using the full-byte code. Both stages use the same representation, avoiding a second copy of the raw vectors. Experiments across diverse high-dimensional workloads show that KatoANN is the fastest partition-family ANN search system in our evaluation throughout the high-recall range.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Batches ANN distance scans on Intel AMX to shift them from memory-bound to compute-bound.",
+          "zh": "利用 Intel AMX 批处理 ANN 距离扫描，使其从访存受限转为计算受限。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "Matrix-engine use and batching may inspire accelerator scheduling, but this is not core compiler work.",
+          "zh": "矩阵引擎利用与批处理调度或可启发加速器调度，但不属于核心编译器研究。"
+        }
+      },
+      "authors": [
+        "Soobin Cho",
+        "Gyuyeong Kim"
+      ],
+      "categories": [
+        "cs.DB",
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "lexical": 61.00029036641319,
+        "semantic": 0.534643828868866
+      },
+      "paper_id": "2610.27508",
+      "pdf_url": "https://arxiv.org/pdf/2610.27508v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "KatoANN: Enabling Near-Exact Vector Search at the Speed of Lossy Scans with CPU Matrix Engines",
+      "url": "https://arxiv.org/abs/2610.27508"
+    },
+    {
+      "abstract": "Split Computing (SC) is a distributed inference method designed for balancing computational load and reducing latency by partitioning a neural network into head and tail networks and deploying them across both a mobile device and a server, respectively. Due to the limited bandwidth and computational power of mobile devices, the head network is often replaced with a neural network that requires lower computational and communication resources. However, it is challenging to prepare a sufficient quantity and quality of labeled data on the mobile device side for training the replacement head network. Furthermore, the data prepared by mobile users often contains sensitive privacy information, making data aggregation difficult. In this paper, we propose a data-efficient head network training method for SC. This method utilizes federated learning and knowledge distillation to train the head network using a small amount of non-IID and unlabeled data from mobile devices, ensuring that the training datasets are not exposed. Moreover, by introducing personalization, we enhance the accuracy to levels comparable to or exceeding those of existing methods. The experimental evaluations demonstrate that, despite data constraints imposed only on our method, it achieves accuracy comparable to the baselines. Furthermore, it significantly reduces the communication requirements by 95% on mobile devices, with only a 3-5 percentage point drop in accuracy from the original model.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Trains personalized split-computing head networks via federated learning and knowledge distillation.",
+          "zh": "通过联邦学习与知识蒸馏训练个性化拆分计算头网络。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Edge distributed inference has weak connection to compilers, architecture, and code generation.",
+          "zh": "边缘分布式推理与编译器、体系结构及代码生成的关联很弱。"
+        }
+      },
+      "authors": [
+        "Yutaro Horikawa",
+        "Takayuki Nishio"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DC",
+        "cs.NI"
+      ],
+      "channel_scores": {
+        "diversity": 0.23879407405853265,
+        "lexical": 52.82443480089085,
+        "semantic": 0.5322046875953674
+      },
+      "paper_id": "2610.27952",
+      "pdf_url": "https://arxiv.org/pdf/2610.27952v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Unsupervised Head Network Personalization for Split Computing via Federated Learning",
+      "url": "https://arxiv.org/abs/2610.27952"
+    },
+    {
+      "abstract": "Mixture-of-Experts (MoE) models reduce computation through sparse expert activation, but deployment still requires storing a large number of expert parameters. We study post-training expert pruning using task-domain calibration data as a subset-selection problem: given a pretrained MoE layer, select a fixed number of experts that best reconstruct its original output. Exact subset search is combinatorial and becomes intractable for modern MoE models with many experts per layer. We develop OptEP, a scalable continuous relaxation that directly optimizes differentiable expert-selection variables, followed by a lightweight reconstruction-based update of the retained expert weights. Across multiple MoE architectures and tasks spanning mathematical reasoning and code generation, our approach improves over the strongest existing expert-pruning baselines, with absolute accuracy gains of up to 15.05% on Qwen3-30B-A3B, 14.55% on Qwen3-235B-A22B, 11.06% on GLM-4.5-Air, and 16.20% on Mixtral-8x7B. The improvements are particularly pronounced under aggressive pruning, demonstrating that reconstruction-driven expert selection and weight adaptation can preserve substantially more of the original model's performance while reducing the number of retained experts.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Selects and adapts MoE experts by optimizing reconstruction under pruning.",
+          "zh": "通过优化剪枝下的重构来选择并适配 MoE 专家。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Model compression is tangential to compiler infrastructure and code generation.",
+          "zh": "模型压缩与编译器基础设施及代码生成关系较弱。"
+        }
+      },
+      "authors": [
+        "Jelena Markovic-Voronov",
+        "Petros Prastakos",
+        "Kayhan Behdin",
+        "Jincheng Cao",
+        "Zhipeng Wang",
+        "Shayan Mohajer Hamidi",
+        "Yuanda Xu",
+        "Zhengze Zhou",
+        "Wenhui Zhu",
+        "Rahul Mazumder"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5243657231330872
+      },
+      "paper_id": "2610.27123",
+      "pdf_url": "https://arxiv.org/pdf/2610.27123v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Reconstruction-Optimized Expert Pruning for Mixture-of-Experts Language Models",
+      "url": "https://arxiv.org/abs/2610.27123"
+    },
+    {
+      "abstract": "Energy-efficient deployment of large language models requires understanding how model architecture, hardware, and serving settings shape energy per generated token. We introduce the Token-Energy Law, a compact, interpretable model of GPU-board energy per output token for dense, full-history decoding. It relates token energy to two core dimensions: active bytes and realized decode time. Active bytes describe logical byte demand per output, separating dense weights shared within a decode iteration from private key--value (KV) histories read and updated for each request. Realized decode time is the elapsed decode duration divided by the number of output tokens produced. We combine the two byte coordinates and time in a common affine form, with coefficients calibrated for each model and hardware/runtime configuration. This formulation explains how batching amortizes shared-weight work, longer attended histories increase private KV demand, and throughput determines the time-associated cost per output. Our experiments cover three models under BF16 decoding on NVIDIA Hopper and Blackwell GPUs, including two-GPU tensor parallelism on Hopper. Using fixed coefficients and observed decode time, held-out condition-mean energy estimates differ from measurements by at most 3.73%.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Models LLM decode energy per token via active bytes and realized decode time.",
+          "zh": "用活跃字节与实测解码时间建模 LLM 每 token 解码能耗。"
+        },
+        "elegance": 7,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "The compact performance/energy model could inform hardware-software co-design, but it is not a compiler technique.",
+          "zh": "紧凑的性能/能耗模型可辅助软硬件协同设计，但并非编译器技术。"
+        }
+      },
+      "authors": [
+        "Chenxu Niu",
+        "Batuhan Sencer",
+        "Wei Zhang",
+        "Yong Chen"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DC",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "semantic": 0.5242021679878235
+      },
+      "paper_id": "2610.28576",
+      "pdf_url": "https://arxiv.org/pdf/2610.28576v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "The Token-Energy Law of LLM Decode: Active Bytes and Realized Time Account for Joules per Token",
+      "url": "https://arxiv.org/abs/2610.28576"
+    },
+    {
+      "abstract": "Privacy-preserving machine learning (PPML) offers a promising path toward bringing powerful AI services to the edge without exposing sensitive user data. However, its practical deployment remains constrained by the high communication, computation, and data-movement costs of secure multi-party computation (MPC), particularly during nonlinear inference. Existing MPC systems typically decouple input-independent correlated randomness generation from online execution, creating substantial memory pressure to buffer single-use cryptographic data. Moreover, limited storage can force a stop-and-refill execution pattern that repeatedly stalls the pipeline to replenish these buffers, bringing randomness generation back onto the critical path. We propose Interflow, an algorithm-hardware co-design that rethinks this separation by batch-wise processing and pipelining correlated-randomness generation with online execution: while the current batch consumes pre-generated randomness to execute secure nonlinear operations, correlation generation proceeds concurrently for the next batch. By leveraging interleaved execution, efficient data movement, and hardware acceleration, the design transforms preprocessing from a serialized, storage-intensive offline phase into a continuously overlapped pipeline that generates correlated randomness closer to the point of consumption, reducing memory footprint and data movement overhead. Implemented on the Zynq UltraScale+ ZCU102, Interflow improves nonlinear evaluation throughput by up to 1.55x for CNN operators and 1.48x for transformer operators. It achieves up to 1.26x speedup for ResNet-50 and up to 1.21x speedup for BERT-base, and reduces memory footprint by up to 37%, compared with baseline frameworks.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Pipelines correlated-randomness generation with online MPC execution in an FPGA edge design.",
+          "zh": "在 FPGA 边缘设计中把相关随机数生成与在线 MPC 执行流水化。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Algorithm-hardware overlap is interesting but remote from compiler, ISA, and code-generation work.",
+          "zh": "算法-硬件重叠设计有趣，但与编译器、ISA 及代码生成研究相距较远。"
+        }
+      },
+      "authors": [
+        "Hanieh Totonchi Asl",
+        "Ebrahim Nouri",
+        "Zhuoran Li",
+        "Danella Zhao"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.CR"
+      ],
+      "channel_scores": {
+        "semantic": 0.5229862928390503
+      },
+      "paper_id": "2610.27431",
+      "pdf_url": "https://arxiv.org/pdf/2610.27431v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Interflow: Breaking the Offline-Online Barrier for Private AI at the Edge",
+      "url": "https://arxiv.org/abs/2610.27431"
+    },
+    {
+      "abstract": "Graph generative models commonly use graph-specific Transformer architectures to jointly update node and edge features. However, these architectures do not directly benefit from recent hardware-aware attention implementations, limiting their scalability. The adaptation is, however, non-trivial: edge and graph-level features must be injected into pairwise attention scores, graph masks must be respected, and dynamic edge updates remain a major source of quadratic memory usage. We propose an edge-aware attention layer for graph generation that incorporates structural information through head-wise score modulation, while updating edge representations with a lightweight residual mechanism that retains attention-score dependent edge updates. This layer can be effectively implemented using PyTorch's FlexAttention. We achieve similar generation quality to our baseline while reducing peak GPU memory by around 65% and substantially improving training and sampling throughput. These results suggest that the proposed architecture is a practical step toward scalable graph foundation models.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Proposes an edge-aware attention layer for graph generation with head-wise score modulation and lightweight residual edge updates, implemented via FlexAttention to cut memory.",
+          "zh": "提出面向图生成的边感知注意力层，用头级分数调制和轻量残差边更新，并借助FlexAttention降低显存。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "It touches GPU attention implementation optimization but lacks compiler IR or code-generation contributions.",
+          "zh": "可与GPU注意力实现优化相关，但缺少编译器IR或代码生成贡献。"
+        }
+      },
+      "authors": [
+        "Vincent Jung",
+        "Alba Carballo-Castro",
+        "Yiming Qin",
+        "Lonneke van der Plas",
+        "Pascal Frossard"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.5195091962814331
+      },
+      "paper_id": "2610.28618",
+      "pdf_url": "https://arxiv.org/pdf/2610.28618v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Efficient Edge-aware Attention Network for Graph Generation",
+      "url": "https://arxiv.org/abs/2610.28618"
+    },
+    {
+      "abstract": "Firmware diagnostic logging (printf) is an essential debug instrument in full-chip SoC design verification, yet it imposes a heavy tax on cycle-accurate RTL simulation: formatting a 30-character, 1-argument message on a simulated CPU and serializing it through an MMIO aperture costs 3.04 to 15.23 $\\mu$s per call (15.27 $\\mu$s unweighted / 15.08 $\\mu$s print-weighted critical-path mean on Suite A). Unlike embedded tokenizers that target flash footprint and wire bytes with offline decoding, RTL simulation is governed by a two-regime cost function---cross-fabric SoC paths are dominated by MMIO bus stalls (84.7% of call latency) whereas local subsystem paths are dominated by on-core vsprintf formatting (61.7%)---and requires live, zero-simulation-time string reconstruction to drive UVM scoreboards. We present a host-side in-simulation tokenized logging architecture for heterogeneous multi-core SoCs that eliminates both bottlenecks with zero firmware call-site edits. Using link-time ELF format-string virtual addresses as tokens over a fixed 32-bit word-aligned slot protocol across Arm, RISC-V, and DSP cores, on-core logging collapses to a single-pass specifier scan and $(1+S)$ MMIO word writes. This removes all on-core radix conversion ($C_{\\mathrm{fmt}} \\to 0$), 85.0%--94.5% of deployed bus transactions, 84.6%--93.3% of MMIO bus-stall cycles, and 63.5%--90.9% of total on-core logging cycles ($2.74\\times$--$11.03\\times$), while a SystemVerilog monitor reconstructs bit-exact strings in zero simulated cycles ($\\Delta t_{\\mathrm{sim}} = 0$). Across 858 matched full-chip test pairs (1,716 paired runs across 1,972 runs), we achieve 100% output parity with zero simulator memory overhead, saving 1,314.85 CPU hours (-26.18%) per regression pass, cutting median test CPU time by 41.51% (Suite A) and 21.33% (Suite B), and shrinking traces by 42.84% and waveforms by 28.82%.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Presents host-side tokenized logging that removes firmware printf formatting and MMIO bus overhead in RTL simulation.",
+          "zh": "提出主机侧令牌化日志架构，消除RTL仿真中固件printf的格式化与MMIO总线开销。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It is EDA verification performance work with limited direct relevance to compiler or architecture research.",
+          "zh": "属于EDA验证性能优化，与编译器/架构研究的直接关联有限。"
+        }
+      },
+      "authors": [
+        "Daniel Keller",
+        "Rohit Kumar"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.PF",
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "semantic": 0.5186611413955688
+      },
+      "paper_id": "2610.27356",
+      "pdf_url": "https://arxiv.org/pdf/2610.27356v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Stop Paying by the Letter: Accelerating Full-Chip RTL Simulation with Host-Side Tokenized Logging",
+      "url": "https://arxiv.org/abs/2610.27356"
+    },
+    {
+      "abstract": "Despite decades of progress in model-based methods and tools for embedded real-time systems, there is still no integrated environment that supports the entire development lifecycle. This paper presents MIMOS-Tools, a comprehensive toolchain spanning the key phases of development, including modeling, simulation, formal verification, real-time scheduling, schedulability and end-to-end latency analysis, and code generation for heterogeneous multicore platforms. All phases are grounded in a single, coherent, and deterministic model of computation, the MIMOS model, for which we present a formal operational semantics and establish both functional and timing determinism. This semantic foundation ensures that properties verified at the model level are preserved throughout the development process and in the generated implementation. A distinguishing feature of MIMOS-Tools is its support for not only deterministic but also modular, compositional design. Unlike synchronous design environments such as SCADE and Simulink, which rely on a global base clock and offline static scheduling, MIMOS-Tools supports time-triggered asynchronous communication together with flexible real-time scheduling of computation. This removes the tight global coupling of the synchronous paradigm: components can be added, modified, or updated without recomputing a system-wide schedule, enabling scalable and incremental design and dynamic updates throughout the system lifecycle. However, MIMOS-Tools also supports Simulink models when the deadlines of tasks are set to zero to emulate the zero-time semantics of synchronous design. The toolchain is available at uu-mimos.github.io.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Presents an integrated MIMOS toolchain grounded in one deterministic model, covering modeling, verification, scheduling, and heterogeneous multicore code generation.",
+          "zh": "提出基于单一确定性MIMOS模型的集成工具链，覆盖建模、验证、调度与异构多核代码生成。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Its heterogeneous multicore code generation and scheduling are relevant to embedded compilation, though not centered on compiler optimization.",
+          "zh": "其异构多核代码生成与调度对嵌入式编译有参考价值，但核心不在编译器优化。"
+        }
+      },
+      "authors": [
+        "Wang Yi",
+        "Chengzi Huang",
+        "Behnam Khodabandeloo",
+        "Duc Anh Nguyen"
+      ],
+      "categories": [
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "semantic": 0.5176060199737549
+      },
+      "paper_id": "2610.27826",
+      "pdf_url": "https://arxiv.org/pdf/2610.27826v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "MIMOS-Tools: An Integrated Toolchain for Model-Based Design of Embedded Systems",
+      "url": "https://arxiv.org/abs/2610.27826"
+    },
+    {
+      "abstract": "Recent studies have proposed reinforcement learning with verifiable rewards (RLVR) methods that enable LLMs to generate high-quality RTL circuits from natural-language specifications. Existing approaches optimize circuit PPA (Power, Performance, Area) by aggregating multiple objectives into a single scalar reward, making it difficult to simultaneously generate diverse Pareto-optimal solutions across different trade-offs such as low power, low latency, and small area. However, in practical design, the relative importance of each objective varies depending on product requirements and design constraints; thus, obtaining a diverse and high-quality candidate set is beneficial in that designers can choose a preferred trade-off a posteriori. In this work, we are the first to propose a learning method for LLM-based circuit generation that optimizes, not the quality of a single circuit, but the quality and diversity of the entire circuit set obtained through multiple generations in the PPA objective space. The proposed method consists of (1) a generation-based training pipeline that reformulates coverage improvement of the entire Pareto solution set into a sequential circuit generation problem, and (2) a reward function based on Hypervolume Contribution (HVC) that measures how much a generated circuit contributes to the Pareto front. Evaluation on the RTLLM v2 benchmark shows that the proposed method achieves +13.3 percentage points in relative Hypervolume over a baseline without PPA optimization and +14.4 percentage points over a single-objective reinforcement learning method, while also demonstrating superiority in circuit diversity.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.83,
+        "contribution": {
+          "en": "Proposes multi-objective RL for LLM-based RTL generation, using hypervolume-contribution rewards to improve Pareto-set quality and diversity.",
+          "zh": "提出基于多目标强化学习的LLM RTL生成方法，用超体积贡献奖励优化Pareto解集质量与多样性。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "Its multi-objective Pareto search could transfer to compiler tuning or superoptimization, but targets RTL rather than IR.",
+          "zh": "多目标Pareto搜索思路可迁移到编译器调优/超优化，但对象是RTL而非IR。"
+        }
+      },
+      "authors": [
+        "Koki Takeshita",
+        "Kenji Uebayashi",
+        "Hikaru Tomonari",
+        "Masaya Tsunokake",
+        "Koichiro Yawata",
+        "Tatsuya Sasaki",
+        "Yusuke Ohtsubo",
+        "Kota Dohi",
+        "Yasuhiro Sogawa"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5097392201423645
+      },
+      "paper_id": "2610.26904",
+      "pdf_url": "https://arxiv.org/pdf/2610.26904v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Pareto-Optimal RTL Code Generation via Multi-Objective Reinforcement Learning with Large Language Models",
+      "url": "https://arxiv.org/abs/2610.26904"
+    },
+    {
+      "abstract": "Head-dimension compression can reduce the memory required by the key-value (KV) cache, but existing methods often reconstruct full-dimensional representations during inference, adding significant decoding FLOPs overhead. We formalize the design considerations for converting pretrained attention into a natively reduced-dimensional form that reduces both KV-cache storage and attention computation using a calibration set. Specifically, we consider reductions that (1) apply a shared projection to queries and keys so that they remain in a common reduced feature space, (2) derive this projection jointly from query and key activations to better preserve their interaction, and (3) are compatible with the pretrained RoPE transformation. To obtain a reconstruction-free realization of this reduction, we restrict it to coordinate selection and theoretically show that RoPE compatibility then holds if and only if complete rotary pairs are retained. Building on this characterization, we introduce RACE, a post-training method that selects rotary pairs using their joint query-key activation energy. We theoretically show that this criterion minimizes a separable, calibration-dependent upper bound on post-RoPE query-key product approximation error. The resulting reductions are folded into the model weights and require neither runtime reconstruction nor specialized kernels. Across three model families and different compression levels, RACE outperforms structured pruning and remains competitive with reconstruction-based methods on language-modeling, zero-shot, and long-context tasks. At 50% KV-cache retention and 256K context, RACE reduces total inference FLOPs by 47.8%, yielding 1.79x higher throughput, 43.2% lower time-to-first-token (TTFT), and 28.1% lower allocated GPU memory in comparison to an uncompressed model.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Introduces RoPE-aligned coordinate-selection compression driven by query-key activation energy, folding the reduction into weights without runtime reconstruction.",
+          "zh": "提出基于查询-键激活能量的RoPE对齐坐标选择压缩，将降维折叠进权重而不需运行时重建。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "It targets inference compression rather than compilers or architecture, making direct relevance low.",
+          "zh": "面向推理压缩而非编译器或体系结构，直接相关性低。"
+        }
+      },
+      "authors": [
+        "Irene Tenison",
+        "Abdulrahman Alabdulkareem",
+        "Daniel Karl I. Weidele",
+        "Nima Dehmamy",
+        "Dan Gutfreund"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5051535964012146
+      },
+      "paper_id": "2610.28385",
+      "pdf_url": "https://arxiv.org/pdf/2610.28385v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "RACE: RoPE-Aligned Attention Compression Based on Query-Key Activation Energies",
+      "url": "https://arxiv.org/abs/2610.28385"
+    },
+    {
+      "abstract": "Learned surrogates for power-flow (PF) computation are usually motivated by speed, compared against a single CPU-based baseline. We show this comparison is fragile: across 7 open-source CPU-based solvers evaluated on identical inputs, throughput varies by roughly 2.5-3 orders of magnitude, so the choice of baseline alone can flip the conclusion. We build a benchmark spanning 9 physics-based solvers: 7 CPU-based and 2 GPU-based, including a new batched GPU solver, gumsim2grid - and 3 published ML surrogates, evaluated under a shared, independently implemented KCL-mismatch check across 15 grids from 14 to 70,000 buses. On the PF task itself, a sufficiently parallelized CPU solver or gpusim2grid matches or exceeds the throughput of the ML surrogates we test while remaining orders of magnitude more accurate; we find no evidence that these GNN-style surrogates are yet competitive for PF specifically, though prior work reports genuine gains on related but more combinatorial tasks such as optimal power flow or power grid control. Beyond this finding, we hope the benchmark suite, code and reference evaluator released at https://github.com/Grid2op/gpusim2grid helps close a broader reproducibility gap in this space, where batched GPU-based PF solvers are rarely open-sourced or evaluated against a common set of baselines.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Builds a CPU/GPU/ML power-flow solver benchmark from 14 to 70,000 buses, showing baseline choice can flip conclusions.",
+          "zh": "构建跨14至70,000母线的CPU/GPU/ML潮流求解器基准，发现基线选择可翻转结论。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "It cautions that GPU/ML performance comparisons need strong baselines, but the topic is power-system solver benchmarking.",
+          "zh": "提醒GPU/ML性能比较需强基线，但主题是电力系统求解器基准。"
+        }
+      },
+      "authors": [
+        "Benjamin Donnot",
+        "Sami Tazi",
+        "Eva Boguslawski",
+        "Nourredine Henka"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "semantic": 0.5041404366493225
+      },
+      "paper_id": "2610.27930",
+      "pdf_url": "https://arxiv.org/pdf/2610.27930v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Benchmarking CPU, GPU, and ML Power-Flow Solvers from 14 to 70,000 Buses",
+      "url": "https://arxiv.org/abs/2610.27930"
+    },
+    {
+      "abstract": "Ternary LLMs read only a few gigabytes per decoded token, yet on dual-socket servers with four NUMA nodes the fastest ternary runtime we found uses less than half of the memory bandwidth. Placing each weight on the node of the thread that reads it is necessary but not enough: in a decode engine with node-local weights that reuses ik_llama.cpp's kernels, threads on two generations of Xeon servers still spend 20-48% of each token waiting at synchronization points. Per-thread barrier traces show that most of the wait is for the slowest threads of each node; the barriers' own latency (microseconds each, but up to 12% of the token for the smallest model) and serial per-node work are smaller parts. On identical kernels, a Megatron-style column split beats a row-owned split without cross-node reductions in every configuration we measured, and isolating the number of barriers shows that most of its gain comes from its threads waiting less for each other and for their node leaders, and only a minority from having fewer barriers. Where decoding is DRAM-bound, the resulting engine is 1.5-2.1x faster than ik_llama.cpp with all cores and 1.5-1.9x faster than ik_llama.cpp at its fastest thread count (3.2x and 2.8x for a small model that runs from the L3 cache), at the same accuracy and with less energy per token.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Analyzes synchronization bottlenecks in multi-NUMA ternary LLM decoding and shows a Megatron-style column split beats row-owned splitting.",
+          "zh": "分析多NUMA节点三值LLM解码的同步瓶颈，并表明Megatron式列切分优于行拥有切分。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "It offers evidence on synchronization and NUMA performance in parallel runtimes, but not core compiler optimization.",
+          "zh": "为并行运行时同步与NUMA性能提供经验，但非编译器优化核心。"
+        }
+      },
+      "authors": [
+        "Runguo Li",
+        "Dezhen Lu"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.49959245324134827
+      },
+      "paper_id": "2610.28620",
+      "pdf_url": "https://arxiv.org/pdf/2610.28620v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Weight Placement Is Not Enough: Synchronization in Multi-Node CPU Decoding of Ternary LLMs",
+      "url": "https://arxiv.org/abs/2610.28620"
+    },
+    {
+      "abstract": "Zero-knowledge proofs (ZKPs) have become a fundamental building block for privacy-preserving computation, blockchain systems, and verifiable machine learning. Modern ZKP protocols span two distinct families: curve-based protocols, which rely on large finite-field arithmetic, and hash-based protocols, which operate over native 64-bit fields. Existing hardware accelerators are specialized for one protocol family because they are built on operand-scanning Montgomery multiplication, resulting in fixed-width datapaths, poor utilization across heterogeneous operand widths, and limited scalability. This paper presents \\emph{ZKPU}, a Zero-Knowledge Processing Unit for heterogeneous ZKP workloads. ZKPU introduces a new compute paradigm by co-designing finely integrated product scanning (FIPS) Montgomery multiplication with a reconfigurable Twin Systolic Fabric (TSF), enabling modular multiplication at arbitrary widths in 64-bit increments. Combined with a fine-grained Deque buffer, on-chip twiddle-factor generator, and memory-efficient MSM preprocessing strategy, ZKPU provides a unified architecture for both curve-based and hash-based protocols. Evaluation using Groth16 and Plonky2 shows that ZKPU achieves up to $144\\times$ speedup for NTT, $13.6\\times$ for MSM, and approximately $7.2\\times$ end-to-end application speedup over state-of-the-art accelerators, while being the first architecture to efficiently support both protocol families on a single reconfigurable hardware platform.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.83,
+        "contribution": {
+          "en": "Presents a ZKP accelerator combining FIPS Montgomery multiplication with a reconfigurable twin systolic fabric to support curve- and hash-based protocols.",
+          "zh": "提出FIPS蒙哥马利乘法与可重构双脉动阵列的ZKP加速器，统一支持曲线和哈希协议。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "It is a specialized accelerator architecture that offers adjacent architecture-co-design reference, but is not a compilation problem.",
+          "zh": "属于专用加速器架构，可为架构协同设计提供邻近参考，但非编译问题。"
+        }
+      },
+      "authors": [
+        "Jonathan Ku",
+        "Changchun Zhou",
+        "Jiawen Wu",
+        "Sangouk Jeon",
+        "Cong Guo",
+        "Yuzhe Fu",
+        "Bowen Duan",
+        "Dongsuk Jeon",
+        "JV Rajendran",
+        "Yiran Chen",
+        "Hai Li"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.4977510869503021
+      },
+      "paper_id": "2610.27530",
+      "pdf_url": "https://arxiv.org/pdf/2610.27530v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "ZKPU: Zero-Knowledge Processing Unit for Heterogeneous Workloads",
+      "url": "https://arxiv.org/abs/2610.27530"
+    },
+    {
+      "abstract": "Interactive webpages underpin modern applications, but reproducing both their visual appearance and multi-step behavior remains challenging for multimodal large language models (MLLMs). Scalable training data must capture user actions, state transitions, and expected outcomes, while real-world webpage code is often entangled with irrelevant scripts and external dependencies. Moreover, existing GUI-agent-based verification provides slow and potentially unstable functional feedback. To address these challenges, we propose InterWebCoder, an efficient framework for interactive webpage code generation. InterWebCoder introduces a Test-Specification-Guided and Execution-Verified Data Synthesis pipeline that records real-world interaction trajectories and synthesizes self-contained webpage code with executable test scripts. A failureattributed repair mechanism uses runtime evidence to locate and iteratively fix errors in either the webpage code or test script. We then combine test-ID-weighted supervised fine-tuning with group-relative policy optimization, directly optimizing functional correctness and visual fidelity using test pass rates and state-level visual similarity. This replaces costly GUI-agent verification with fast, reproducible executable feedback. Our pipeline produces 1,736 verified samples from 2,058 tasks, achieving an 84.35% synthesis success rate. On IWR-Bench and Vision2Web, InterWebCoder achieves final scores of 48.54 and 48.42 with a 9B backbone, outperforming 30B-level models and Gemini-3.7-Flash while remaining competitive with Claude-Sonnet-5. It reduces reward-computation latency by over 97%, eliminates external MLLM verification costs, and accelerates end-to-end training by up to 1.4x.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes an executable-test and reinforcement-learning framework for interactive webpage code generation.",
+          "zh": "提出基于可执行测试与强化学习的交互式网页代码生成框架。"
+        },
+        "elegance": 4,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It is code generation and testing, but only weakly connected to compiler optimization and architecture.",
+          "zh": "它属于代码生成与测试，但与编译器优化和体系结构主线关联较弱。"
+        }
+      },
+      "authors": [
+        "Jingyu Xiao",
+        "Dasen Dai",
+        "Yuxuan Wan",
+        "Jen-tse Huang",
+        "Yintong Huo",
+        "Hongyu Zhang",
+        "Michael R. Lyu"
+      ],
+      "categories": [
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "lexical": 59.72562100954334,
+        "semantic": 0.49664434790611267
+      },
+      "paper_id": "2610.28610",
+      "pdf_url": "https://arxiv.org/pdf/2610.28610v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "InterWebCoder: Learning Interactive Webpage Generation from Executable Tests via Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2610.28610"
+    },
+    {
+      "abstract": "Migrating transformer inference to the edge requires sustainability considerations that encompass both operation and manufacturing, rather than operational energy alone. Silicon photonics enables high-bandwidth, low-energy matrix multiplication; however, existing microring-resonator-based Dot Product Unit (DPU) organizations have been tailored to convolutional computations and evaluated using analog signaling without accounting for embodied carbon footprints. We adapt three DPU organizations (AMW, MAW, and MWA) to transformer inference workloads and extend each organization to stochastic signaling, yielding six organizations in total. We then calculate their embodied and operational carbon per inference. Across five transformer models and four foundry grids, the photonic system achieves improvements of four, four, and six orders of magnitude in Energy-Delay, Carbon-Delay, and Carbon-Energy Product, respectively, relative to CPUs, while also being compared against H100 SXM5 GPU and TPU v5p baseline systems. Analog-to-stochastic conversion increases die area by 4.3-4.6x and embodied carbon by 4.4-4.8x, while reducing operational energy by approximately 91% and causing embodied carbon to equal or exceed operational carbon per inference. Importantly, the DPU organization and signaling scheme, rather than the foundry grid, are the key determinants of carbon impact. Consequently, the fastest organization (MWA) is not necessarily the most carbon-efficient, whereas MAW-Stochastic offers a favorable balance between sustainability and performance.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Presents carbon-aware photonic transformer accelerator design comparing multiple DPU organizations and signaling schemes.",
+          "zh": "提出碳感知的光子Transformer加速器设计，并比较多种DPU组织与信号方案。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It involves accelerator architecture and energy, but not compilation, IR, or code generation.",
+          "zh": "它涉及加速器架构与能耗，但不涉及编译、IR或代码生成。"
+        }
+      },
+      "authors": [
+        "Bharat Bhatta",
+        "Ishan Thakkar"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "semantic": 0.4953341484069824
+      },
+      "paper_id": "2610.27376",
+      "pdf_url": "https://arxiv.org/pdf/2610.27376v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Green Light: Carbon-Aware Design of Photonic Transformer Accelerators at the Edge",
+      "url": "https://arxiv.org/abs/2610.27376"
+    },
+    {
+      "abstract": "Sparse attention limits the keys used by each query, but finding those keys can still require a full-prefix scan at every layer. We introduce \\textbf{MLIPS (Multi-Layer Indexer Pool Sharing)}, a training-free method that shares candidate search while retaining each consumer's own scoring and selection. A producer publishes a top-$M$ pool larger than the attention budget $K$; subsequent layers select their own top-$K$ from that pool. Measurements across three sparse-attention model families show substantially higher coverage from broad pools than overlap between final selections. We implement layerwise sharing, persistent decode reuse, and a coarse producer in vLLM for DeepSeek-V4-Flash. Across four long-context suites, three consumer layers per producer give $1.14$--$1.40\\times$ speedups and $14.8$--$27.4\\%$ lower GPU energy, with observed accuracy changes of $-1.49$ to $+0.29$ percentage points in single runs. More extensive sharing exposes task-dependent quality losses. Sampled prefill traces also reveal recurring selected KV positions across query groups and layers. We characterize this shared working-set structure and use it to motivate Top-$G$, an exploratory bounded pool construction for prefill. Its deployment, task accuracy, and serving benefits remain open.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces a training-free multi-layer indexer pool sharing method to accelerate sparse attention.",
+          "zh": "提出训练无关的多层索引器池共享方法以加速稀疏注意力。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It is GPU inference system optimization, but distant from core compiler and architecture research questions.",
+          "zh": "它是GPU推理系统优化，但与编译器与体系结构研究的核心问题距离较远。"
+        }
+      },
+      "authors": [
+        "Samkit Jain",
+        "Sai Kishan Pampana",
+        "Shlok Agarwal"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "semantic": 0.4946804344654083
+      },
+      "paper_id": "2610.27438",
+      "pdf_url": "https://arxiv.org/pdf/2610.27438v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "MLIPS: Multi-Layer Indexer Pool Sharing",
+      "url": "https://arxiv.org/abs/2610.27438"
+    },
+    {
+      "abstract": "Analog in-memory computing delivers efficient neural network inference at the edge, but systems deployed in non-stationary environments may need to adapt in situ to locally acquired data. Backpropagation faces two structural obstacles here. Its global error transport lets stochastic write errors compound across layers, and its backward pass demands bidirectional, high-precision peripheral circuitry absent from inference-oriented crossbar arrays. We introduce Channel-wise Spatial Gradient learning (CwSG), a strictly local, forward-only rule that trains each convolutional layer by rewarding spatial variation in its feature maps. In simulations replaying the measured trajectories of 1,189 phase-change memory and 1,268 filamentary memristor devices, CwSG learns with single, unverified, sub-1 V pulses. It matches backpropagation on phase-change memory with 59-fold fewer pulses and outperforms it by 53 percentage points on highly variable filamentary memristors, with 8-bit forward converters and without transposed crossbar reads or network-wide activation storage. Analog training thus becomes a problem of credit assignment, in which algorithmic design rather than hardware compensation alone overcomes severe programming noise.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Proposes a local forward-only learning rule for analog in-memory computing under synaptic device noise.",
+          "zh": "提出面向模拟存内计算的局部前向学习规则以应对突触器件噪声。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 4,
+        "why_care": {
+          "en": "It connects to in-memory computing and hardware-algorithm co-design, but not compiler or IR infrastructure.",
+          "zh": "它关联存内计算与硬件算法协同设计，但不涉及编译器或IR基础设施。"
+        }
+      },
+      "authors": [
+        "Th\\'eo Dupuis",
+        "Adrien Renaudineau",
+        "Guillaume Bourgeois",
+        "Joel Minguet Lopez",
+        "Gabriele Navarro",
+        "Jean-Michel Portal",
+        "Elisa Vianello",
+        "Jacques-Olivier Klein",
+        "Damien Querlioz"
+      ],
+      "categories": [
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "semantic": 0.49250927567481995
+      },
+      "paper_id": "2610.27910",
+      "pdf_url": "https://arxiv.org/pdf/2610.27910v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Local learning with imperfect analog synapses",
+      "url": "https://arxiv.org/abs/2610.27910"
+    },
+    {
+      "abstract": "Analytical global placement requires a differentiable wirelength objective that accurately reflects routed interconnect cost. The widely used half-perimeter wirelength (HPWL) is efficient but overlooks the internal topology of multi-pin nets. The rectilinear Steiner minimum tree (RSMT) provides higher fidelity, but its underlying decision problem is NP-complete, and its discrete construction precludes direct use in gradient-based optimization. The rectilinear minimum spanning tree (RMST) offers a polynomial-time alternative, but remains nondifferentiable because of minimization over discrete spanning trees. To address these limitations, we present DiffRMST, a fully differentiable RMST wirelength model for analytical global placement. DiffRMST combines spatial smoothing with a log-sum-exp relaxation to define a continuous distribution over spanning trees. Based on the Kirchhoff matrix-tree theorem, the partition function and edge marginals can be computed without explicit tree enumeration, enabling a closed-form topology-aware gradient for placement optimization. For efficient integration into analytical placement, we further develop a fused forward-backward operator with parallel CPU and GPU implementations. On the ISPD2019 benchmark suite, our method reduces RMST, RSMT, and routed wirelength by an average of 5.0%, 3.2%, and 3.5%, respectively, compared with the weighted-average baseline, while maintaining acceptable runtime. Furthermore, the GPU implementation achieves an average $14.7\\times$ speedup in global placement over its eight-thread CPU counterpart.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Presents a differentiable RMST wirelength model using the matrix-tree theorem with GPU acceleration.",
+          "zh": "提出基于矩阵树定理的可微RMST线长模型及GPU加速实现。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It includes a GPU-accelerated EDA operator, but is distant from compiler optimization and program synthesis.",
+          "zh": "它包含GPU加速的EDA算子，但与编译器优化和程序合成主线较远。"
+        }
+      },
+      "authors": [
+        "Fuxing Huang",
+        "Hao Ai",
+        "Wenxing Zhu",
+        "Xinning Liu",
+        "Ziran Zhu"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "semantic": 0.49228787422180176
+      },
+      "paper_id": "2610.28246",
+      "pdf_url": "https://arxiv.org/pdf/2610.28246v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "DiffRMST: A GPU-Accelerated Fully Differentiable Rectilinear Minimum Spanning Tree Wirelength Model for Global Placement",
+      "url": "https://arxiv.org/abs/2610.28246"
+    },
+    {
+      "abstract": "Federated learning (FL) enables collaborative model training while preserving data privacy. However, non-independent and identically distributed (non-IID) data inevitably introduces classifier bias, leading to significant performance degradation. Existing studies primarily focus on calibrating or reconstructing the classifier after FL training to alleviate this bias. We find that the last-layer representations of the global model are often suboptimal for establishing a global decision boundary. Instead, classifiers constructed based on intermediate-layer representations can achieve superior performance. This finding provides a critical insight into overcoming the performance bottleneck inherent in existing paradigms. Nevertheless, identifying the optimal layer without auxiliary datasets or prior knowledge remains a formidable challenge. In this paper, we propose FLARE (Federated Cross-Layer Joint ClAssifier REconstruction) which rethinks classifier reconstruction from a cross-layer perspective and generalizes ridge regression to jointly exploit cross-layer representations, thereby surpassing the performance of any individual layer. Specifically, after FL training, clients perform only a single forward pass to extract class-conditional statistics from predefined layers. The server aggregates these statistics to construct a joint cross-layer ridge classifier, where an adaptive coupling coefficient regulates cross-layer correlations, thereby facilitating the integration of complementary discriminative information. Extensive experiments across 11 datasets, 8 model architectures, and diverse data heterogeneity scenarios demonstrate that FLARE, as a plug-and-play post-processing method, improves accuracy by 11.35% with only one additional communication round.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Proposes a post-processing framework for cross-layer joint classifier reconstruction in federated learning.",
+          "zh": "提出联邦学习中跨层联合分类器重建的后处理框架。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "It focuses on federated-learning classifier bias and has no direct link to compilers, architecture, or GPU systems.",
+          "zh": "它聚焦联邦学习分类器偏差，与编译器、体系结构和GPU系统无直接关联。"
+        }
+      },
+      "authors": [
+        "Zhenyan Liu",
+        "Hua Zhang",
+        "Haoran Gao",
+        "Huiyu Zhou",
+        "Zongliang Shen",
+        "Qi Li",
+        "Hongliang Zhu",
+        "Yongji Wang",
+        "Zian Tian"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.4920293390750885
+      },
+      "paper_id": "2610.26953",
+      "pdf_url": "https://arxiv.org/pdf/2610.26953v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "From Last-Layer to Cross-Layer: One-Shot Joint Classifier Reconstruction for Federated Learning",
+      "url": "https://arxiv.org/abs/2610.26953"
+    },
+    {
+      "abstract": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hallucinations: generated code that conflicts with the source program, violates target-language facts, or introduces contextually inconsistent dependencies. These failures are especially harmful in translation because small semantic deviations can silently change program behavior. Existing hallucination studies mainly focus on natural-language generation or code generation, leaving the forms, distribution, and mitigation of hallucinations in cross-language code translation insufficiently characterized. This paper presents a systematic empirical study of LLM hallucinations in code translation. Across three benchmark datasets, six language pairs, and seven LLMs, we construct a taxonomy with three major categories: Semantic Consistency Conflicts, Factual Knowledge Conflicts, and Project Context Deviations. We manually annotate 13,919 hallucination cases and analyze how hallucination types vary across models, datasets, and language directions. Guided by the taxonomy, we further propose HaluCodeTran, a mitigation framework that combines BM25-based retrieval of relevant translation examples with taxonomy-aware reflective refinement. The study provides an execution-tested characterization of code-translation hallucinations and a practical baseline for building more reliable LLM-based code migration tools.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Systematically studies LLM hallucinations in cross-language code translation and proposes a mitigation framework.",
+          "zh": "系统研究LLM跨语言代码翻译中的幻觉并给出缓解框架。"
+        },
+        "elegance": 3,
+        "novelty": 4,
+        "relevance": 3,
+        "transferability": 2,
+        "why_care": {
+          "en": "It touches program translation and correctness, but is mainly LLM software engineering rather than compiler optimization.",
+          "zh": "它涉及程序翻译与正确性，但主要属于LLM软件工程而非编译器优化。"
+        }
+      },
+      "authors": [
+        "Yali Du",
+        "Yunji Zhang",
+        "Ming Li"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "lexical": 61.07854482142967
+      },
+      "paper_id": "2610.27868",
+      "pdf_url": "https://arxiv.org/pdf/2610.27868v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
+      "url": "https://arxiv.org/abs/2610.27868"
+    },
+    {
+      "abstract": "Cloud-accessible quantum computing has made heterogeneous Quantum Processing Units (QPUs) available through provider platforms that differ in qubit technology, calibration state, queueing behavior, and pricing model. This heterogeneity makes execution management a quantum-engineering concern: a quantum circuit may be executable on several backends, but the resulting cost, latency, fidelity, and reproducibility depend on backend selection and on how measurement shots are allocated. This paper presents the Quantum Broker, an open-source and provider-agnostic framework for Quality-of-Service-aware quantum execution management. The framework operationalizes shot-wise distribution by exploiting the statistical independence of quantum measurement shots to dispatch a single circuit across multiple heterogeneous QPUs according to user-defined constraints and optimization objectives. It combines a modular execution architecture, interchangeable backend-profiling strategies, and the Quantum QoS Specification Language (QQSpec), a declarative language for expressing QoS requirements. Dispatch planning is supported by two solver backends: a mixed-integer linear-programming (MILP) solver, and a nonlinear dual-annealing solver. Experiments on benchmark quantum circuits and noisy simulator backends show that the Quantum Broker can produce feasible QoS-aware dispatch plans under heterogeneous backend conditions and can improve QoS satisfaction with respect to single-backend and naive multi-backend baselines. The results also expose a practical trade-off between planning time and dispatch quality, with the nonlinear solver producing higher-quality allocations at increased computational cost. Overall, the Quantum Broker provides an extensible execution-management layer for engineering portable, reproducible, and QoS-aware quantum software over fragmented quantum cloud infrastructures.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Presents a QoS-aware quantum computation distribution framework with a declarative QoS language for heterogeneous backends.",
+          "zh": "提出面向异构量子后端的QoS感知计算分发框架与声明式QoS语言。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "It addresses quantum cloud resource scheduling and is unrelated to the main classical compiler, GPU, and architecture focus.",
+          "zh": "它解决量子云资源调度问题，与经典编译器、GPU和体系结构研究主线无关。"
+        }
+      },
+      "authors": [
+        "Giuseppe Bisicchia",
+        "Alessandro Bocci",
+        "Jose Garcia-Alonso",
+        "Juan Manuel Murillo",
+        "Antonio Brogi"
+      ],
+      "categories": [
+        "quant-ph",
+        "cs.ET",
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "lexical": 56.958775076628775
+      },
+      "paper_id": "2610.28342",
+      "pdf_url": "https://arxiv.org/pdf/2610.28342v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Quantum Broker: QoS-Aware Distribution of Quantum Computations",
+      "url": "https://arxiv.org/abs/2610.28342"
+    },
+    {
+      "abstract": "6G will be designed faster than it can be built: AI-driven search already proposes physical-layer algorithms at machine speed, while carrying a single one onto embedded baseband silicon remains specialist work. That silicon imposes hard memory and numeric limits, but also exposes cost structures a GPU lacks, and a design flow that never runs on the target sees neither. We present an agentic workflow in which an LLM coding agent implements algorithms on a commercial baseband SoC, optimizes them down to agent-written vector assembly, and validates them on silicon. The agent is guided by a knowledge base of measured platform facts, checked at every step against evaluators it is instructed never to edit, and metered per phase. We showcase the workflow on an AI-discovered orthogonal time frequency space (OTFS) detector portfolio on the open 6G4All platform. It yields twelve kernels that run cycle-exactly on silicon, their optimized versions at 18k-405k cycles (30-660 $\\mu$s) per frame. It also yields a new detector shaped by the chip's measured costs that needs 13.9% fewer cycles than the port of the discovered detector while matching its error rate, with a measured edge our evaluation cannot statistically resolve, a structure that a hardware-blind search objective had no reason to find. What is not specific to OTFS is the workflow: an LLM agent exploring an implementation space under real hardware limits, with the cost of every choice measured rather than assumed.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "An LLM-agent workflow implements and optimizes 6G physical-layer algorithms down to vector assembly and validates them on baseband silicon.",
+          "zh": "提出LLM智能体工作流，将6G物理层算法实现并优化为向量汇编且在基带芯片上验证。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "It shows measured hardware costs guiding code and algorithm optimization, a useful neighboring case for accelerator-aware compilation.",
+          "zh": "它展示了用实测硬件成本引导代码与算法优化，对加速器感知编译有邻近参考价值。"
+        }
+      },
+      "authors": [
+        "Eric Mittag",
+        "Lukas Brechtel",
+        "Maximilian Stark",
+        "Hans D. Schotten"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.NI",
+        "eess.SP"
+      ],
+      "channel_scores": {
+        "lexical": 53.73666865981224
+      },
+      "paper_id": "2610.27797",
+      "pdf_url": "https://arxiv.org/pdf/2610.27797v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Toward Agentic AI for the 6G Physical Layer: From Algorithm Discovery to Verified Baseband Silicon",
+      "url": "https://arxiv.org/abs/2610.27797"
+    },
+    {
+      "abstract": "Discrete diffusion models iteratively denoise a noisy sequence of categorical data such as text, enabling any-order generation with self-correction and in-filling capabilities. This makes them promising candidates for reasoning, planning, and constrained-generation tasks like coding and math. Yet masked and uniform diffusion erase a token's identity in a single corruption event, so their noisy states cannot explicitly represent partially resolved uncertainty in which several alternatives remain plausible. We close this gap with Binary Discrete Diffusion, a family of continuous-time discrete-diffusion processes whose noisy state is a set of candidate tokens per position, represented as a binary membership vector. Binary diffusion changes candidate sets through additions and removals, allowing information to be lost and recovered gradually while the diffusion state itself represents partial uncertainty. On Sudoku-Extreme, Boxoban, and graph coloring, the symmetric formulation of binary diffusion consistently outperforms strong, well-tuned masked and uniform baselines under matched architectures and controlled training, sampling, and tuning budgets, with its largest gains on the hardest instances, while remaining competitive on language modeling (Text8, TinyStories, OpenWebText). These results support candidate sets as an effective intermediate representation for iterative reasoning and show that the corruption kernel can materially change the computation learned by the reverse model.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "Binary discrete diffusion represents partially resolved uncertainty as candidate-token sets.",
+          "zh": "提出二元离散扩散，用候选令牌集合表示逐步消解的不确定性。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Candidate-set states may inspire search and repair, but are distant from compiler IR and optimization work.",
+          "zh": "候选集状态或可启发搜索与修复，但与编译器IR和优化主线距离较远。"
+        }
+      },
+      "authors": [
+        "Rodrigo Casado Noguerales",
+        "Dimitri von R\\\"utte",
+        "Bernhard Sch\\\"olkopf",
+        "Thomas Hofmann",
+        "Aran Raoufi"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL",
+        "stat.ML"
+      ],
+      "channel_scores": {
+        "exploration": 0.6042909622192383
+      },
+      "paper_id": "2610.28543",
+      "pdf_url": "https://arxiv.org/pdf/2610.28543v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Binary Discrete Diffusion: Candidate-Set Diffusion for Logic and Planning Tasks",
+      "url": "https://arxiv.org/abs/2610.28543"
+    },
+    {
+      "abstract": "Floorplanning with rectilinear soft modules improves area utilization and wirelength by allowing modules to adapt to rectilinear polygon (RPoly) shapes. Existing methods typically construct rectilinear polygons through incremental refinement after obtaining a rectangular global solution, which confines polygon exploration to the neighborhood induced by the initial floorplan. This paper presents RPolyPlan, a unified framework for outline-free and fixed-outline floorplanning that directly incorporates continuously deformable rectilinear polygons into global floorplanning. To enable direct polygon optimization, we introduce a structured continuous representation and a differentiable polygon shaping model that dynamically optimizes rectilinear module shapes based on overlaps, making continuous shape optimization feasible for gradient-based global floorplanning. An augmented Lagrangian formulation robustly handles the coupled inequality constraints, provides theoretical convergence guarantees, and reduces dependence on manual penalty-parameter tuning. During legalization, minimum-cost flow and rectangular decomposition determine the target areas of subrectangles, and horizontal and vertical constraint graphs encode their geometric relations. The resulting convex legalization formulation satisfies the area, shape, separation, connectivity, and outline constraints while minimizing either the chip area or the displacement from the global floorplanning solution. Experiments on the GSRC, MCNC, and ICCAD 2023 contest benchmarks demonstrate that RPolyPlan reduces HPWL over the evaluated state-of-the-art methods by 7% and 6% in fixed-outline and outline-free experiments, respectively.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "A unified global floorplanning and legalization framework for rectilinear soft modules.",
+          "zh": "提出面向直角软模块的统一全局布局与合法化框架。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It belongs to physical design and has weak direct connection to compiler optimization or IR research.",
+          "zh": "它属于物理设计，与编译器优化和IR研究的直接关联很弱。"
+        }
+      },
+      "authors": [
+        "Fuxing Huang",
+        "Wenxing Zhu",
+        "Xinning Liu",
+        "Ziran Zhu"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "exploration": 0.6093869209289551
+      },
+      "paper_id": "2610.28276",
+      "pdf_url": "https://arxiv.org/pdf/2610.28276v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "RPolyPlan: A Unified Global Floorplanning and Legalization Framework for Rectilinear Soft Modules",
+      "url": "https://arxiv.org/abs/2610.28276"
+    },
+    {
+      "abstract": "The increasing use of large language models for code generation calls for methods that distinguish purely human-written code from AI-involved code: files in which any part, however small, was generated or substantially modified by a model. Beyond flagging such files, we aim to localize the lines or blocks attributable to AI. Existing approaches compress a file into a single score, from surface stylistic features or a global code representation, which averages away the evidence when only a few blocks are AI-involved. We propose a framework that models AI authorship at the token level and predicts at the line, block, and file levels. A frozen code language model is equipped with two low-rank adapters, trained separately on machine-written and human-written files; their per-token log-likelihood ratio provides local evidence of AI authorship. Lightweight heads aggregate this evidence within lines and blocks, using the surrounding code context, and their local predictions are aggregated into a file-level decision. We train on mixed-authorship files built from human originals and their AI-generated or AI-modified counterparts, including continuation and fill-in-the-middle scenarios. On an internal test set of 11,773 AI-involved files across six generation regimes against 2,541 human files, our method reaches 72.4 macro F1 at a 1% FPR operating point. With no adaptation, it reaches 62.5 line-level F1 on HybridCodeAuthorship, an external human-AI co-writing benchmark with no training split, above the 56 its own paper reports as the best line-level result. On 19,445 human-written files from repositories created before 2022, the false-positive rate stays between 0.55% and 0.81% under the transported 1% threshold, so the operating point holds on real human code.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "A token-level framework detects and localizes AI-involved code at line, block, and file levels.",
+          "zh": "提出token级框架，在行、块和文件层面检测并定位AI参与代码。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Code-provenance tooling is largely unrelated to compiler optimization, IR, and code generation concerns.",
+          "zh": "代码来源检测工具与编译器优化、IR和代码生成问题基本无关。"
+        }
+      },
+      "authors": [
+        "Yue Xu",
+        "Xiyang Wang",
+        "Hui Liu",
+        "Bolei He"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.6258053779602051
+      },
+      "paper_id": "2610.27863",
+      "pdf_url": "https://arxiv.org/pdf/2610.27863v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "From Tokens to Files: Multi-Granularity Detection and Localization of AI-Involved Code",
+      "url": "https://arxiv.org/abs/2610.27863"
+    },
+    {
+      "abstract": "In industrial cells, commands from learned policies, operators and schedulers reach the controller after inference, confirmation and transport, and the plant may have changed meanwhile, for instance by an operator pause. Such a command is released, or takes effect, when it is no longer correct. We call this the execution gap and ask which component should make the last check, and against which version of which state. The Action Intent Schema (AIS) is a contract in which a producer states how long its decision stays valid and what it assumes. The runtime XAIR rechecks each intent before release, can commit its authorization atomically in the context store, and can release it as a version-conditional command, which the controller executes only if its version of the state is unchanged. In controlled ablations with declared ground truth on emulated and physical cells, OpenPLC and ARM and RISC-V boards, a check on a replica always left an unprotected interval: a pause written from a few to over 100ms after submission escaped it. Only a check in the scan of a software controller, either a controller-local interlock or the version-conditional command, closed the interval for the state that controller owns; only the version-conditional command also refused commands after a pause that had been undone. A global version revoked up to every valid command under unrelated updates. Versions scoped to what the intent reads, or to the truth of its predicates, did not; with continuous signals on the variables the intent reads, only the latter avoided false revocations, though it burdens the store as predicates accumulate. On one embedded-board core, XAIR validated 148-168 intents/s.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "An Action Intent Schema and XAIR runtime recheck industrial control commands before release.",
+          "zh": "提出动作意图模式与XAIR运行时，在发布前重新校验工业控制命令。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "It focuses on CPS runtime correctness rather than compilation, code generation, or architecture co-design.",
+          "zh": "它关注CPS运行时正确性，而非编译、代码生成或体系结构协同设计。"
+        }
+      },
+      "authors": [
+        "Luca D'Agati",
+        "Giuseppe Tricomi",
+        "Fabio Orazio Mirto",
+        "Giovanni Merlino"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.CR",
+        "cs.DC",
+        "cs.SY",
+        "eess.SY"
+      ],
+      "channel_scores": {
+        "exploration": 0.7123473882675171
+      },
+      "paper_id": "2610.27971",
+      "pdf_url": "https://arxiv.org/pdf/2610.27971v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Execution-Time Validation of Context-Carrying Action Intents in Industrial Cyber-Physical Systems",
+      "url": "https://arxiv.org/abs/2610.27971"
+    },
+    {
+      "abstract": "DrugCLIP places small molecules and protein pockets in one space, turning genome-wide drug discovery into large-K retrieval by vector proximity. A campaign fixes over 20K pockets in advance for one library of over 500M molecules. Each pocket keeps K = 500K candidates, 0.1% of the collection, versus 100 in ANN benchmarks. Missed hits never get tested, so mean recall must reach 99% relative to exact search. Large answers make IVF probe every list holding a result and graph search track K or more candidates, so costs grow with K. On our CPUs and GPUs, neither index family reaches the target without losing most of its edge over scanning. SweepANN partitions compressed vectors across GPUs and scans each resident partition. One matrix multiplication scores each block for a whole query batch, reading it once. Several plans perform the K-dependent selection and merging of each query's K answers, each returning an exact top-K under compressed scoring. The window plan retains each query's best K from sampled blocks as its seed, and only rows above each seed's minimum score, shared once across GPUs, enter the buffers. Four Blackwell GPUs (RTX PRO 6000) answer all 26,562 pockets with a resident time of about 61 seconds, excluding library loading, and 99.6% mean recall relative to exact FP32 search. DrugCLIP reports roughly 24 hours with eight A100 GPUs in its own campaign. On 500M rows, the window plan runs 1.41x faster than SweepANN's grouped plan in the same memory. Across 25M-500M rows and K of 10K-500K, all GPU IVF configurations meeting the recall target take 8.2-24x SweepANN's resident time. On DEEP1B's 1B vectors across eight GPUs, against SweepANN's exact full-score scan of uncompressed FP32 rows, the window plan cuts resident time by 5.4x and 3.2x at K = 100K and 500K. It also cuts per-GPU peak memory by 6.0x and 5.3x, losing 1.0 and 0.7 mean-recall points.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "A GPU partition-and-scan design with compressed scoring for large-K approximate vector search.",
+          "zh": "提出面向大规模K近邻检索的GPU分区分块扫描与压缩评分方法。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "Its GPU-resident scan and partitioning are a neighboring reference for GPU systems optimization, not compiler research.",
+          "zh": "其GPU驻留扫描与分块策略对GPU系统优化有邻近参考，但不是编译器研究。"
+        }
+      },
+      "authors": [
+        "Zhenyu Zhang",
+        "Qi Lin",
+        "Nan Zhang",
+        "Zhichao Cao"
+      ],
+      "categories": [
+        "cs.DB",
+        "cs.DC",
+        "cs.IR"
+      ],
+      "channel_scores": {
+        "exploration": 0.447961688041687
+      },
+      "paper_id": "2610.27306",
+      "pdf_url": "https://arxiv.org/pdf/2610.27306v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "SweepANN: A GPU-Accelerated Large-K Approximate Vector Search for Drug Discovery",
+      "url": "https://arxiv.org/abs/2610.27306"
+    },
+    {
+      "abstract": "Adversarial workers pose a severe challenge in distributed computing systems by returning corrupted outputs that can substantially distort the recovered computations. Coded computing addresses this threat by introducing redundancy across worker assignments. Existing exact and approximate coded-computing methods typically handle adversarial outputs by explicitly locating and correcting or removing erroneous evaluations, which adds significant computational overhead at the master node. Moreover, existing analyses do not characterize how the recovery error scales with the number of workers and the adversarial budget. In this paper, we develop an adversarially robust extension of general coded computing (GCC), a learning-theoretic approximate coded-computing framework that designs the encoder and decoder by minimizing an upper bound on the end-to-end recovery error. Rather than identifying corrupted workers, the proposed method uses smoothness regularization to limit the influence of their outputs. The resulting encoder and decoder can be implemented using smoothing splines with linear master-side complexity. We derive a non-asymptotic bound on the worst-case end-to-end approximation error by decomposing it into three components: (1) the encoder approximation error, (2) the decoder reconstruction error under fully honest results, and (3) the adversarial perturbation error. For maximum of $q\\geq 1$ adversarial workers among $N$ workers results in a worst-case error of order $\\mathcal{O}((q/N)^{6/5})$ with appropriate selection of smoothness parameter, demonstrating that the approximation error vanishes asymptotically whenever the number of adversaries grows sublinearly with the network size. Experiments on scalar computation and neural-network inference are consistent with the predicted convergence behavior.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.62,
+        "contribution": {
+          "en": "An adversarially robust coded-computing framework uses smoothness regularization to limit corrupted outputs.",
+          "zh": "提出对抗鲁棒的通用编码计算学习理论框架，用平滑正则限制恶意输出影响。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Distributed coding theory is far from the core concerns of compiler optimization and architecture research.",
+          "zh": "分布式编码理论偏离编译器优化与体系结构研究的核心问题。"
+        }
+      },
+      "authors": [
+        "Parsa Moradi",
+        "Hanzaleh Akbarinodehi",
+        "Mohammad Ali Maddah-Ali"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.5476782321929932
+      },
+      "paper_id": "2610.27440",
+      "pdf_url": "https://arxiv.org/pdf/2610.27440v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Learning-Theoretic Foundation for General Coded Computing: The Adversarial Setting",
+      "url": "https://arxiv.org/abs/2610.27440"
+    },
+    {
+      "abstract": "Quantum and physics-inspired solvers provide specialized sampling interfaces for Ising and quadratic unconstrained binary optimization models, but constrained optimization requires broader coordination and certification. This survey uses classical decomposition to analyze how such solvers can be integrated into hybrid quantum-classical algorithms. We distinguish formal decomposition, reformulation and reduction, and computational orchestration. For each interface, we ask what the transformation preserves, which assumptions make the outer method converge, and which certificates the implemented inner routine supplies. The central questions are whether that information meets the classical algorithm's requirements and whether hybridization improves solution quality or total cost enough to justify its coordination overhead. Benders decomposition, column generation, graph reduction, and copositive methods illustrate this distinction by separating heuristic proposals from classical certification. We also distinguish component effects within a fixed wrapper, reduction--solver interactions, and comparisons between complete quantum-enabled and classical systems. The analyzed studies provide conditional component benefits and favorable co-design evidence, but do not establish transferable end-to-end superiority over strong classical comparators. The resulting framework identifies opportunities for constraint programming and operations research in structure-preserving design, safeguarded hybrid algorithms, and controlled benchmarking.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "A survey applies classical decomposition to analyze interfaces and certification in hybrid quantum-classical optimization.",
+          "zh": "综述用经典分解方法分析量子-经典混合优化中的接口与认证问题。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Quantum optimization methodology has no direct bearing on compiler, IR, or hardware code-generation research.",
+          "zh": "量子优化方法论与编译器、IR或硬件代码生成研究没有直接关系。"
+        }
+      },
+      "authors": [
+        "David E. Bernal Neira"
+      ],
+      "categories": [
+        "math.OC",
+        "cs.ET",
+        "quant-ph"
+      ],
+      "channel_scores": {
+        "exploration": 0.5937761068344116
+      },
+      "paper_id": "2610.27362",
+      "pdf_url": "https://arxiv.org/pdf/2610.27362v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Quantum-Classical Hybrid Methods for Optimization: Lessons from Classical Decomposition",
+      "url": "https://arxiv.org/abs/2610.27362"
+    },
+    {
+      "abstract": "ExeBench is one of the most widely used benchmarks for evaluating LLM-based decompilers. We analyze ExeBench and identify nine issues that affect how faithfully a test measures a decompiler. Three of them prevent LLM decompilers from recovering C code from ExeBench's function. These are ambiguous parameter order when integer and floating-point types are mixed, unused parameters that optimized assembly may drop, and constants stored outside the function's assembly code. Six more affect test validity: non-void functions without a return, placeholder types, static or inline functions removed by the optimizer, functions named main, trivial bodies and truncated definitions. We present ExeBench-FHD, a backward-compatible revision of ExeBench that adds 16 new fields: call-site assembly, data sections, test wrappers, linked-binary disassembly and five warning flags. In ExeBench, 38.9% of functions have at least one of the five flags; dropping records with any of the four warning flags (all except unused_param, which marks functions that the new wrappers make evaluable) keeps 63.9% of the corpus. In an evaluation at -O2 on four architectures, the new fields raise GPT 6 Sol's re-execution rate by up to 26.5%, 19.1% and 21.0% on functions that read data sections, mix parameter types and have unused parameters, respectively.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.74,
+        "contribution": {
+          "en": "Analyzes and revises ExeBench, identifying nine fidelity issues in LLM decompiler evaluation and adding new fields.",
+          "zh": "分析并修订 ExeBench，指出 LLM 反编译器评测中的九类保真度问题并增加新字段。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Decompiler evaluation is indirectly relevant to correctness assessment in binary translation and retargetable compilation.",
+          "zh": "反编译评测与二进制翻译及可重定向编译的正确性评估有间接关联。"
+        }
+      },
+      "authors": [
+        "Akarsh Ashok",
+        "Dinil Mon Divakaran",
+        "Vivek Balachandran"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.LG",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "exploration": 0.4583965539932251
+      },
+      "paper_id": "2610.28212",
+      "pdf_url": "https://arxiv.org/pdf/2610.28212v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "ExeBench-FHD: Addressing Fidelity Issues in Decompiler Evaluation",
+      "url": "https://arxiv.org/abs/2610.28212"
+    },
+    {
+      "abstract": "\\emph{Multiparty session types} (MPST) is a type discipline for ensuring distributed programs are implemented correctly \\emph{by construction}. MPST starts by specifying a choreographic protocol as a \\emph{global type} and \\emph{projects} it onto each participant, generating \\emph{local types} with a guarantee of type soundness and deadlock-freedom. A central issue of MPST is that its type soundness is fragile, as it must be proven each time with respect to a chosen projection algorithm under specific semantics with a specific program correctness goal. To overcome this problem, we propose general criteria for a \\emph{good projection} -- a set of requirements for projection algorithms by which type soundness, deadlock-freedom and liveness of distributed programs are \\emph{automatically} derived. Using the criteria, we prove that 8 distinct projections in the literature are good under both synchronous and asynchronous semantics, and that 4 are incorrect, failing type soundness. We extend the good projection criteria to mixed choice global types and asynchronous communication optimisations, proposing new ``good projection'' algorithms. We apply properties of good projections to prove \\emph{separation} and \\emph{expressiveness} results over the projection algorithms and MPST typing systems. Having a generalised typing system that is robust with respect to the good projection criteria, we provide an implementation with mixed choice global types that is \\emph{modular} with respect to a chosen projection algorithm and desired program properties. Our separation results help programmers make informed trade-offs between complexity and expressiveness when choosing projection algorithms, and our theory ensures their chosen algorithms are correctly applied.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes general criteria for good projections, uniformly proving soundness and liveness for several multiparty session type projections.",
+          "zh": "提出“良好投影”的通用准则，统一证明多种多播会话类型投影的健全性与活性。"
+        },
+        "elegance": 7,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Its formal correctness method may inspire distributed protocol verification, but it is far from the compiler optimization and architecture mainline.",
+          "zh": "其形式化正确性方法可能启发分布式通信协议验证，但与编译优化和架构主线距离较远。"
+        }
+      },
+      "authors": [
+        "Jake Masters",
+        "Nobuko Yoshida"
+      ],
+      "categories": [
+        "cs.PL",
+        "cs.LO"
+      ],
+      "channel_scores": {
+        "exploration": 0.5964605808258057
+      },
+      "paper_id": "2610.28525",
+      "pdf_url": "https://arxiv.org/pdf/2610.28525v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "What is a Good Projection?: Correctness and Separation Results of End-Point Projections",
+      "url": "https://arxiv.org/abs/2610.28525"
+    },
+    {
+      "abstract": "This paper introduces a novel calculus that models first-class environments and function application paradigms using standard record types. By proposing new extensions to general record types, we achieve a design that is remarkably simple and principled. We formalise this design in a core calculus and prove several desirable properties, including type soundness, normalization, and a simulation of the simply typed lambda calculus. Additionally, we extend the design with mutable references. The calculus, its semantics, along with the extension, and all stated properties are fully mechanized in the Lean 4 proof assistant, alongside an interpreter formally verified to be equivalent to the operational semantics.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.76,
+        "contribution": {
+          "en": "Models first-class environments and function application with standard record types, mechanized in Lean 4.",
+          "zh": "用标准记录类型统一建模一等环境与函数应用，并在 Lean 4 中机械化验证。"
+        },
+        "elegance": 7,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Type-system and IR formalization may indirectly inform compiler infrastructure, but the paper does not address optimization or code generation.",
+          "zh": "类型系统与 IR 形式化可间接启发编译器基础设施，但本文不涉及优化或代码生成。"
+        }
+      },
+      "authors": [
+        "Matthew Toohey",
+        "Ara Jamalzadeh",
+        "Ningning Xie"
+      ],
+      "categories": [
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "exploration": 0.5555137395858765
+      },
+      "paper_id": "2610.27519",
+      "pdf_url": "https://arxiv.org/pdf/2610.27519v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Record Types Everywhere",
+      "url": "https://arxiv.org/abs/2610.27519"
+    }
+  ],
+  "date": "2026-10-21",
+  "delivery_status": "sent",
+  "error": null,
+  "recommendation_count": 5,
+  "recommendations": [
+    {
+      "abstract": "GPU kernels are critical to the performance of today's AI services, yet the same operators are rewritten repeatedly: for each GPU generation, numeric format, serving regime, and kernel language. Every rewrite must preserve the function computed by the implementation it replaces. Today, this obligation depends almost entirely on differential testing: run the new kernel and a trusted reference on randomly sampled tensors, then compare their outputs within a tolerance. This approach has blind spots that additional test cases cannot eliminate. For example, a logical bug may produce an error smaller than the tolerance required to accommodate a correct optimized kernel. We propose symbolic equivalence checking, which executes a kernel and its reference on symbolic inputs, turning each output cell into an exact algebraic expression, and then checks whether the paired expressions agree for all inputs. Because these expressions are exact, symbolic equivalence checking distinguishes floating-point error from logical bugs, while a single check covers the entire input space. We implement Racer, a PTX-level symbolic equivalence checking engine, with three techniques that make this approach practical for production kernels: (1) Shape Reduction to control checking cost, (2) a lockstep CTA scheduler to handle concurrency, and (3) idiom templates with exact numeric refutation for otherwise inconclusive results. Across 2,408 production kernels from 41 collection targets, Racer found 82 real bugs in 23 libraries, including 76 previously unknown bugs and 41 confirmed so far.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Introduces PTX-level symbolic equivalence checking to distinguish floating-point error from logical bugs in GPU kernels.",
+          "zh": "引入PTX级符号等价检查，以区分GPU内核中的浮点误差与逻辑错误。"
+        },
+        "elegance": 8,
+        "novelty": 8,
+        "relevance": 9,
+        "transferability": 8,
+        "why_care": {
+          "en": "It directly supports GPU/PTX compiler and kernel correctness, complementing your verification and code-generation interests.",
+          "zh": "它直接支撑GPU/PTX编译器与内核正确性，与验证和代码生成兴趣互补。"
+        }
+      },
+      "authors": [
+        "Tuan Truong Vu",
+        "Cheng Tan"
+      ],
+      "categories": [
+        "cs.SC",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.37823964595794674,
+        "semantic": 0.6032780408859253
+      },
+      "paper_id": "2610.28429",
+      "pdf_url": "https://arxiv.org/pdf/2610.28429v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "rank": 1,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Racer: Hunting GPU Kernel Bugs with Symbolic Equivalence Checking",
+      "url": "https://arxiv.org/abs/2610.28429"
+    },
+    {
+      "abstract": "Mixture-of-Experts (MoE) have become a mainstream way to scale Large Language Models (LLMs), because each token activates only a small subset of experts, reducing inference cost. However, MoE decode remains highly memory-bound and exhibits strongly skewed, time-varying expert loads. 3D-stacked DRAM near-memory processing (NMP) provides the bandwidth that decode demands, yet its tiled organization makes load balancing expensive: expert parallelism (EP) preserves locality but suffers from hotspot-induced imbalance, while more distributed strategies weaken locality and increase NoC traffic. To address this locality-balance conflict, we observe that domain-specialized token routing creates offsetting expert-load fluctuations across decode steps, a property we call expert complementarity. Using this insight, we propose 3D-MoE, a hardware--software co-designed system for MoE decode on 3D-stacked NMP. 3D-MoE uses offline, one-time complementarity-guided grouping and locality-aware mapping to establish coarse-grained inter-group balance, handles residual intra-group hotspots through a lightweight Collaborative Memory-Network (CMN) that streams each hot expert's weight tiles once from its host DRAM channel to helper cores over a reconfigured local broadcast path, and uses cost-aware online remapping to remain robust to workload drift. Across MoE models, 3D-MoE achieves an average 4.63$\\times$ MoE-layer speedup over EP and improves end-to-end throughput by 1.58$\\times$--1.86$\\times$ over the strongest NMP baselines, with 2.11\\% additional logic-die area.",
+      "affiliations": [
+        "Chinese Academy of Sciences",
+        "University of Chinese Academy of Sciences",
+        "University of Edinburgh"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Co-designs MoE decode on 3D-stacked near-memory processing using expert complementarity and locality-aware mapping.",
+          "zh": "利用专家互补性与局部性感知映射，在三维堆叠近存处理上协同设计MoE解码。"
+        },
+        "elegance": 7,
+        "novelty": 8,
+        "relevance": 8,
+        "transferability": 7,
+        "why_care": {
+          "en": "It directly advances memory-centric accelerator co-design for LLM serving workloads.",
+          "zh": "它直接推进面向LLM服务负载的内存中心加速器协同设计。"
+        }
+      },
+      "authors": [
+        "Yudong Pan",
+        "Lian Liu",
+        "Shixin Zhao",
+        "Yintao He",
+        "Kaiyan Chang",
+        "Tianhua Han",
+        "Chenyang Ai",
+        "Haonan Zhu",
+        "Mengdi Wang",
+        "Yinhe Han",
+        "Ying Wang"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.29188849925994864,
+        "lexical": 68.35393569506833,
+        "semantic": 0.5592661499977112
+      },
+      "paper_id": "2610.26991",
+      "pdf_url": "https://arxiv.org/pdf/2610.26991v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "rank": 2,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "3D-MoE: Complementarity-Guided Hardware-Software Co-Design for MoE Decode on 3D-Stacked NMP",
+      "url": "https://arxiv.org/abs/2610.26991"
+    },
+    {
+      "abstract": "LLM agents have become capable kernel engineers on mainstream GPU stacks, but they struggle on emerging accelerators such as Ascend NPUs, whose programming model is barely represented in pretraining data. Recent NPU agents address this gap largely through experience: they accumulate memory from their own generation and optimization trials and reuse it on later tasks. We argue that experience alone is not enough for kernel generation. An agent can only remember what it has tried, and it rarely tries a mechanism it does not know. As a result, such memory offers little help when a new operator calls for a different mechanism, and even familiar operators raise unseen situations as optimization proceeds. We present ASCENDEVOLVE, which grounds every step of an evolutionary kernel search in a large external knowledge base built from platform documentation, toolkit headers, and operator repositories. Because this corpus far exceeds any context window, ASCENDEVOLVE indexes it and routes each agent to a small, task-specific slice of evidence instead of the corpus itself. The retrieved knowledge seeds diverse implementation strategies, guides repair when a candidate fails, and constrains how strong candidates are recombined. On 53 Ascend C operators from CANN-Bench spanning four difficulty levels, ASCENDEVOLVE achieves an overall score of 71.39, improving over Reflexion and OpenEvolve by 11.6% and 17.2%.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.84,
+        "contribution": {
+          "en": "Uses retrieval from platform knowledge to guide evolutionary LLM-agent generation of Ascend NPU kernels.",
+          "zh": "利用平台知识检索引导LLM智能体进化生成Ascend NPU内核。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "It shows a knowledge-guided alternative to experience-only agents for emerging accelerator code generation.",
+          "zh": "它展示了面向新兴加速器代码生成的知识引导替代方案，而非仅依赖经验积累。"
+        }
+      },
+      "authors": [
+        "Xi Chen",
+        "Ming Shen",
+        "Haotian Yan",
+        "Ruoyu Sun",
+        "Tianjun Yao"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.3265276670455932,
+        "semantic": 0.5769211649894714
+      },
+      "paper_id": "2610.27588",
+      "pdf_url": "https://arxiv.org/pdf/2610.27588v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "rank": 3,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Beyond Experience: Knowledge-Guided Evolution for NPU Kernel Generation",
+      "url": "https://arxiv.org/abs/2610.27588"
+    },
+    {
+      "abstract": "Sparse attention reduces the computational cost of long-sequence video Transformers, but three-dimensional token layouts often leave selected blocks partially occupied, wasting physical tile capacity. We present KPage, a block-sparse attention scheme that packs valid 16-row K/V pages across logical-block boundaries into large tiles directly during loading, without materializing compacted tensors in high-bandwidth memory. KPage also routes Q blocks between 64x256 and 128x128 tiles to reduce query-side padding. Exact masking and K/V-owned page packing preserve the original sparse graph in forward and backward execution. Across five representative workloads, KPage achieves 1.35x-2.06x bare forward-kernel speedup over NVIDIA Block-Sparse Attention (BSA), with a geometric mean of 1.77x. It is near parity for fully occupied blocks (1.03x) but achieves 2.29x geometric-mean speedup on 3D layouts with partial blocks. KPage reduces physical query-key pair capacity from 334.1G to 177.5G while preserving 160.6G useful interactions. Across eight layouts from open-source SSTA, STA, and VSA systems, KPage achieves 1.13x-4.25x forward and 1.02x-2.71x forward-plus-backward speedup over the strongest exact sparse baselines. With independent Q/K partitions, KPage also achieves 1.49x speedup over the strongest exact sparse baseline and 1.57x over BSA on the SVG2 Wan 14B/720p configuration. After compliance review, we will open-source KPage and submit a pull request to NVIDIA cuDNN Frontend.",
+      "affiliations": [
+        "KlingAI Research",
+        "NVIDIA"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.83,
+        "contribution": {
+          "en": "Packs sparse-attention K/V pages across block boundaries to improve GPU tile utilization.",
+          "zh": "跨块打包稀疏注意力K/V页以提升GPU瓦片利用率。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 6,
+        "why_care": {
+          "en": "It exemplifies data-layout and tiling optimizations for GPU attention kernels relevant to code generation.",
+          "zh": "它是与代码生成相关的GPU注意力内核数据布局与分块优化示例。"
+        }
+      },
+      "authors": [
+        "Junwei Feng",
+        "Qiaorui Chen",
+        "Chenyu Liang",
+        "Zhen Guo",
+        "Jingyi Yang",
+        "Xiaoling Zhou",
+        "Jiahao Zhang",
+        "Dongliang Huang",
+        "Yiqiao Liao",
+        "Chengru Song"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.3261232089996337,
+        "semantic": 0.5767150521278381
+      },
+      "paper_id": "2610.28096",
+      "pdf_url": "https://arxiv.org/pdf/2610.28096v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "rank": 4,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "KPage: Cross-Block Page Compaction for Hardware-Efficient Sparse Attention",
+      "url": "https://arxiv.org/abs/2610.28096"
+    },
+    {
+      "abstract": "As generative AI continues to evolve, retrieval-augmented generation (RAG) systems are driving rapid growth in vector database capacity requirements. As datasets outgrow host DRAM, vector databases rely on MMap-based serving over SSDs to extend capacity. However, high-fan-out ANN searches generate concurrent irregular accesses that contend for host memory and storage resources, degrading bulk throughput and inflating tail latency under mixed workloads. In this paper, we address these challenges through memory-semantic capacity and workload-aware compute placement. VS-Flash exposes flash as a large-capacity memory-semantic space and dynamically selects the execution engine according to runtime query and workload characteristics. It offloads throughput-oriented large-batch queries to a Computational Memory-Semantic Flash (CMS-Flash) device, while executing latency-sensitive small-batch queries on the host CPU. Both paths access the same resident segments, avoiding a separate host-DRAM replica. Across three billion-scale datasets, VS-Flash improves bulk-search throughput over vanilla Milvus by 36.8X on average, with up to a 57.4X improvement. Under mixed workloads, VS-Flash reduces the p99 latency of latency-sensitive requests by up to 24.8X while sustaining device-side bulk search. These results show that VS-Flash delivers scalable vector search beyond host DRAM capacity while jointly improving bulk throughput and small-request tail latency.",
+      "affiliations": [
+        "Samsung Semiconductor"
+      ],
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Exposes flash as memory-semantic capacity and dynamically places vector-search work between a computational flash device and host CPU.",
+          "zh": "将闪存暴露为内存语义容量，并在计算闪存设备与主机CPU间动态放置向量搜索工作。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 5,
+        "why_care": {
+          "en": "It extends near-memory compute to storage for RAG, relevant but outside your compiler-centric core.",
+          "zh": "它将近存计算扩展到面向RAG的存储，相关但偏离以编译器为核心的方向。"
+        }
+      },
+      "authors": [
+        "Donguk Kim",
+        "Sangjun Pae",
+        "Daeyoung Lee",
+        "Dong Kim"
+      ],
+      "categories": [
+        "cs.DB",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.2794943046569824,
+        "semantic": 0.5529489517211914
+      },
+      "paper_id": "2610.26960",
+      "pdf_url": "https://arxiv.org/pdf/2610.26960v1",
+      "published_at": "2026-10-21T04:00:00+00:00",
+      "rank": 5,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "VS-Flash: Harnessing Vector Search with Computational Memory-Semantic Flash",
+      "url": "https://arxiv.org/abs/2610.26960"
+    }
+  ],
+  "retrieved_count": 560,
+  "schema_version": 1,
+  "status": "complete"
+}
