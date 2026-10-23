@@ -1,0 +1,1982 @@
+{
+  "candidate_count": 40,
+  "candidates": [
+    {
+      "abstract": "We study how to improve training efficiency on Ascend NPUs. In the NPU training programs we study, framework-level compilation optimizations such as operator fusion are only partially applied, leaving fragmented computation and avoidable execution overheads. Profiling-guided tuning can address these inefficiencies, but it often requires costly trial and error. To make training on NPUs more efficient, we propose TrainBridge, an agentic approach for transferring GPU optimization guidance to NPU training. TrainBridge uses the highly optimized execution produced by mature GPU compilation stacks as a task-specific reference for NPU tuning. It extracts optimization intents from the GPU training execution to guide NPU program rewrites and further refines the rewritten program through iterative profiling. Our GPU-to-NPU migration experiments show that TrainBridge achieves an average 1.7x speedup across four workloads covering LLM pretraining, image classification, and vision-language training, and an average speedup of nearly 2.0x across 27 Modded-NanoGPT speedrun records with highly optimized GPU implementations.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "Proposes an agentic method that uses GPU compilation evidence to guide NPU training-program rewrites.",
+          "zh": "提出用GPU编译证据引导NPU训练程序重写的代理式优化方法。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 7,
+        "why_care": {
+          "en": "Relevant to heterogeneous accelerator retargeting and compiler-guided performance portability.",
+          "zh": "与异构加速器重定向和编译器引导的性能移植相关。"
+        }
+      },
+      "authors": [
+        "Yupeng Chen",
+        "Kunxiang Zhao",
+        "Xingjian Wang",
+        "Yue Zhao",
+        "Yijing Wu",
+        "Ye Liu",
+        "Kai Li",
+        "Congliang Chen",
+        "Ruoyu Sun"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.4399999332427978,
+        "semantic": 0.6808633804321289
+      },
+      "paper_id": "2610.29171",
+      "pdf_url": "https://arxiv.org/pdf/2610.29171v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TrainBridge: Agentic NPU Training Optimization Guided by GPU Compilation Evidence",
+      "url": "https://arxiv.org/abs/2610.29171"
+    },
+    {
+      "abstract": "Large language model (LLM) inference exhibits distinct computational characteristics across its two phases: prefill is compute-intensive, whereas decode is more memory-bound. As a result, AI accelerators achieve varying levels of efficiency across the two phases. GPUs are well suited to prefill, but are often underutilized during decode. By contrast, NPUs can utilize their compute resources more effectively during decode. Motivated by this observation, we explore a heterogeneous architecture that integrates GPUs and NPUs, mapping prefill to GPUs and decode to NPUs to achieve high performance and efficiency. However, realizing such heterogeneous integration is challenging because LLM phase disaggregation requires KV cache transfer from prefill to decode (that is, from GPUs to NPUs), which is complicated by differences in inter-device communication mechanisms and KV cache tensor layouts. To address this, we propose HAWK, a transfer mechanism that enables rapid KV cache transfer across heterogeneous devices. HAWK establishes a remote direct memory access (RDMA) path for direct cross-device transfers while handling inter-device tensor layout discrepancies as part of the transfer process. In particular, HAWK allocates tensor-layout-aware RDMA buffers on the NPU side to match the target tensor layout. Leveraging these buffers, HAWK orchestrates data transfer from a conventional contiguous GPU RDMA buffer to the corresponding NPU buffers, allowing transferred tensors to be consumed directly without additional data rearrangement while maintaining transfer efficiency. We implement and evaluate HAWK on a system built with commercially available GPUs and NPUs, demonstrating performance within 7.88% of a GPU-only system under the same SLO constraints while achieving up to 1.26$\\times$ higher power efficiency and 1.72$\\times$ higher cost efficiency.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "Proposes a heterogeneity-aware KV-cache transfer mechanism for GPU-NPU phase-disaggregated inference.",
+          "zh": "提出面向GPU-NPU阶段分离推理的异构KV缓存传输机制。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "Offers a systems case for tensor-layout adaptation and direct transfer across heterogeneous devices.",
+          "zh": "提供异构设备间张量布局适配与直接传输的系统案例。"
+        }
+      },
+      "authors": [
+        "Junhyeok Park",
+        "Jungeun Yoon",
+        "Kyungmin Kim",
+        "Hunsoon Lee",
+        "Shinyoung Ahn",
+        "Kangho Kim"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "diversity": 0.33778092861175535,
+        "lexical": 59.66119951733486,
+        "semantic": 0.6237165331840515
+      },
+      "paper_id": "2610.29873",
+      "pdf_url": "https://arxiv.org/pdf/2610.29873v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "HAWK: Heterogeneity-Aware KV Cache Transfer for Efficient GPU-NPU Phase-Disaggregated LLM Inference",
+      "url": "https://arxiv.org/abs/2610.29873"
+    },
+    {
+      "abstract": "A Transformer is built around attention, whose cost grows with the square of the sequence length and dominates the layer on long sequences. FlashAttention made that cost manageable by tiling the attention matrix and updating the softmax as it goes, but almost all work since has targeted GPUs. On long-vector processors one vector register can hold up to 512 single-precision numbers. The savings of a vector instruction are proportional to how much of the register it uses, so the choice of which loop to vectorize is a first-order decision. We port PyTorch's CPU FlashAttention kernel to a RISC-V CPU with 2KB vector registers and find that it reaches 16.2% of peak floating-point throughput. The kernel walks each tile one query row at a time: the product against V is vectorized along the 64-element head dimension, the softmax's per-row maximum and sum are reductions that collapse a full register to a scalar, and the software exponential's polynomial coefficients compete with tile data for vector registers and cause spilling. We propose two techniques. The first transposes the score tile and the running output so that queries lie along the contiguous axis. The algorithm and its values are unchanged. A single parameter, the number of queries in a tile, now sets the vector length of every part of the kernel and can be matched to the machine. Both reductions also disappear. The second moves the polynomial's coefficients into scalar registers, removing the spills and cutting the softmax's vector memory instructions by 78.7%. On silicon the two together cut whole-kernel cycles by 1.84 to 2.08x at a head dimension of 64, raising floating-point utilization from 16.2% to 29.7% of peak. An FPGA of the same design ranks the changes identically and scores them higher, at 2.71x.",
+      "affiliations": [
+        "Barcelona Supercomputing Center",
+        "Universitat Politècnica de Catalunya (UPC)"
+      ],
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Reorients score/output tiles and moves softmax coefficients to scalar registers to cut reductions and spills in long-vector FlashAttention.",
+          "zh": "通过转置分数/输出瓦片和标量系数消除长向量FlashAttention归约与寄存器溢出。"
+        },
+        "elegance": 8,
+        "novelty": 6,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "Directly relevant to vector-length-aware kernel scheduling, register pressure, and vectorized code generation.",
+          "zh": "与向量长度感知的kernel调度、寄存器压力和向量化代码生成直接相关。"
+        }
+      },
+      "authors": [
+        "Emmanuel Irabor",
+        "Marc Casas"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "diversity": 0.3164481687545776,
+        "lexical": 76.36882717652817,
+        "semantic": 0.6117902398109436
+      },
+      "paper_id": "2610.29489",
+      "pdf_url": "https://arxiv.org/pdf/2610.29489v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Reorienting the Vector Axis: Restructuring FlashAttention for Long-Vector Processors",
+      "url": "https://arxiv.org/abs/2610.29489"
+    },
+    {
+      "abstract": "Speculative decoding accelerates LLM inference, but deploying it on CPUs introduces severe systems bottlenecks: context-swapping latency between draft and target graphs, and memory allocation overhead during KV cache rollbacks. We introduce SubTernary, an execution framework that eliminates these costs through Unified Graph Caching and Transactional KV-Cache Isolation. By compiling both models into a single memory arena with a persistent thread pool and routing speculative tokens to a static scratchpad for zero-copy pointer resets, SubTernary avoids dynamic reallocation and thread synchronization entirely. We integrate a 256-bit AVX2 ternary SIMD kernel as a low-bit case study. Ablations reveal our systems runtime drives 35.0% of the throughput gains, while the ternary kernel adds 6.0%. SubTernary achieves a $1.35\\times$ speedup over llama.cpp speculative decoding and $3.99\\times$ over autoregressive decoding, maintaining $O(1)$ rollback latency.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "Uses unified graph caching and transactional KV isolation to reduce context-switch and rollback overhead in CPU speculative decoding.",
+          "zh": "用统一图缓存和事务式KV隔离降低CPU推测解码的上下文切换与回滚开销。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Provides systems-optimization reference for graph execution runtimes and SIMD low-bit kernels on CPUs.",
+          "zh": "为CPU上的图执行运行时和SIMD低比特kernel提供系统优化参考。"
+        }
+      },
+      "authors": [
+        "Zhangdie Yuan"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "diversity": 0.29690191268920896,
+        "semantic": 0.6008626818656921
+      },
+      "paper_id": "2610.28671",
+      "pdf_url": "https://arxiv.org/pdf/2610.28671v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Accelerating CPU Speculative Decoding via Unified Graph Execution and Transactional KV Isolation",
+      "url": "https://arxiv.org/abs/2610.28671"
+    },
+    {
+      "abstract": "Edge medical segmentation must reconcile small model size, high accuracy, and fast inference. TernScope addresses this tradeoff through model--hardware co-design, learning a compact segmentation network whose low-bit operators also simplify hardware execution. Split-channel large-kernel blocks preserve spatial context with limited computation, while branch fusion removes redundant inference paths. Ternary Progressive Quantization-aware Training (TPQ) then adapts the fused network from deep to shallow layers, through the decoder, and finally to the input and prediction layers. All 25 convolutions use ternary weights and 8-bit activations, enabling packed storage and multiplier-free computation. The resulting model uses 0.2483 M parameters and 0.0949 GMACs while retaining competitive segmentation accuracy on in-domain and external datasets. Under the same 45 nm technology, TernScope reduces compute-array area by 88.46% compared with the original Gemmini, a systolic-array accelerator with 8-bit $\\times$ 8-bit multipliers. These results demonstrate a path from accurate lightweight medical segmentation to compact low-bit hardware.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.6,
+        "contribution": {
+          "en": "Co-designs a segmentation model and low-bit hardware via split-channel large kernels, branch fusion, and ternary progressive quantization.",
+          "zh": "通过通道拆分大核、分支融合和三值渐进量化实现分割模型与低比特硬件的协同设计。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Shows how low-bit operators simplify accelerator datapaths, though it is adjacent to core compiler interests.",
+          "zh": "展示低比特算子如何简化加速器数据通路，但与编译器核心兴趣相邻。"
+        }
+      },
+      "authors": [
+        "Zhuoyu Wu",
+        "Wenhui Ou",
+        "Qiawei Zheng",
+        "Xuhong Qiu",
+        "Wenqi Fang",
+        "Rapha\\\"{e}l C. -W. Phan"
+      ],
+      "categories": [
+        "eess.IV",
+        "cs.AR",
+        "cs.CV"
+      ],
+      "channel_scores": {
+        "diversity": 0.23671637535095208,
+        "lexical": 64.02113724117422,
+        "semantic": 0.5672151446342468
+      },
+      "paper_id": "2610.29617",
+      "pdf_url": "https://arxiv.org/pdf/2610.29617v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TernScope: Model-Hardware Co-Design for Efficient Ternary Endoscopic Segmentation",
+      "url": "https://arxiv.org/abs/2610.29617"
+    },
+    {
+      "abstract": "Transformers are deployed as a special model class. Neural processing units (NPU) add dedicated operators for attention and normalization, and quantization relies on Transformer-specific algorithms. We show the computation does not force this. Every Transformer block, with attention, LayerNorm and a GELU MLP, compiles exactly into a generic deep neural network built from fixed affine maps, routing and the square, sigmoid and inverse square root, plus GELU or its sigmoid approximation. Without activation-activation products, every transform-wise compilation adds at least $N^2$ scalar nonlinear evaluations per head for dense scores. Keeping that one operation type removes this cost; its elementwise form, present on every surveyed NPU, suffices with the sigmoid and inverse square root. For top-$k$ attention with exchangeable tail scores, we prove that exact or conditional-mean tail mass gives an unbiased, minimum-mean-square-error estimate of the attention distribution, while tail drop is conditionally biased. When queries or agents cluster, centroids choose the keys first, reducing the number of computed scores from $N^2$ to $Nk$ per head. On DeiT-Tiny, MambaIRv2-Light and Pythia-70M the compiled models match their references with all keys, standard post-training quantization applies, and the exact tail-mass estimate beats tail dropping with half as many keys on DeiT-Tiny and, for $k\\le8$, on Pythia-70M.",
+      "affiliations": [
+        "St. Petersburg State University",
+        "Braude College of Engineering"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Shows transformer blocks compile exactly to generic DNN operators and analyzes the cost of removing activation-activation products.",
+          "zh": "证明Transformer块可精确编译为通用DNN算子，并分析去除激活-激活乘积的代价。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly informs target-independent IR, NPU operator abstraction, and quantizing compiler design.",
+          "zh": "对目标无关IR、NPU算子抽象和量化编译器设计有直接启发。"
+        }
+      },
+      "authors": [
+        "Sergey Salishev",
+        "Zeev Volkovich",
+        "Oleg Granichin"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.MA"
+      ],
+      "channel_scores": {
+        "diversity": 0.2319757509231567,
+        "semantic": 0.5645648837089539
+      },
+      "paper_id": "2610.28958",
+      "pdf_url": "https://arxiv.org/pdf/2610.28958v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Transformers as Generic Deep Neural Networks: Exact Compilation, the Cost of Removing Activation-Activation Products, and Multi-Agent Attention Clustering",
+      "url": "https://arxiv.org/abs/2610.28958"
+    },
+    {
+      "abstract": "Long-horizon agentic reinforcement learning (RL) requires both efficient rollout generation and training on long sequences. However, the memory requirements and model-specific operators of Qwen3.8-Flash-Next make this difficult with existing open-source implementations. To resolve these limitations, we introduce FlashNext-RL, a model-specific RL training optimization framework based on prime-rl, with vLLM for software engineering (SWE) rollout generation. Our main focus is BF16 training of the full 48-layer model on a single 8xB200 node, with the first two layers, the n-gram table, the sparse-attention indexer and the multi-token prediction head frozen. We optimize host offload, gradient accumulation and the kernels for mixture-of-experts, sparse attention and the gated residual stream. In the full-model development study, non-padding training throughput increases from approximately 395 tokens/s/GPU in the initial 32K-token configuration to 4,438 tokens/s/GPU in the optimized 131K-token configuration, with hardware matmul throughput (aka without considering the cost of attention components) increasing from approximately 20 to 213 TFLOPs/GPU. A controlled cumulative study on an 8-layer model further quantifies the contributions of individual optimizations. Together with three inference nodes, the system supports a live SWE RL run with a target batch of 1,024 trainable rollouts and a 131,072-token context limit. Over steps 5-15, an iteration takes 22.4 minutes on average, with bounded entropy and trainer-sampler mismatch KL. These results highlight the importance of tailoring RL training to the model's architecture, memory layout and kernel requirements, rather than relying only on general-purpose RL infrastructure.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "Optimizes host offload, gradient accumulation, and sparse-attention kernels for long-horizon agentic RL training of Qwen3.8-Flash-Next.",
+          "zh": "针对Qwen3.8-Flash-Next的长程代理RL训练做主机卸载、梯度累积和稀疏注意力等系统优化。"
+        },
+        "elegance": 4,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Provides a model-specific kernel and memory-layout tuning case, but is far from general compiler techniques.",
+          "zh": "提供模型特定kernel与内存布局调优案例，但距通用编译技术较远。"
+        }
+      },
+      "authors": [
+        "Zhewei Yao",
+        "Yuxiong He"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.CL"
+      ],
+      "channel_scores": {
+        "diversity": 0.20981785297393796,
+        "semantic": 0.5521771907806396
+      },
+      "paper_id": "2610.28998",
+      "pdf_url": "https://arxiv.org/pdf/2610.28998v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "FlashNext-RL: A System Optimization Study for Long-Horizon Agentic RL of Qwen3.8-Flash-Next",
+      "url": "https://arxiv.org/abs/2610.28998"
+    },
+    {
+      "abstract": "Long contexts increase the memory cost of the key-value (KV) cache in large language model (LLM) inference. Sparse attention reduces attention computation and memory traffic by selecting historical tokens, but the retained KV cache must remain available for later decoding steps. We present UlaCache, a KV cache management system built around a unified logical address space spanning GPU KV pools and optional CPU memory. Stable logical references let the inference engine allocate and select KV independently of physical placement. Common allocation and sparse-access interfaces support data-parallel (DP) and tensor-parallel (TP) attention. For distributed storage, local GPU buffers retain selected KV across decoding steps, so only missing entries require transfers. When CPU storage is enabled, Parallel Bucketed LRU (PB-LRU) manages a GPU pool shared across requests. It updates recency metadata and selects eviction victims in parallel. UlaCache transfers KV and then updates the address mappings. With speculative decoding enabled under matched CPU and GPU memory budgets, UlaCache achieves peak decoding throughput speedups of 1.16 $\\times$ (DP) and 1.70 $\\times$ (TP) on H200, and 1.73 $\\times$ (DP) and 2.51 $\\times$ (TP) on B300, compared with the state-of-the-art baseline.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.65,
+        "contribution": {
+          "en": "Manages sparse KV cache across GPU/CPU with a unified logical address space and parallel bucketed LRU.",
+          "zh": "用统一逻辑地址空间和并行桶式LRU管理GPU/CPU稀疏KV缓存。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Belongs to LLM-serving memory management and only weakly connects to memory-centric architectures.",
+          "zh": "属于LLM服务内存管理，仅与内存中心架构有弱关联。"
+        }
+      },
+      "authors": [
+        "Isaac Zhu",
+        "Alan Cao",
+        "Hugh Yin",
+        "Rocky Wang",
+        "Orion Wang",
+        "Hscos Zhang",
+        "Jack Li",
+        "Jason Zhao"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5513504147529602
+      },
+      "paper_id": "2610.29820",
+      "pdf_url": "https://arxiv.org/pdf/2610.29820v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "UlaCache: Unified Logical Addressing for Sparse LLM Serving",
+      "url": "https://arxiv.org/abs/2610.29820"
+    },
+    {
+      "abstract": "Finding K most similar elements for a query in a large gallery of neural network (NN) embeddings is essential in various areas of computer science and industrial applications of artificial intelligence. This paper proposes search algorithms for structured latent spaces (LS) of NNs which allow to speed up top K item retrieval owing to O(1) complexity small candidate gallery subset search. ArcFace-pretrained IResNet50 models are finetuned using Latent Space Configuration (LSC) methodology to obtain new distribution of embeddings with desired geometric properties. Applying the proposed algorithms to embeddings obtained from finetuned models leads to several times speed-up over baseline exhaustive search. Specifically, we report up to 3 times speed-up on GPU and 40% speed-up on CPU compared to the baseline method GPU speed. These results are obtained for the original and reduced numbers of LS dimensions. The results show that LS dimensionality reduction allows to further accelerate the search and even improve rank-N metrics.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.82,
+        "contribution": {
+          "en": "Proposes latent-space search algorithms and finetuning to accelerate top-K embedding retrieval with dimensionality reduction.",
+          "zh": "提出潜空间搜索算法与微调方法，通过降维加速嵌入向量的top-K检索。"
+        },
+        "elegance": 5,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "It is an embedding-retrieval application with GPU/CPU speedups, not a compiler or architecture method.",
+          "zh": "这是带GPU/CPU加速的嵌入检索应用，并非编译器或体系结构方法。"
+        }
+      },
+      "authors": [
+        "Nikita Gabdullin",
+        "Anton Raskovalov"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.19085171699523923,
+        "semantic": 0.5415739417076111
+      },
+      "paper_id": "2610.29295",
+      "pdf_url": "https://arxiv.org/pdf/2610.29295v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Latent space configuration for neural network finetuning, fast ranking, and embedding dimensionality reduction",
+      "url": "https://arxiv.org/abs/2610.29295"
+    },
+    {
+      "abstract": "Reinforcement learning (RL) enables adaptive and autonomous decision-making in embedded, edge, and heterogeneous computing systems. Field-programmable gate arrays (FPGAs) and integrated circuits (ICs) offer low latency, energy efficiency, and architectural flexibility for RL deployment, while introducing challenges in resource constraints, implementation complexity, and hardware-algorithm co-design. This review surveys more than 100 studies on RL implementations across FPGA and IC platforms, emphasizing architectures, implementation strategies, performance evaluation, and applications. The literature is organized by RL family, including model-based Markov decision processes, classical value-based methods, deep RL, actor-critic, policy-gradient, and multi-agent approaches. We further classify studies by abstraction level, hardware realization strategy, and application domain, examining how RL algorithms map onto reconfigurable and fixed hardware. Unlike surveys restricted to particular algorithms or platforms, this work provides a unified analysis of FPGA and IC implementations, covering acceleration, reconfigurable architectures, energy-aware control, and system-level optimization. Comparative assessments consider resource utilization, latency, throughput, power consumption, and reported performance gains. Finally, we identify recurring architectural patterns, practical limitations, open challenges, and research directions for efficient RL-driven hardware systems. The survey offers a consolidated reference for researchers developing and evaluating RL solutions on specialized hardware.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Surveys over 100 reinforcement-learning implementations and system-level optimization strategies on FPGA and IC platforms.",
+          "zh": "综述了100余项面向FPGA与集成电路平台的强化学习实现与系统级优化策略。"
+        },
+        "elegance": 3,
+        "novelty": 3,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "It offers neighboring context for RL-driven hardware acceleration but does not address compiler IR or code generation.",
+          "zh": "它为强化学习驱动的硬件加速提供邻近背景，但不涉及编译器IR或代码生成。"
+        }
+      },
+      "authors": [
+        "Hamza Kheddar"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.AR",
+        "cs.PF",
+        "cs.RO",
+        "cs.SY",
+        "eess.SY"
+      ],
+      "channel_scores": {
+        "lexical": 73.25342885214646,
+        "semantic": 0.5312292575836182
+      },
+      "paper_id": "2610.28699",
+      "pdf_url": "https://arxiv.org/pdf/2610.28699v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Reinforcement learning for hardware acceleration and system-level optimization on FPGA and integrated-circuit platforms: A survey",
+      "url": "https://arxiv.org/abs/2610.28699"
+    },
+    {
+      "abstract": "Large-scale topology optimization (TO) remains computationally demanding, especially for stress-constrained problems. To address this challenge, we propose the simultaneous neural topology optimization (SNTO) framework where we represent state, adjoint, and design variables with custom neural networks (NNs) whose parameters are jointly optimized within a single optimization loop that leverages continuous adjoint analysis and automatic differentiation. This optimization minimizes a multi-component loss function that combines the design objective, an aggregation of the local stress constraints, and the potential energy functionals. Our NNs have a unique architecture that accelerates convergence while enabling the networks to capture sharp gradients and boundaries which are critical to stress-constrained TO. To achieve scalability to millions of degrees of freedom (DoF), we develop a hardware-aware training scheme in which the design domain is partitioned into subdomains that are distributed across multiple GPUs. To control peak GPU memory usage, we further slice each subdomain into smaller regions whose loss gradients are evaluated sequentially and accumulated to update the NN parameters. Unlike domain decomposition approaches, our partitioning naturally ensures field continuity across the subdomains and does not require the introduction of additional terms into the loss function. For validation, we first evaluate the proposed framework on various 2D stress-constrained benchmarks and compare our results to a conventional finite element-based approach, showing that SNTO produces super-resolution designs with sharper boundaries, smaller gray areas, and lower volume fractions. We then consider large-scale 3D problems with up to eight million collocation points and distribute the training over up to eight GPUs.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Presents a neural topology-optimization framework using custom networks and multi-GPU domain partitioning.",
+          "zh": "提出使用定制网络与多GPU域划分的神经拓扑优化框架。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It is a scientific ML/GPU-scaling application, far from compiler optimization and architecture co-design.",
+          "zh": "这是科学机器学习与GPU扩展应用，距离编译器优化和体系结构协同设计较远。"
+        }
+      },
+      "authors": [
+        "Xiangyu Sun",
+        "Shirin Hosseinmardi",
+        "Ramin Bostanabad"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "diversity": 0.1720722913742065,
+        "semantic": 0.531075119972229
+      },
+      "paper_id": "2610.28703",
+      "pdf_url": "https://arxiv.org/pdf/2610.28703v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Scalable Stress-Constrained Topology Optimization: A Super-resolution and Simultaneous Approach Based on Machine Learning",
+      "url": "https://arxiv.org/abs/2610.28703"
+    },
+    {
+      "abstract": "The Open Compute Project's microscaling (MX) family includes MXFP4, which stores 32 four-bit elements with a shared power-of-two scale. When lowering a dot-product reduction, a compiler can apply these scales before the reduction, or defer scaling until afterwards. Although equivalent over real numbers, these formulations can produce different IEEE binary32 results through overflow or underflow, with equivalence also depending on the reduction tree. We study the legality of compiler rewrites in either direction by deriving conditions under which the two formulations are bitwise equivalent. To decide rewrite legality, we construct an integer state machine that exploits the finite element alphabet and shared power-of-two scales, modeling overflow, NaN, and subnormal rounding. We prove its faithfulness under bounded scale codes and integer coefficients, yielding an exact encoding of the equivalence query in quantifier-free linear integer arithmetic (QF_LIA). For MXFP4, we derive a closed-form sufficient upper bound on the sum of scale exponents for any fixed binary reduction tree within the supported coefficient range. This bound depends on the size of the largest proper subtree. For four tree shapes at block lengths $k\\in\\{2,3,4,8,16,32\\}$ and two shapes at $k=64$, SMT finds counterexamples when this upper bound is increased by one exponent step. Against the standard direct encoding in quantifier-free floating-point arithmetic (QF_FP), on matched queries cvc5 proves the integer version in seconds but reaches a configured one-CPU-hour limit on the floating-point proof even at $k=2$. The implementation was cross-checked using an independent floating-point encoding, exhaustive and stratified binary32 execution, and GPU replay of counterexamples. An MLIR lowering prototype demonstrates selection between the two formulations using the certified conditions as static or runtime guards.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Derives bitwise-equivalence conditions for MXFP4 scale-placement rewrites using integer state machines and SMT, with an MLIR lowering prototype.",
+          "zh": "利用整数状态机与SMT推导MXFP4缩放位置重写的按位等价条件，并给出MLIR lowering原型。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 8,
+        "transferability": 7,
+        "why_care": {
+          "en": "It directly informs safe low-precision compiler rewrites and MLIR lowering legality.",
+          "zh": "它直接指导安全的低精度编译器重写与MLIR lowering合法性判断。"
+        }
+      },
+      "authors": [
+        "Shreyas Vinayakumar"
+      ],
+      "categories": [
+        "cs.LO",
+        "cs.AR",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "diversity": 0.16948947906494138,
+        "lexical": 57.832821543743506,
+        "semantic": 0.5296310782432556
+      },
+      "paper_id": "2610.29445",
+      "pdf_url": "https://arxiv.org/pdf/2610.29445v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Deciding Scale Placement in MXFP4 Dot Products with Integer Arithmetic",
+      "url": "https://arxiv.org/abs/2610.29445"
+    },
+    {
+      "abstract": "Progress on foundation model pretraining is gated by who can afford a trial, and relational pretraining is no exception. Recipes are developed inside individual labs, reported under private protocols, and do not accumulate. Speedrun leaderboards remove that barrier by decentralizing the search rather than the training run. The problem is fixed, the stack is open, entries are ranked by wall-clock time to a quality target, and one GPU is enough to hold the record. We introduce modded-nanoRT, the first such leaderboard for Relational Transformers. Which database to hold out decides whether the benchmark can resolve improvements at all, so we fix it by calibration, ranking six candidates by how sharply a 45-minute learning curve separates improvement from seed noise. We open the leaderboard with typed trilinear attention, a relational operator that conditions attention scores and values on the foreign key traversed, together with Muon and SIGReg. The recipe reaches the target in 305.63 seconds on one NVIDIA H200, 8.11x faster than the reference implementation, and wins 13 of 15 pairs outside the development database. We will release the benchmark, its frozen artifacts, and the record runs. Our code is available at https://github.com/kunumi/nanoRT.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces an open speedrun leaderboard and recipe for relational foundation-model pretraining on one GPU.",
+          "zh": "提出面向关系基础模型预训练的单GPU开放竞速榜单与训练配方。"
+        },
+        "elegance": 5,
+        "novelty": 4,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It is a model-training benchmark, not a compiler or hardware architecture contribution.",
+          "zh": "这是模型训练基准，不是编译器或硬件体系结构贡献。"
+        }
+      },
+      "authors": [
+        "Gabriel Wedson Mendon\\c{c}a de Souza Veloso",
+        "Luan Borges Teodoro Reis Sena",
+        "Denis Oliveira Correa",
+        "Francisco Galuppo Azevedo"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.5242319107055664
+      },
+      "paper_id": "2610.28855",
+      "pdf_url": "https://arxiv.org/pdf/2610.28855v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Speedrunning Relational Foundation Model Pretraining",
+      "url": "https://arxiv.org/abs/2610.28855"
+    },
+    {
+      "abstract": "We design and optimize a quantum error correction (QEC) decoder for NVIDIA GPUs, combining Relay belief propagation, a state-of-the-art message-passing algorithm, with order-zero ordered statistics post-processing. Our implementation uses CUDA Graphs to control GPU execution, stops updates for converged samples, and collects unresolved samples in queues for post-processing. We optimize sparse traversal through coalesced message accesses, prefetching, and register reuse, and accelerate binary post-processing with warp-level collectives. In addition, mixed FP16-FP32 arithmetic and INT8 quantization reduce message storage and traffic while retaining accuracy using accumulators at higher precision. We evaluate surface, hypergraph product, and bivariate bicycle code workloads on NVIDIA A100 and GH200 data-center GPUs and a commodity RTX 5080. On the bivariate bicycle code at error probability 0.003, INT8 halves amortized decoding time relative to independently tuned FP32 with a negligible logical error rate increase on RTX 5080. With independent syndrome batches submitted back-to-back to concurrent decoder instances, RTX 5080 delivers 91% of GH200's highest measured throughput with an 8.9x shorter median submission-to-correction latency. The combination of performance optimization, mixed precision, INT8 quantization, and concurrent decoder instances opens a path toward QEC decoder clusters built from commodity GPUs.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Optimizes a GPU quantum-error-correction decoder with CUDA Graphs, sparse traversal, mixed precision, and INT8 quantization.",
+          "zh": "利用CUDA Graphs、稀疏遍历、混合精度和INT8量化优化GPU量子纠错解码器。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 5,
+        "why_care": {
+          "en": "Its GPU latency and throughput techniques are adjacent to GPU systems work but domain-specific.",
+          "zh": "其GPU延迟与吞吐技术邻近GPU系统研究，但面向特定领域。"
+        }
+      },
+      "authors": [
+        "Stefano Markidis",
+        "Luca Pennati",
+        "Ivy Peng"
+      ],
+      "categories": [
+        "cs.DC",
+        "quant-ph"
+      ],
+      "channel_scores": {
+        "lexical": 53.6150521102108,
+        "semantic": 0.5187801122665405
+      },
+      "paper_id": "2610.28867",
+      "pdf_url": "https://arxiv.org/pdf/2610.28867v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Engineering Low-Latency, High-Throughput Quantum Decoders on NVIDIA GPUs",
+      "url": "https://arxiv.org/abs/2610.28867"
+    },
+    {
+      "abstract": "Stateful dataflow systems must decide where state lives relative to the tasks that process it. For long-running applications that require frequent reconfiguration due to changes in resource allocation, partitioning, or task placement, this design choice presents a core trade-off between adaptability and performance. Co-locating state with computation ensures low latency at steady state but makes reconfiguration disruptive, as any change forces state migration. On the other hand, keeping state in an external store makes reconfiguration seamless, but incurs overhead on every access. We present Koala, a reconfiguration protocol for distributed dataflow systems that retains the operational performance of embedded-state architectures while matching the disruption-free adaptability of external-state designs. Unlike prior protocols which relocate all state regardless of whether it will soon be accessed, Koala migrates state in a fine-grained, lazy manner. To achieve that, it employs a lightweight ownership transfer mechanism that safely decouples event routing from state location. We implement Koala in a new streaming dataflow system and evaluate it on real-world and synthetic benchmarks. When compared with the state-of-the-art protocol DRRS, Koala consumes backlog up to 23x faster and transfers 8.7x less state on average during reconfiguration.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Proposes a lazy fine-grained state-migration protocol for non-disruptive reconfiguration in stateful dataflow systems.",
+          "zh": "提出面向有状态数据流系统的细粒度惰性状态迁移协议，实现无中断重配置。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "It is distributed-systems reconfiguration work, peripheral to compiler and architecture interests.",
+          "zh": "这是分布式系统重配置工作，与编译器和体系结构兴趣较远。"
+        }
+      },
+      "authors": [
+        "Lei Huang",
+        "Sakshi Sharma",
+        "Chenxu Yu",
+        "Zikun Wang",
+        "Yuanli Wang",
+        "Zichen Zhu",
+        "John Liagouris",
+        "Vasiliki Kalavri"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5158281922340393
+      },
+      "paper_id": "2610.28939",
+      "pdf_url": "https://arxiv.org/pdf/2610.28939v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Koala: Non-disruptive Reconfiguration for Long-running Stateful Dataflows",
+      "url": "https://arxiv.org/abs/2610.28939"
+    },
+    {
+      "abstract": "Constrained-random verification tests hardware designs by sampling solutions of Boolean formulas. Existing samplers largely follow one of two approaches: CPU-based SAT samplers (e.g., CMSGen), which remain effective even at rare targets but offer limited throughput, and GPU-based gradient samplers, which achieve high throughput at high-probability targets but collapse at rare ones. We introduce Gpap-S, the first GPU sampler built on Boolean constraint propagation (BCP). At its core is Gpap, a new GPU engine for BCP that efficiently propagates many independent partial assignments concurrently on a shared Boolean formula. This capability allows Gpap-S to combine the rare-target robustness of SAT-based sampling with the throughput of GPU parallelism by exploring thousands of decide-and-propagate trajectories simultaneously. On the benchmark families used to evaluate prior GPU gradient samplers, Gpap-S is 2.2-18.7x faster at the high-probability targets considered in those evaluations. At rare targets, where those samplers often fail to generate any samples, Gpap-S achieves a geometric-mean speedup of roughly two orders of magnitude. Across all benchmarks, Gpap-S is also 83.4-1,571x faster than the CPU-based CMSGen. This throughput does not come at the expense of sample quality: under Barbarik, the statistical tester used to evaluate CMSGen, Gpap-S is accepted on every instance we test, as is CMSGen. We release Gpap as a reusable GPU library for high-throughput BCP.",
+      "affiliations": [
+        "Technion"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Builds a GPU Boolean-constraint-propagation engine and uses it for scalable SAT sampling.",
+          "zh": "构建GPU布尔约束传播引擎并将其用于可扩展SAT采样。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 7,
+        "why_care": {
+          "en": "GPU-accelerated SAT/BCP could support synthesis, verification, and compiler testing as a neighboring method.",
+          "zh": "GPU加速的SAT/BCP可作为邻近方法支持综合、验证与编译器测试。"
+        }
+      },
+      "authors": [
+        "Alexander Nadel",
+        "Yogev Shalmon",
+        "Ofer Strichman"
+      ],
+      "categories": [
+        "cs.LO",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5138188004493713
+      },
+      "paper_id": "2610.28805",
+      "pdf_url": "https://arxiv.org/pdf/2610.28805v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "SAT Sampling at Scale via GPU-based Boolean Constraint Propagation",
+      "url": "https://arxiv.org/abs/2610.28805"
+    },
+    {
+      "abstract": "The rapid evolution of digital circuit complexity demands innovative approaches to hardware design automation. While Large Language Models (LLMs) have influenced software development, their application to Hardware Description Language (HDL) generation remains largely unexplored, particularly for VHDL. This paper presents a comprehensive study for AI-assisted digital circuit design, addressing gaps in current Electronic Design Automation workflows. The work introduces a VHDL dataset of 18,500+ syntax-verified examples from open-source repositories and converted Verilog designs. Five 7B-parameter LLMs were fine-tuned using parameter-efficient QLoRA technique, enabling deployment in resource-constrained environments. To evaluate model efficacy, a rigorous three-level pipeline was established: (1) syntax and synthesis validation, (2) functional simulation with testbenches, and (3) FPGA prototyping on Zynq SoCs. Results show fine-tuned models achieve up to 92% syntax correctness and 73% functional accuracy on common design tasks, with DeepSeek-Coder demonstrating the highest performance gains. Generated designs were successfully deployed on real hardware, confirming not only syntactic but operational viability. This work demonstrates that LLMs, when tailored with domain-specific data and lightweight fine-tuning can contribute meaningfully to the future of generative EDA workflows.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "Builds a VHDL dataset, fine-tunes several 7B models with QLoRA, and validates via syntax, simulation, and FPGA prototyping.",
+          "zh": "构建VHDL数据集并用QLoRA微调多个7B模型，配合语法、仿真和FPGA原型三级评测。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "LLM-assisted HDL generation is adjacent to hardware design automation but not directly to compiler optimization or architecture co-design.",
+          "zh": "LLM辅助HDL生成与硬件设计自动化相邻，但不直接触及编译器优化或体系结构协同设计。"
+        }
+      },
+      "authors": [
+        "Patrik Drazic",
+        "Benaoumeur Senouci",
+        "Boualem Benatallah"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "lexical": 60.033023365658906,
+        "semantic": 0.5069981217384338
+      },
+      "paper_id": "2610.28676",
+      "pdf_url": "https://arxiv.org/pdf/2610.28676v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "VHDLBench: Benchmarking and Fine-Tuning Large Language Models for VHDL-Based Chip Design",
+      "url": "https://arxiv.org/abs/2610.28676"
+    },
+    {
+      "abstract": "NVIDIA tensor cores have supported 2:4 semi-structured sparsity since Ampere, and the pattern composes with quantization. When the two are combined, the practical question is which step to take next: from a given precision, add 2:4 sparsity or drop to the next lower precision? We compare the two at equal bits, with sparsity metadata counted, and at equal nominal tensor-core tiers, over all six GEMM operands of a transformer layer, with kernels measured on three GPU generations and online pruning and quantization included. Our results show that as long as a lower precision is available, adding 2:4 is the worse step, both less accurate and slower, because the energy that 2:4 discards from each group of four along the hardware-forced axis does not shrink with bits, while quantization error does. Once quantization reaches the lowest precision the hardware supports, 2:4 still speeds up linear layers by 1.3--1.7\\x{}, and on an H100 a retrained 2:4 model served in FP8 by vLLM reaches 27\\% higher prefill throughput than the dense FP8 model, with GSM8K accuracy on par. Its quality has to be won back by retraining, however, which restores perplexity long before reasoning; on Blackwell, whose sparse FP4 uses a pairwise 4:8 pattern, the loss is larger and our retraining budget did not recover it.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.78,
+        "contribution": {
+          "en": "Systematically compares 2:4 sparsity versus quantization for Transformer GEMMs at equal bits and tensor-core tiers.",
+          "zh": "在等比特和等张量核层级下系统比较2:4稀疏与量化在Transformer GEMM上的精度和速度。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "It challenges the common assumption that 2:4 sparsity still pays off, informing hardware-aware precision and sparsity co-optimization.",
+          "zh": "它挑战“2:4稀疏仍然值得”的常见假设，可为硬件感知的精度与稀疏协同优化提供依据。"
+        }
+      },
+      "authors": [
+        "Xiuyi Qin"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "semantic": 0.5027149319648743
+      },
+      "paper_id": "2610.28947",
+      "pdf_url": "https://arxiv.org/pdf/2610.28947v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Is 2:4 Sparsity Still Worth It? Semi-Structured Sparsity versus Quantization in LLM Inference",
+      "url": "https://arxiv.org/abs/2610.28947"
+    },
+    {
+      "abstract": "Selecting an effective quantum compiler configuration requires coordinated decisions over both hardware targets and compiler settings, with the ultimate goal of improving circuit execution fidelity. Existing SOTA approaches typically decompose this problem into two sequential stages: a device is chosen first, after which compiler options are tuned on that device through RL-based search. This bottom-up strategy can be fundamentally limited by its initial device decision, since a poorly matched backend may constrain the best fidelity achievable regardless of how effectively later compiler options are optimized. In contrast to classical compiler tuning, where the search space is often prohibitively large, the configuration space of quantum compilers remains manageable enough to support exhaustive search. Consequently, rather than repeatedly searching from candidate configurations, one can derive reusable configuration knowledge from offline oracle results and apply it directly to new circuits. In this paper, we introduce a top-down configuration-selection paradigm and build QuOPTBench, an exhaustively searched benchmark containing oracle configurations for 268 quantum circuits. We first study whether LLMs can directly infer suitable configurations and evaluate ten representative LLMs. The results reveal that vanilla LLMs remain far from the oracle. We then employ an LLM to extract transferable rules from sampled circuits governing configuration selection. Using these rules together with predictors trained on the enumerated configuration data of the sampled circuits, we design QuTOP, a rule-guided ML framework that performs fast configuration selection without iterative online search. Across our evaluation, the distilled rules consistently strengthen LLM-based selection, while QuTOP provides the strongest overall balance between solution quality and selection latency among the baselines.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.72,
+        "contribution": {
+          "en": "Proposes a top-down quantum compiler configuration-selection paradigm with an exhaustive oracle benchmark and rule-guided QuTOP.",
+          "zh": "提出自顶向下量子编译器配置选择范式，并构建穷举oracle基准和规则引导的QuTOP框架。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Its offline configuration knowledge and predictor-based selection may inspire compiler autotuning, though the quantum domain is distant.",
+          "zh": "其离线配置知识和预测式选择方法可启发编译器自动调优，但量子领域距离主要方向较远。"
+        }
+      },
+      "authors": [
+        "Ming Zhong",
+        "Xiangyu Ren",
+        "Kangyu Zheng",
+        "Zhi Zeng",
+        "Shenggen Zheng",
+        "Shaohua Li",
+        "Zhiding Liang"
+      ],
+      "categories": [
+        "quant-ph",
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "lexical": 50.841578661772026,
+        "semantic": 0.5001280307769775
+      },
+      "paper_id": "2610.29170",
+      "pdf_url": "https://arxiv.org/pdf/2610.29170v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Turning Quantum Compiler Configuration Selection Upside Down: A Top-Down Paradigm",
+      "url": "https://arxiv.org/abs/2610.29170"
+    },
+    {
+      "abstract": "The Gabriel graph is a proximity graph widely used in computational geometry and geometric machine learning, underlying large-margin classifiers and, as we show in this work, density-aware clustering methods. Its construction, however, has cubic time complexity $O(N^3)$ in the naive formulation, which severely limits its use on datasets beyond a few thousand samples. This paper presents a set of GPU parallelization strategies, implemented in CUDA, that make Gabriel graph construction practical at scale. We introduce (i) an implicit closed-form mapping from a linear thread index to the corresponding vertex pair $(i,j)$, which removes the need for an explicit $O(N^2)$ adjacency structure and lets every thread locate its pair in constant time and constant memory; (ii) a two-pass, bitmask-based, atomically-compacted edge-list construction that produces a dense edge array proportional only to the number of edges actually found; and (iii) a thread-coarsening strategy in which each thread evaluates several candidate pairs, trading launch and scheduling overhead against load balance. We evaluate these strategies on the acceleration of a Gabriel-graph-based large-margin classifier (NN-clas) and on a novel Gabriel-graph clustering algorithm that identifies connected components on a residual graph and performs GPU-parallel Union-Find with hierarchical edge-based merging. On 14 public benchmark datasets, the GPU implementation reduces Gabriel graph construction time by two to nearly four orders of magnitude relative to a sequential CPU baseline (up to 8484x), without loss of classification accuracy, and the proposed clustering method is statistically competitive with DBSCAN on the topological validity index Dunn while eliminating the need for an explicit density radius parameter.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Presents CUDA strategies for Gabriel graph construction using implicit thread mapping, bitmask edge compaction, and thread coarsening.",
+          "zh": "提出CUDA线程映射、位掩码边表压缩和线程粗化的Gabriel图并行构建策略。"
+        },
+        "elegance": 6,
+        "novelty": 5,
+        "relevance": 4,
+        "transferability": 4,
+        "why_care": {
+          "en": "Its GPU parallelization techniques transfer to graph workloads but relate weakly to compilers, IRs, or code generation.",
+          "zh": "其中GPU并行化技巧可迁移到图工作负载，但与编译器、IR或代码生成主线关系较弱。"
+        }
+      },
+      "authors": [
+        "Diego Sanches Nere dos Santos",
+        "Luiz Carlos Bambirra Torres"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.4981008470058441
+      },
+      "paper_id": "2610.28759",
+      "pdf_url": "https://arxiv.org/pdf/2610.28759v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "GPU-Accelerated Construction of the Gabriel Graph: Parallelization Strategies and Applications to Large-Margin Classification and Graph-Based Clustering",
+      "url": "https://arxiv.org/abs/2610.28759"
+    },
+    {
+      "abstract": "We present a scheduling framework for heterogeneous multi-accelerator systems executing both hard real-time and soft real-time QoS-aware DNN inference workloads. The framework combines an online reinforcement learning (RL) scheduler with a deterministic runtime safety layer. The RL scheduler dynamically generates candidate schedules by jointly selecting sub-job priorities and accelerator assignments, while runtime certification guarantees that all HRT deadlines remain satisfied independently of the learned policy. To enable runtime certification in heterogeneous precedence-constrained systems, we introduce a schedulability-preserving prefix replacement criterion based on machine-wise cuts. The proposed criterion guarantees that runtime-generated schedule prefixes preserve the existence of a feasible continuation without requiring complete finish-time dominance with respect to a feasible reference schedule. Experimental results on heterogeneous DNN accelerator platforms show that the proposed framework preserves HRT schedulability while improving QoS-aware deadline satisfaction, client-level service quality, and accelerator utilization compared to state-of-the-art scheduling approaches.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Combines an online RL scheduler with a runtime certification layer to preserve hard real-time DNN inference deadlines on heterogeneous accelerators.",
+          "zh": "结合在线强化学习调度器与运行时认证层，保障异构多加速器上DNN推理的硬实时截止期。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 5,
+        "why_care": {
+          "en": "Heterogeneous accelerator scheduling and certification inform architecture co-design but are not core compiler optimization.",
+          "zh": "异构加速器调度与安全认证对体系结构协同设计有参考价值，但不是编译器优化核心问题。"
+        }
+      },
+      "authors": [
+        "Francesco Giulio Blanco",
+        "Enrico Russo",
+        "Giuseppe Ascia",
+        "Davide Patti",
+        "Maurizio Palesi"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "lexical": 50.62811315450299,
+        "semantic": 0.4964810609817505
+      },
+      "paper_id": "2610.29503",
+      "pdf_url": "https://arxiv.org/pdf/2610.29503v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Hard and Soft Real-Time DNN Inference Scheduling on Heterogeneous Multi-Accelerator Systems via Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2610.29503"
+    },
+    {
+      "abstract": "Subgraph enumeration in partitioned graphs across distributed-memory systems is beset with challenges in balancing data movement with the local computation. Especially, counting the number of triangles induced by the closed wedges (i.e., length-3 cycles) is a measure of connectedness in a graph, but often limited by the significant search space caused by open wedges or length-2 paths (usually greater than the number of edges in a graph), which must be inspected to assess whether a particular wedge is closed. To mitigate triangle counting on massive graphs, distributed-memory partitioned-graph approaches are viable (i.e., assessing closed wedges independently within a partition), but load imbalance due to arbitrary communication can overshadow any gains from enhanced concurrency, owing to the inherent lack of structure in regular graphs. In this paper, we discuss a distributed-memory exact graph triangle counting implementation, and assess its performance over billion-edge real-world graphs on contemporary scale-out and scale-up based NVIDIA GPU platforms (considering NVIDIA ``Ampere'' and ``Hopper'' architectures), depicting a scalability spectrum of multiple orders of magnitude. Comparisons with existing state-of-the-art approaches demonstrates up to 10$\\times$ improvements relative to distributed-memory CPU baseline, 2-100$\\times$ over single-GPU vendor-optimized NVIDIA RAPIDS cuGraph and 10-60\\% over multi-GPU $G^2$Miner, in terms of end-to-end execution times.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Provides a distributed-memory GPU exact triangle-counting implementation and scaling study on billion-edge graphs.",
+          "zh": "给出面向十亿边图的分布式GPU精确三角形计数实现与多代GPU扩展性评估。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "It is GPU graph-analytics systems work only indirectly related to parallel compilation or code generation.",
+          "zh": "属于GPU图分析系统工作，与并行编译或代码生成仅有间接关联。"
+        }
+      },
+      "authors": [
+        "Sayan Ghosh"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.49195051193237305
+      },
+      "paper_id": "2610.29988",
+      "pdf_url": "https://arxiv.org/pdf/2610.29988v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Enumeration-based Triangle Counting on GPUs",
+      "url": "https://arxiv.org/abs/2610.29988"
+    },
+    {
+      "abstract": "Full fine-tuning has achieved remarkable success on reasoning-intensive tasks, but it often requires substantial GPU resource consumption. Parameter-efficient fine-tuning (PEFT) provides a promising alternative for reducing this cost, yet we observe a substantial performance gap on reasoning-intensive tasks. In this paper, we present three key observations showing that this gap is closely associated with norm-related under-adaptation, where PEFT produces markedly smaller weight-update norms than full fine-tuning. Based on these observations, we propose Norm-Guided Parameter-Efficient Fine-Tuning (NormTune), a simple yet effective strategy that adaptively strengthens insufficiently updated layers according to their weight-update norms. Extensive experiments show that NormTune consistently enhances multiple PEFT methods across challenging reasoning benchmarks. Specifically, when trained on S1K-1.1, integrating NormTune into rank-8 LoRA, Bone, and MoRA yields substantial average accuracy improvements of 24.24\\%, 11.33\\%, and 16.21\\% , respectively, across AIME 2024, MATH 500, GPQA, and AIME 2025. Moreover, NormTune-enhanced rank-256 LoRA, Bone, and MoRA achieve performance comparable to S1 full fine-tuning, with respective average gains of 2.17\\%, 0.93\\%, and 3.00\\% over this baseline.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Observes norm-related under-adaptation in PEFT for reasoning tasks and proposes NormTune to adaptively strengthen layer updates by norm.",
+          "zh": "观察到PEFT在推理任务上权重更新范数偏小，并提出按范数自适应增强层更新的NormTune。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "The work focuses on LLM fine-tuning and is largely unrelated to compilers, parallel computing, or architecture.",
+          "zh": "该工作聚焦LLM微调，与编译器、并行计算或体系结构研究方向基本无关。"
+        }
+      },
+      "authors": [
+        "Zhangming Li",
+        "Qinghao Hu",
+        "Weifan Guan",
+        "Yifan Zhang",
+        "Peisong Wang",
+        "Jian Cheng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.49068236351013184
+      },
+      "paper_id": "2610.29134",
+      "pdf_url": "https://arxiv.org/pdf/2610.29134v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "NormTune: Norm-Guided Parameter-Efficient Fine-Tuning for Reasoning-Intensive Tasks",
+      "url": "https://arxiv.org/abs/2610.29134"
+    },
+    {
+      "abstract": "Programmable logic controllers (PLCs) automate industrial processes through repeated scans, each reading inputs, executing control logic, and updating outputs. Engineers write this logic in Structured Text (ST), a high-level textual language defined in IEC 61131-3. Large language models (LLMs) can now generate ST from natural-language requirements, yet compilation success and checks on selected properties or sampled scans can leave behavioral errors undetected. We introduce CycleBench, a benchmark of 301 ST tasks with behavioral requirements, public interfaces, reference programs, and executable scenarios. Its runtime executes each generated program and its reference under aligned inputs, initialization, and logical time, comparing their outputs after every scan. Across eight LLMs and baseline generation methods, execution pass rate trails compilation pass rate by 11.92 percentage points; observed failures include output-update, arithmetic, and timing errors. On fixed traces of programs directly generated by five LLMs, checking outputs only at every fifth scan misses 21.66% of the 157 failures detected by per-scan comparison; across sampling phases, the missed-failure rate ranges from 12.10% to 28.03%. These misses stem from transient output discrepancies, whose detection depends on the sampling phase. Building on this evaluation, we propose CycleGen, which generates multiple candidate ST programs, repairs their compilation errors with bounded compiler feedback, and selects one using runtime self-tests generated in a separate model context. CycleGen improves the execution pass rate over direct generation by 8.68 percentage points. Component ablations distinguish repair and self-test selection; candidate-count analysis shows diminishing returns, with no execution-pass-rate improvement beyond five candidates in our experiments despite 38.8% higher token consumption at eight.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces CycleBench for scan-by-scan PLC program evaluation and CycleGen for repair plus self-test selection.",
+          "zh": "构建逐扫描执行的PLC代码评测基准CycleBench，并提出带修复与自测选择的CycleGen。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 5,
+        "transferability": 6,
+        "why_care": {
+          "en": "It shows that compilation success does not imply behavioral correctness, offering a useful caution for code-generation evaluation.",
+          "zh": "它用证据表明编译通过不等于行为正确，对代码生成评测方法论有警示价值。"
+        }
+      },
+      "authors": [
+        "Jinyun Chen",
+        "Juntao Hu",
+        "Haochen Li",
+        "Wentao Song",
+        "Ningbo Gu",
+        "Jianwei Niu",
+        "Qing Gao",
+        "Rui Wang"
+      ],
+      "categories": [
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "semantic": 0.4883945882320404
+      },
+      "paper_id": "2610.28675",
+      "pdf_url": "https://arxiv.org/pdf/2610.28675v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Compilation Is Not Correctness: Scan-by-Scan Evaluation of LLM-Generated PLC Programs",
+      "url": "https://arxiv.org/abs/2610.28675"
+    },
+    {
+      "abstract": "Designing effective multi-agent systems (MAS) remains a challenging and resource-intensive task. We propose a Bayesian Evolutionary Optimization framework for automatically discovering task-specific MAS topologies. The approach combines evolutionary operators to generate diverse workflow graphs with Bayesian optimization to focus cost intensive evaluations on promising candidates. In contrast to LLM-based candidate selection, our approach uses a graph-aware Gaussian Process and Expected Improvement to provide an explicit selection criterion during evolutionary search. We evaluate the method on BigCodeBench for code generation and on a tabular preprocessing benchmark using TabPFN. On BigCodeBench, evolved architectures achieve the highest overall performance among the evaluated agent systems. On temporal tabular datasets, optimized MAS preprocessing improves over the default TabPFN model on several tasks, while remaining competitive on IID datasets. Overall, the results demonstrate the potential of Bayesian selection for guiding evolutionary MAS search under expensive evaluation budgets.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Proposes Bayesian evolutionary optimization with graph-aware Gaussian processes to search multi-agent system topologies.",
+          "zh": "提出用图感知高斯过程的贝叶斯进化优化来搜索多智能体系统拓扑。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "The expensive-evaluation search idea may inform compiler autotuning, but MAS topology design is far from compiler infrastructure.",
+          "zh": "昂贵评估下的搜索思路或可启发编译器自动调优，但MAS拓扑设计远离编译器基础设施。"
+        }
+      },
+      "authors": [
+        "Dominik Jehle",
+        "Tom Zehle"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.MA"
+      ],
+      "channel_scores": {
+        "semantic": 0.48436054587364197
+      },
+      "paper_id": "2610.29276",
+      "pdf_url": "https://arxiv.org/pdf/2610.29276v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Design and Tuning of Multi-Agent Systems Using Bayesian Evolutionary Optimization",
+      "url": "https://arxiv.org/abs/2610.29276"
+    },
+    {
+      "abstract": "Wave computing offers a compelling route to bypass the latency and energy bottlenecks of digital baseband processing. However, existing wave-domain processors rely on task-specific, non-convex iterative optimization, which incurs substantial configuration overhead and limits real-time applications. In this paper, we propose the wave processing unit (WPU), a programmable planar Mach--Zehnder interferometer (MZI) network that accelerates matrix--vector multiplications in MIMO communications. First, we model the tunable MZI element as a parameterized $2\\times2$ unitary transformation, and establish a closed-form synthesis framework for the WPU that decomposes an arbitrary unitary matrix into a cascade of MZI elements arranged in a compact rectangular topology. To handle arbitrary complex-valued operators, we further extend the method through singular value decomposition (SVD) and a hardware-efficient semi-unitary synthesis, avoiding redundant hardware and reducing the compilation complexity. We then apply the WPU to multiuser downlink precoding by an efficient WPU synthesis method, and compare the proposed architecture with hybrid and wave-domain ones. Numerical results demonstrate machine-precision synthesis with negligible residuals for up to $64\\times64$ operators, with approximately $380\\times$ faster configuration than iterative wave computing baselines. For 64-antenna, 8-user downlink precoding, WPU requires 87.5% fewer RF chains than the fully digital architecture while achieving the same sum rate under ideal hardware. These results highlight the potential of the WPU for precise, hardware-efficient wave-domain processing with rapid configuration.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Introduces a programmable MZI wave processing unit with closed-form unitary synthesis for MIMO matrix-vector operations.",
+          "zh": "提出可编程MZI波处理单元，用闭式酉矩阵合成加速MIMO矩阵向量运算。"
+        },
+        "elegance": 7,
+        "novelty": 6,
+        "relevance": 4,
+        "transferability": 3,
+        "why_care": {
+          "en": "Hardware-level matrix synthesis is adjacent to accelerator co-design, but photonic MIMO is outside the compiler/IR focus.",
+          "zh": "硬件级矩阵合成与加速器协同设计相邻，但光子MIMO偏离编译器/IR重点。"
+        }
+      },
+      "authors": [
+        "Xiaokun Teng",
+        "Yanqing Ren",
+        "Weicong Chen",
+        "Wankai Tang",
+        "Xiao Li",
+        "Shi Jin"
+      ],
+      "categories": [
+        "eess.SP",
+        "cs.IT",
+        "math.IT"
+      ],
+      "channel_scores": {
+        "lexical": 63.83556531868068,
+        "semantic": 0.48187246918678284
+      },
+      "paper_id": "2610.29687",
+      "pdf_url": "https://arxiv.org/pdf/2610.29687v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic",
+        "lexical"
+      ],
+      "source": "arxiv",
+      "title": "Wave Processing Unit: Closed-Form Matrix Synthesis for Wave Computing in Multiuser MIMO Communications",
+      "url": "https://arxiv.org/abs/2610.29687"
+    },
+    {
+      "abstract": "Executing vision-language models (VLMs) aboard low-Earth orbit satellites enables flexible processing of observation data without first downlinking it to the ground. On commercial off-the-shelf payloads, however, a request may span multiple execution windows: power and thermal constraints, fault-triggered reboots, and competing payload demands can interrupt inference before it completes. Each shutdown discards volatile activations and KV caches, forcing an unprotected request to repeat work after restart. We present OrbitWeaver, a framework that preserves VLM inference progress across onboard interruptions through coordinated checkpointing and recovery. Its phase-aware checkpointing selects recovery boundaries according to the state lifetimes and computational characteristics of vision encoding, language-model prefill, and decoding, balancing storage traffic against recomputation. Its dependency-aware dynamic recovery schedules restoration from partially completed states across the layer and token-chunk dimensions. By overlapping checkpoint and weight reads with recomputation, it reduces restart latency; the recovery planner computes an optimal execution order under its scheduling model within 100 ms. Experiments on satellite payload hardware using on-orbit telemetry traces show up to a 4.07-fold end-to-end speedup and a 3.56-fold reduction in SSD write volume over the evaluated baselines. A 72-hour deployment on two low-Earth orbit satellites demonstrates that OrbitWeaver retains inference progress and resumes execution across repeated bus-enforced shutdowns.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Presents OrbitWeaver, phase-aware checkpointing and dependency-aware recovery for VLM inference across satellite interruptions.",
+          "zh": "提出OrbitWeaver，用阶段感知检查点和依赖感知恢复在卫星中断间保留VLM推理进度。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Checkpoint/recovery is a runtime systems concern, not a compiler optimization or architecture co-design contribution.",
+          "zh": "检查点/恢复属于运行时系统问题，不是编译器优化或架构协同设计贡献。"
+        }
+      },
+      "authors": [
+        "Xiaolong Huang",
+        "Yinyuan Zhang",
+        "Daliang Xu",
+        "Yun Ma",
+        "Qing Li",
+        "Mengwei Xu",
+        "Shangguang Wang",
+        "Gang Huang",
+        "Xuanzhe Liu"
+      ],
+      "categories": [
+        "cs.DC",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "semantic": 0.4750021696090698
+      },
+      "paper_id": "2610.29183",
+      "pdf_url": "https://arxiv.org/pdf/2610.29183v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Resuming Vision-Language Inference across Onboard Interruptions",
+      "url": "https://arxiv.org/abs/2610.29183"
+    },
+    {
+      "abstract": "Language models are being explored as the interface through which space robots interpret operator commands and select among verified skills. Running them onboard calls for low-bit compression, and flight use adds requirements that generic post-training quantization leaves implicit: a fixed memory budget and storage format, a static artifact under configuration control, and behavior close to the full-precision model validated on the ground. We treat compression as a ground-segment step and study QSelect, which composes one static low-bit model from compatible AWQ, GPTQ, and AutoRound checkpoints by assigning each linear module to one quantizer family and scoring every substitution at the final next-token distribution. The default fidelity mode needs no labels or tuned thresholds and accepts a substitution only when the forward KL divergence from the BF16 reference decreases; an optional target-adapted mode adds answer likelihood on a small labeled set. On DeepSeek-R1-Distill-Qwen-7B, Llama-3.1-8B, and Llama-3.2-3B at 3 and 4 bits, composed models reach lower mean held-out perplexity than every single-family model in all six settings, and the fidelity mode lowers perplexity and KL further. In a matched scaffold, final-output scoring gives lower held-out KL than representation-similarity scoring in all 12 paired runs. With labels from training or development splits of the evaluated task families, the target-adapted mode raises 3-bit pooled accuracy on the two Llama models by 4.3 and 4.5 points over the best single-family model. At 3 bits, unquantized embedding and output layers make up 43-46% of the packed artifact. All evaluations use general-domain benchmarks on a ground GPU; space-domain tasks and flight hardware are left to future work.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Introduces QSelect, composing AWQ/GPTQ/AutoRound checkpoints under a behavioral-fidelity KL criterion.",
+          "zh": "提出QSelect，按行为保真KL准则组合AWQ/GPTQ/AutoRound量化检查点。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 3,
+        "why_care": {
+          "en": "Low-bit model compression for space robots is ML deployment, not compiler or accelerator compilation.",
+          "zh": "面向空间机器人的低比特压缩属于ML部署，不是编译器或加速器编译。"
+        }
+      },
+      "authors": [
+        "Jia Deng",
+        "Zizhe Wang",
+        "Xin Lu",
+        "Yi Huang",
+        "Zehao Jia"
+      ],
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "semantic": 0.47460219264030457
+      },
+      "paper_id": "2610.29302",
+      "pdf_url": "https://arxiv.org/pdf/2610.29302v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Compressing Onboard Language Models for Space Robots under a Behavioral-Fidelity Requirement",
+      "url": "https://arxiv.org/abs/2610.29302"
+    },
+    {
+      "abstract": "Runtime Verification typically assumes a fixed alphabet of observable actions. This assumption becomes fragile in evolving software systems, where updates, reconfigurations, or architectural changes may rename, split, or fuse actions while preserving the system's high-level intent. In these cases, previously valid monitors and specifications may become misaligned with the running system. In this paper, we study runtime semantic discovery, namely the problem of identifying whether newly observed actions play the same operational role as previously known ones, without reconstructing a global behavioral model. To this end, we propose a local and runtime-computable notion of action similarity based on the neighbor contexts in which actions occur within execution traces. We define a family of k-neighbor equivalences and use them to compare systems whose observable alphabets differ. Our approach is intentionally lightweight: it does not aim to fully characterize behavioral preservation, but rather to identify candidate semantic correspondences between actions in evolving systems. We discuss the expressive power and limitations of neighbor-based equivalence and show how inferred correspondences can support the adaptation of runtime monitors and specifications under selected classes of alphabet evolution.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Defines k-neighbor action equivalence for runtime semantic discovery in evolving action alphabets.",
+          "zh": "定义k近邻动作等价，用于演化动作字母表下的运行时语义发现。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Runtime verification with trace-local equivalences is only loosely related to compiler IR rewriting and analysis.",
+          "zh": "基于轨迹局部等价的运行时验证与编译器IR重写/分析仅弱相关。"
+        }
+      },
+      "authors": [
+        "Pietro Bernabei",
+        "Rosario Pugliese"
+      ],
+      "categories": [
+        "cs.SE",
+        "cs.FL",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "semantic": 0.4726988971233368
+      },
+      "paper_id": "2610.28682",
+      "pdf_url": "https://arxiv.org/pdf/2610.28682v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Runtime Semantic Discovery for Evolving Action Alphabets",
+      "url": "https://arxiv.org/abs/2610.28682"
+    },
+    {
+      "abstract": "Large language models (LLMs) can generate quantum programs, but reliable evaluation remains difficult because benchmarks differ in task composition, scoring, and failure handling. We evaluate 15 hosted frontier, open-weight, quantum-specialized, and retrieval-augmented models on five quantum code-generation suites (530 tasks), plus 10 models on our new QuantumBenchEval (QBE) benchmark (96 tasks across six topics). We report bootstrap confidence intervals, multiplicity-adjusted paired comparisons, and audits of output validity and evaluator behavior. QiskitHumanEval-Standard approaches saturation (98.7% pass@1), while its Hard variant retains headroom (63.8%). None of the five top-two comparisons across primary suites remains significant after multiple-comparison correction. Evaluator design substantially changes scores: removing checks for unspecified quantities raises GPT-6 Astra's QBE pass@1 from 0% to 94.1% (T1) and from 1.2% to 92.9% (T6), without changing model outputs. We identify 17 QuanBench-117 tasks with shared failures linked to benchmark-owned imports. Controlled probes also reveal unexecuted unit tests, leakage of canonical functions into candidate execution, and reference imports that block otherwise valid candidates. These defects can produce both false failures and false passes, so historical QuanBench results require revalidation under an isolated evaluator. Overall, leaderboard scores alone do not adequately characterize progress in quantum code generation. We release our harness, per-sample results, and audit artifacts and recommend validating evaluators, isolating candidate code, and reporting uncertainty and output validity.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Audits LLM quantum code-generation benchmarks, exposing evaluator defects and uncertainty reporting gaps.",
+          "zh": "审计LLM量子代码生成基准，揭示评估器缺陷和不确定性报告缺口。"
+        },
+        "elegance": 4,
+        "novelty": 5,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Code-generation evaluation methodology is tangential to compiler optimization and architecture.",
+          "zh": "代码生成评估方法学与编译器优化和体系结构关系较远。"
+        }
+      },
+      "authors": [
+        "Ethan Seefried",
+        "Romit Ghosh",
+        "Sharmin Afrose",
+        "Nicholas Stapleton",
+        "Vicente Layton Ortega",
+        "Travis Humble",
+        "Tirthankar Ghosal"
+      ],
+      "categories": [
+        "cs.SE",
+        "quant-ph"
+      ],
+      "channel_scores": {
+        "semantic": 0.4704258441925049
+      },
+      "paper_id": "2610.28678",
+      "pdf_url": "https://arxiv.org/pdf/2610.28678v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "Benchmarking the Quantum Leap: Auditing LLM Evaluation for Quantum Code Generation",
+      "url": "https://arxiv.org/abs/2610.28678"
+    },
+    {
+      "abstract": "A typed decision maps evidence, a question and a fixed set of options to a probability for every option, computed in one forward pass, by reading a language model's logits or a small head over its hidden states, instead of generating and parsing text. The commercial system Jev popularised this System~1 interface, and open reproductions have followed. We report two uses of the pattern. \\emph{Part I} describes an in-house System~1 judge that triages about 148K agentic coding session records for a training corpus. It replaces a frontier LLM judge that cost on the order of \\$1,000 per pass and whose stored labels matched a fresh two-judge consensus on only 26.9\\% of the sessions where the two judges agreed; a self-hosted frozen backbone with a rank-16 LoRA adapter and a pointer head answers three typed questions in one forward pass, judges 1,000 sessions in about three minutes of one GPU, about \\$0.06 at a reference rate and roughly 1\\% of the frontier judge's cost, and keeps every session inside the organisation. \\emph{Part II} asks whether a readout that adds no parameters can be competitive and whether training one helps. Applying the public Eikos recipe and corpus of about 25K decisions to three further backbones (1B, 2B and 35B), we read the frozen output layer of a LoRA-adapted decoder. On the 111 public hard items of JevBench our single-seed 35B, developed with those items in view, scores 79.3\\%, not significantly different from the commercial reference (73.0\\%, unadjusted $p=0.12$) and ahead of five open systems after Holm--Bonferroni correction; our 2B is ahead of all four kev checkpoints on the leaderboard. A single-seed ablation finds no detectable benefit from training the 26 letter rows of the output layer, and a retrain on a later corpus release moves the 2B's hard-tier accuracy by 11.7 points, which shows how little small evaluations resolve.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Reports a typed-decision judge from logits/LoRA readouts and compares open reproductions on JevBench.",
+          "zh": "报告基于logits/LoRA读出的类型化判决器，并在JevBench上比较开源复现。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "LLM inference readout efficiency is outside the compiler, IR, and accelerator compilation scope.",
+          "zh": "LLM推理读出效率超出编译器、IR和加速器编译范围。"
+        }
+      },
+      "authors": [
+        "Yuchuan Weng",
+        "Chi Liu",
+        "Xin Chen",
+        "Srinivasan Manoharan"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.IR",
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.6827722787857056
+      },
+      "paper_id": "2610.29052",
+      "pdf_url": "https://arxiv.org/pdf/2610.29052v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Our Own Jev: Typed Decisions in One Forward Pass, from an In-House Judge to Open LoRA Models",
+      "url": "https://arxiv.org/abs/2610.29052"
+    },
+    {
+      "abstract": "We demonstrate a multi-agent framework that takes an analog circuit from topology synthesis to layout. A researcher agent directs schematic and layout agents, a four-tier memory stores the specification and lessons, and separate agents review the designs. Deterministic tools provide pass/fail simulation reports, symbolic analysis, graph-based netlist equivalence, parasitic injection, and extraction with DRC and LVS in every optimization trial. A human approves the specification and the layout plan. For a fourth-order, 250-Hz subthreshold biopotential low-pass filter, the researcher agent synthesized, through simulation-guided trial and error, a novel current-reuse architecture that shares a single dc bias branch between a super-source-follower biquad and a flipped-voltage-follower biquad. The agents completed a DRC- and LVS-clean layout in 130-nm IHP SG13G2 CMOS that meets the specification in nominal post-layout simulation, despite the noise-power trade-off and threshold-voltage sensitivity of subthreshold operation. The filter's input-referred noise over 0.5-200 Hz is 41.6% below that of the super-source-follower reference design at about equal core power.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Demonstrates a multi-agent framework that synthesizes and lays out a nanowatt biomedical low-pass filter with tool-in-the-loop verification.",
+          "zh": "展示多智能体框架，在工具闭环验证下合成并布局纳瓦级生物医学低通滤波器。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 3,
+        "transferability": 4,
+        "why_care": {
+          "en": "Agent-driven analog synthesis with formal checks is a neighboring synthesis methodology, but not compiler or digital architecture work.",
+          "zh": "带形式检查的智能体模拟合成是邻近的合成方法，但非编译器或数字体系结构工作。"
+        }
+      },
+      "authors": [
+        "Danial Noori Zadeh",
+        "Devanshu Prasad",
+        "Mohamed B. Elamien"
+      ],
+      "categories": [
+        "cs.AR"
+      ],
+      "channel_scores": {
+        "exploration": 0.6855769753456116
+      },
+      "paper_id": "2610.28677",
+      "pdf_url": "https://arxiv.org/pdf/2610.28677v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Multi-Agent AI Design of a Nanowatt Biomedical Low-Pass Filter from Topology to Layout",
+      "url": "https://arxiv.org/abs/2610.28677"
+    },
+    {
+      "abstract": "We study deterministic gossiping in unknown strongly connected directed radio networks with $n$ vertices, $m$ arcs, and distinct identifiers in $\\{1,\\ldots,N\\}$, where $N=n^{\\mathcal O(1)}$. Messages are unrestricted; collision detection is unavailable. Our protocol combines amplified reception certificates, adaptive pruning, and permutation selectors. Each pruning iteration costs $\\mathcal O(n\\log^2n\\log\\log n)$ rounds. A two-step quadratic contraction limits each receiver and each class of identical closed in-neighborhoods to $\\mathcal O(\\log\\log n)$ qualifying selections. Under an explicit degree-concentration condition, our protocol takes $\\mathcal O(m\\log^2n(\\log\\log n)^2)$ rounds. For directed regular graphs with common in- and out-degree $\\Delta$, our strategy achieves $\\widetilde{\\mathcal O}(\\min\\{n\\sqrt\\Delta,n^2/\\Delta\\})$, extending the identifier range of Wu and Chrobak and improving their high-degree bound. At completion entry, let $a\\ge1$ count original sources not yet credited as globally disseminated. Permutation selectors reduce our balanced completion budget by a factor of $\\log^{2/3}(a+1)$ relative to interleaved path selectors. Our geometric protocol attains $\\widetilde{\\mathcal O}(k^2+n\\tau+\\min\\{u^2,(nu)^{2/3}\\})$ for an original path cover of scale $k$, weight $\\tau$, and $u$ exceptions. Every graph also admits $\\widetilde{\\mathcal O}(\\min\\{n^{4/3},N+(mn)^{3/5}\\})$ rounds. Only $n,N$ are inputs. Within the stated graph classes and identifier ranges, these results answer the polynomial-identifier and average-degree questions of Wu and Chrobak. The unrestricted general-graph cases remain open.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.87,
+        "contribution": {
+          "en": "Proposes a deterministic radio gossiping protocol combining amplified reception certificates, adaptive pruning, and permutation selectors.",
+          "zh": "提出一种确定性无线电 gossip 协议，结合放大接收证书、自适应剪枝与置换选择器。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "This is a distributed-network algorithm with only a loose pruning analogy to compilers, architecture, or PIM.",
+          "zh": "这是分布式网络算法，与编译器、体系结构和 PIM 研究仅有很弱的算法剪枝类比。"
+        }
+      },
+      "authors": [
+        "Qin Xin"
+      ],
+      "categories": [
+        "cs.DS",
+        "cs.CC",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.8373464941978455
+      },
+      "paper_id": "2610.28930",
+      "pdf_url": "https://arxiv.org/pdf/2610.28930v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Amplified Pruning and Path Selectors for Deterministic Radio Gossiping",
+      "url": "https://arxiv.org/abs/2610.28930"
+    },
+    {
+      "abstract": "A quantum computer could recover the key of any Ethereum account whose public key appears on chain. We prove that no sidechain or bridge that leaves Ethereum's rules unchanged can protect such accounts: their funds must move into a contract whose release condition relies only on quantum-safe primitives. We design \\emph{PQ-Vault}, a custody system for unmodified Ethereum combining this vault, a quantum-safe proof-of-stake sidechain whose checkpoints carry compact certificates, and an optimistic dispute protocol. We give the first security proof of compact certificates against quantum attackers and a matching attack: with classically chosen parameters, the guarantee falls from 128 to about 60 bits, and a simple rule restores it. We show that a common seed-update rule in hash-chain proof of stake lets an attacker steer chosen slots and profit from splitting its stake, and give an election whose steering gain and inclusion delay are provably bounded against quantum attackers. Since compressing certificates with a pairing-based SNARK breaks quantum security, we use fraud proofs that need a single signature check. For 65,536 validators, a certificate is 0.8 MB, 260 times smaller than all signatures, and verifies in about 20 ms; the vault accepts a checkpoint for about 420,000 gas.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Designs quantum-safe asset custody for unmodified Ethereum with a sidechain, compact certificates, and fraud proofs.",
+          "zh": "设计面向未修改以太坊的量子安全资产托管系统，包含侧链、紧凑证书与欺诈证明。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "The work is blockchain and cryptographic security, with no direct connection to compiler optimization or computer architecture.",
+          "zh": "该工作属于区块链与密码安全，与编译器优化和计算机体系结构无直接联系。"
+        }
+      },
+      "authors": [
+        "Hassan Khodaiemehr",
+        "Khadijeh Bagheri",
+        "Chen Feng"
+      ],
+      "categories": [
+        "quant-ph",
+        "cs.CR",
+        "cs.DC",
+        "cs.IT",
+        "math.IT"
+      ],
+      "channel_scores": {
+        "exploration": 0.8362612724304199
+      },
+      "paper_id": "2610.29230",
+      "pdf_url": "https://arxiv.org/pdf/2610.29230v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "PQ-Vault: Provably Quantum-Safe Asset Custody for Unmodified Ethereum",
+      "url": "https://arxiv.org/abs/2610.29230"
+    },
+    {
+      "abstract": "This paper presents Making Tax Smart with Open Banking (MTS-OB), a novel DLT-based architecture designed to integrate real-time VAT compliance into the existing payment system through split payments and Open Banking. Motivated by the substantial VAT gap, the research investigates how leveraging the informational value embedded within payment transactions can reduce the tax administration burden. MTS-OB, a proof-of-concept application built on R3 Corda, facilitates automated, real-time VAT split payments (VSP) without disrupting current payment infrastructure. MTS-OB integrates with existing banking systems via Open Banking APIs, enabling secure information management for VAT collection, reporting, analytics, and automated compliance enforcement. The system uses traditional bank deposit money as a real-time information sensor thereby extending its functionality to include \"money as a medium of real-time taxation\". Scalability testing demonstrates the system's ability to maintain operational stability under increasing transaction loads, illustrating its potential for real-world deployment. The key finding is the necessity of redefining money to include its informational value for real-time tax compliance, requiring a redesign of the money system while adhering to existing regulations and standards. This research demonstrates the feasibility of integrating tax functionality directly into payments, offering a path towards \"hard to get tax wrong\" compliance and a potential reduction in the VAT gap without compromising financial stability.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.92,
+        "contribution": {
+          "en": "Presents a DLT- and Open Banking-based architecture for real-time VAT split-payment compliance.",
+          "zh": "提出基于 DLT 和 Open Banking 的实时 VAT 分拆支付合规架构。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Tax and payment-system architecture is entirely outside compiler, parallel-computing, and architecture research.",
+          "zh": "税务与支付系统架构完全处于编译器、并行计算和体系结构研究范围之外。"
+        }
+      },
+      "authors": [
+        "Panos Louvieris",
+        "George Ioannou",
+        "Gareth White"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 1.0
+      },
+      "paper_id": "2610.30055",
+      "pdf_url": "https://arxiv.org/pdf/2610.30055v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "A Real-time tax compliance architecture for VAT split payments with Making Tax Smart and Open Banking",
+      "url": "https://arxiv.org/abs/2610.30055"
+    },
+    {
+      "abstract": "Quantum computing represents a fundamental shift in computation, promising to solve problems currently intractable for classical computers. However, misconceptions persist; quantum computers are not universally faster, nor do they replace classical systems. Current Noisy Intermediate-Scale Quantum (NISQ) devices face significant challenges, including decoherence, high error rates, and limited scalability. Additionally, leveraging quantum systems requires rethinking traditional computing principles, adopting different programming models, and addressing the complexities of integrating quantum and classical workflows, making their practical use in computer science both demanding and non-trivial. This article provides a system-level perspective on quantum computing for computer scientists, software engineers, and IT professionals, examining its current capabilities, key architectural and software challenges, and potential paths toward quantum advantage in real-world applications within hybrid quantum-classical environments.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.86,
+        "contribution": {
+          "en": "Surveys quantum-computing capabilities, architectural and software challenges, and hybrid quantum-classical integration paths from a system perspective.",
+          "zh": "从系统层面综述量子计算能力、架构与软件挑战以及混合量子-经典集成路径。"
+        },
+        "elegance": 4,
+        "novelty": 3,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "It offers peripheral background on heterogeneous execution and programming models but no new compiler or architecture method.",
+          "zh": "可作为异构执行与编程模型的外围背景，但不提供编译器或体系结构新方法。"
+        }
+      },
+      "authors": [
+        "Devki Nandan Jha",
+        "Jonte R. Hance",
+        "Tomasz Szydlo",
+        "Nick Chancellor",
+        "Omer F. Rana",
+        "Rajiv Ranjan"
+      ],
+      "categories": [
+        "cs.ET"
+      ],
+      "channel_scores": {
+        "exploration": 0.8950209617614746
+      },
+      "paper_id": "2610.29640",
+      "pdf_url": "https://arxiv.org/pdf/2610.29640v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Entangled Futures: Quantum Computing's Potential and Challenges in Computer Science",
+      "url": "https://arxiv.org/abs/2610.29640"
+    },
+    {
+      "abstract": "We present a local and sparse kernel method for learning the solution operators of incompressible flows. It builds on our earlier property-preserving kernel method, whose global output reconstruction and dense operator regression scale poorly. Our method replaces the global output reconstruction by local divergence-free interpolants with divergence-free polynomials of any degree, solved in parallel on the GPU. These interpolants are divergence free, periodic on periodic domains, and, with a multiscale kernel, approach Kolmogorov statistics under refinement. A compactly supported kernel, positive semidefinite in any input dimension, makes the operator regression sparse. Its support radius, and hence the sparsity, is fitted to data, and optional affine polynomials in the input capture global trends. Operator Lagrange weights join the two. They cost one sparse solve per new input and act on the training fields before the output reconstruction, so their local coefficients are never formed. We show that, unlike direct evaluation, Lagrange evaluation does not amplify solve errors by the cancellation among spatial coefficients. On ten fluid benchmarks, validation selects sparse matrices nearly everywhere, with densities that mostly decrease as the training set grows, and affine augmentation lowers the error by more than an order of magnitude for forced isotropic turbulence. These sparse models are at least as accurate as our earlier dense method and more accurate than neural operators. Lagrange evaluation is as accurate as direct evaluation with local output reconstructions, and up to nearly three orders of magnitude more accurate with global ones. We also present GPU timings and storage.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.84,
+        "contribution": {
+          "en": "Presents local sparse kernel operator learning with divergence-free interpolants solved in parallel on GPUs.",
+          "zh": "提出局部稀疏核算子学习，使用无散度插值并在 GPU 上并行求解。"
+        },
+        "elegance": 6,
+        "novelty": 6,
+        "relevance": 2,
+        "transferability": 2,
+        "why_care": {
+          "en": "Although it uses GPU sparse solves, it targets scientific ML rather than compiler optimization or architecture co-design.",
+          "zh": "虽涉及 GPU 稀疏求解，但面向科学机器学习而非编译器优化或体系结构协同设计。"
+        }
+      },
+      "authors": [
+        "Ramansh Sharma",
+        "Matthew Lowery",
+        "Houman Owhadi",
+        "Varun Shankar"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "channel_scores": {
+        "exploration": 0.5410375595092773
+      },
+      "paper_id": "2610.29009",
+      "pdf_url": "https://arxiv.org/pdf/2610.29009v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Local and Sparse Kernel Operator Learning for Incompressible Flows: An Operator Lagrange Formulation",
+      "url": "https://arxiv.org/abs/2610.29009"
+    },
+    {
+      "abstract": "The use of AI-based tools in software development is rapidly changing how software is produced, enabling large volumes of code to be generated with limited human implementation effort. However, this raises fundamental challenges for ensuring that generated artifacts are aligned with developer intent and have been appropriately validated. In this work, we propose the use of structured argumentation in driving AI-assisted software development. Inspired by techniques from assurance engineering for safety-critical systems, we define a language of justification rationales that explicitly relate informal natural language prompts, formal specifications, assumptions about developer intentions, and program analysis evidence in a structured and verifiable format. We then describe AssureCode, a tool-supported methodology for creating such rationales as part of agentic code generation. We provide an empirical analysis of our implementation where we investigate its capacity to contribute towards justified assurance of correctness for AI-generated code.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.83,
+        "contribution": {
+          "en": "Introduces a structured-argumentation language and AssureCode methodology linking natural-language prompts, formal specifications, assumptions, and program-analysis evidence.",
+          "zh": "提出结构化论证语言与 AssureCode 方法，用于关联自然语言提示、形式规范、假设和程序分析证据。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 3,
+        "transferability": 3,
+        "why_care": {
+          "en": "Its evidence-backed trust approach for generated code may loosely inform synthesis verification, but it is not compiler- or architecture-focused.",
+          "zh": "其程序分析证据支撑的可信生成思路可间接启发合成验证，但不聚焦编译器或体系结构。"
+        }
+      },
+      "authors": [
+        "Logan Murphy",
+        "Wilson Sy",
+        "Rhys Balevicius",
+        "Kelsie Fung",
+        "Karenna Kung",
+        "Aren A. Babikian",
+        "Marsha Chechik"
+      ],
+      "categories": [
+        "cs.SE"
+      ],
+      "channel_scores": {
+        "exploration": 0.6221855878829956
+      },
+      "paper_id": "2610.29758",
+      "pdf_url": "https://arxiv.org/pdf/2610.29758v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "AssureCode: Structured Justification for Trustworthy Agentic Coding",
+      "url": "https://arxiv.org/abs/2610.29758"
+    },
+    {
+      "abstract": "Before an AI agent takes a consequential action, such as paying, messaging or changing code, several monitors check it. Their verdicts are combined by aggregating scores or by counting approvals, whatever inputs the monitors share. Monitors that share a base model or a poisoned input, however, may fail together. We borrow the fail-prone systems of distributed computing: lists of monitor sets that may fail together. A rule is safe if it executes no bad action and live if it blocks no good one. We measured twelve small open-weights monitors on payment approval under two pre-registered protocols. Without pre-registration, we also measured three closed frontier models (Claude Opus 5.5, GPT-6 Astra, Gemini 4 Argon) and the open DeepSeek-V3.2. Every reliable fooling of a monitor into approving a fraud came through an evidence source and reached only that source's readers. Fooling it into blocking a correct payment depended on injection resistance, a monitor's refusal to follow instructions planted in its data. Small models and DeepSeek obeyed such notes. The three closed models ignored them in all but one case, and Opus also resisted persuasion tailored to it. On new data, a rule that counts sources instead of votes blocked 0.9% of correct payments, against 7.4% for the best counting rule, at equal safety. The pre-registered worst-case test failed. One attack left the approvers on a single source, so no rule over the twelve language-model monitors survives every measured attack. Adding a rule engine, which cannot be persuaded, restored the condition for a safe and live rule on the measured attacks. Diversify the inputs, harden the monitors, count sources, not votes.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "contrarian",
+        "confidence": 0.88,
+        "contribution": {
+          "en": "Empirically shows that AI approval monitors can fail in correlated ways and proposes counting sources rather than votes.",
+          "zh": "通过实验揭示 AI 审批监视器可能相关失效，并提出按来源计数的规则。"
+        },
+        "elegance": 5,
+        "novelty": 5,
+        "relevance": 1,
+        "transferability": 2,
+        "why_care": {
+          "en": "It challenges the common independence assumption for monitors but has no direct relation to compilers, architecture, or PIM.",
+          "zh": "它挑战监视器独立性的常见假设，但与编译器、体系结构和 PIM 无直接关系。"
+        }
+      },
+      "authors": [
+        "Luca Zanolini"
+      ],
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.7118523120880127
+      },
+      "paper_id": "2610.29178",
+      "pdf_url": "https://arxiv.org/pdf/2610.29178v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Correlated Failures of AI Approval Monitors",
+      "url": "https://arxiv.org/abs/2610.29178"
+    },
+    {
+      "abstract": "Computing in the network (COIN) supports latency-sensitive Metaverse services, but blockchain commitment of persistent shared-state updates competes with application execution for limited resources. We consider the joint problem of deciding which updates to commit, how much Byzantine redundancy to provision, and where to execute Metaverse application tasks. We formulate this problem under resource, latency, and practical Byzantine fault tolerance (PBFT) constraints, accounting for update persistence and semantic significance. We develop a hierarchical redundancy-aware PBFT (R-PBFT) approach that decomposes the decision process into slot-wise computation offloading and sequential update-admission and redundancy control. We formulate the former as an identical-interest game and address the latter using a feasibility-filtered double deep Q-network (DDQN). Analytical downlink allocation accounts for the energy and delivery-feasibility effects of consensus latency. For fixed slot state and redundancy, we establish the game's exact-potential property and finite termination of strict sequential improvements. Feasible-action filtering enforces configured Byzantine redundancy and blockchain-budget constraints independently of learning. Numerical results show relative improvements of up to $46.7\\%$ in reward averaged across tested user loads and seeds over Minimum Secure, the strongest baseline on average. At the highest tested Byzantine bound, the secure timely-update ratio improves by $62.3\\%$ over the same baseline. Ablations assess the contributions of feasibility filtering and adaptive deferral.",
+      "affiliations": null,
+      "assessment": {
+        "bucket": "wildcard",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Combines hierarchical R-PBFT with DDQN for semantic-aware update admission and Byzantine-redundancy control.",
+          "zh": "提出分层 R-PBFT 与 DDQN 结合的语义感知更新准入和拜占庭冗余控制方法。"
+        },
+        "elegance": 4,
+        "novelty": 4,
+        "relevance": 1,
+        "transferability": 1,
+        "why_care": {
+          "en": "Metaverse, blockchain consensus, and computation-offloading problems are far from compiler and accelerator-architecture research.",
+          "zh": "元宇宙、区块链共识与计算卸载问题远离编译器与加速器体系结构研究。"
+        }
+      },
+      "authors": [
+        "Ibrahim Aliyu",
+        "Jaehyung Park",
+        "Jinsul Kim"
+      ],
+      "categories": [
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "exploration": 0.6240963339805603
+      },
+      "paper_id": "2610.29592",
+      "pdf_url": "https://arxiv.org/pdf/2610.29592v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "retrieval_channels": [
+        "exploration"
+      ],
+      "source": "arxiv",
+      "title": "Semantic-Aware Update Admission and Adaptive Byzantine Redundancy for Secure Computation Offloading in COIN-Enabled Metaverse Systems",
+      "url": "https://arxiv.org/abs/2610.29592"
+    }
+  ],
+  "date": "2026-10-22",
+  "delivery_status": "sent",
+  "error": null,
+  "recommendation_count": 5,
+  "recommendations": [
+    {
+      "abstract": "The Open Compute Project's microscaling (MX) family includes MXFP4, which stores 32 four-bit elements with a shared power-of-two scale. When lowering a dot-product reduction, a compiler can apply these scales before the reduction, or defer scaling until afterwards. Although equivalent over real numbers, these formulations can produce different IEEE binary32 results through overflow or underflow, with equivalence also depending on the reduction tree. We study the legality of compiler rewrites in either direction by deriving conditions under which the two formulations are bitwise equivalent. To decide rewrite legality, we construct an integer state machine that exploits the finite element alphabet and shared power-of-two scales, modeling overflow, NaN, and subnormal rounding. We prove its faithfulness under bounded scale codes and integer coefficients, yielding an exact encoding of the equivalence query in quantifier-free linear integer arithmetic (QF_LIA). For MXFP4, we derive a closed-form sufficient upper bound on the sum of scale exponents for any fixed binary reduction tree within the supported coefficient range. This bound depends on the size of the largest proper subtree. For four tree shapes at block lengths $k\\in\\{2,3,4,8,16,32\\}$ and two shapes at $k=64$, SMT finds counterexamples when this upper bound is increased by one exponent step. Against the standard direct encoding in quantifier-free floating-point arithmetic (QF_FP), on matched queries cvc5 proves the integer version in seconds but reaches a configured one-CPU-hour limit on the floating-point proof even at $k=2$. The implementation was cross-checked using an independent floating-point encoding, exhaustive and stratified binary32 execution, and GPU replay of counterexamples. An MLIR lowering prototype demonstrates selection between the two formulations using the certified conditions as static or runtime guards.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.9,
+        "contribution": {
+          "en": "Derives bitwise-equivalence conditions for MXFP4 scale-placement rewrites using integer state machines and SMT, with an MLIR lowering prototype.",
+          "zh": "利用整数状态机与SMT推导MXFP4缩放位置重写的按位等价条件，并给出MLIR lowering原型。"
+        },
+        "elegance": 8,
+        "novelty": 7,
+        "relevance": 8,
+        "transferability": 7,
+        "why_care": {
+          "en": "It directly informs safe low-precision compiler rewrites and MLIR lowering legality.",
+          "zh": "它直接指导安全的低精度编译器重写与MLIR lowering合法性判断。"
+        }
+      },
+      "authors": [
+        "Shreyas Vinayakumar"
+      ],
+      "categories": [
+        "cs.LO",
+        "cs.AR",
+        "cs.PL"
+      ],
+      "channel_scores": {
+        "diversity": 0.16948947906494138,
+        "lexical": 57.832821543743506,
+        "semantic": 0.5296310782432556
+      },
+      "paper_id": "2610.29445",
+      "pdf_url": "https://arxiv.org/pdf/2610.29445v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "rank": 1,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Deciding Scale Placement in MXFP4 Dot Products with Integer Arithmetic",
+      "url": "https://arxiv.org/abs/2610.29445"
+    },
+    {
+      "abstract": "Transformers are deployed as a special model class. Neural processing units (NPU) add dedicated operators for attention and normalization, and quantization relies on Transformer-specific algorithms. We show the computation does not force this. Every Transformer block, with attention, LayerNorm and a GELU MLP, compiles exactly into a generic deep neural network built from fixed affine maps, routing and the square, sigmoid and inverse square root, plus GELU or its sigmoid approximation. Without activation-activation products, every transform-wise compilation adds at least $N^2$ scalar nonlinear evaluations per head for dense scores. Keeping that one operation type removes this cost; its elementwise form, present on every surveyed NPU, suffices with the sigmoid and inverse square root. For top-$k$ attention with exchangeable tail scores, we prove that exact or conditional-mean tail mass gives an unbiased, minimum-mean-square-error estimate of the attention distribution, while tail drop is conditionally biased. When queries or agents cluster, centroids choose the keys first, reducing the number of computed scores from $N^2$ to $Nk$ per head. On DeiT-Tiny, MambaIRv2-Light and Pythia-70M the compiled models match their references with all keys, standard post-training quantization applies, and the exact tail-mass estimate beats tail dropping with half as many keys on DeiT-Tiny and, for $k\\le8$, on Pythia-70M.",
+      "affiliations": [
+        "St. Petersburg State University",
+        "Braude College of Engineering"
+      ],
+      "assessment": {
+        "bucket": "direct",
+        "confidence": 0.75,
+        "contribution": {
+          "en": "Shows transformer blocks compile exactly to generic DNN operators and analyzes the cost of removing activation-activation products.",
+          "zh": "证明Transformer块可精确编译为通用DNN算子，并分析去除激活-激活乘积的代价。"
+        },
+        "elegance": 7,
+        "novelty": 7,
+        "relevance": 7,
+        "transferability": 8,
+        "why_care": {
+          "en": "Directly informs target-independent IR, NPU operator abstraction, and quantizing compiler design.",
+          "zh": "对目标无关IR、NPU算子抽象和量化编译器设计有直接启发。"
+        }
+      },
+      "authors": [
+        "Sergey Salishev",
+        "Zeev Volkovich",
+        "Oleg Granichin"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.MA"
+      ],
+      "channel_scores": {
+        "diversity": 0.2319757509231567,
+        "semantic": 0.5645648837089539
+      },
+      "paper_id": "2610.28958",
+      "pdf_url": "https://arxiv.org/pdf/2610.28958v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "rank": 2,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Transformers as Generic Deep Neural Networks: Exact Compilation, the Cost of Removing Activation-Activation Products, and Multi-Agent Attention Clustering",
+      "url": "https://arxiv.org/abs/2610.28958"
+    },
+    {
+      "abstract": "Constrained-random verification tests hardware designs by sampling solutions of Boolean formulas. Existing samplers largely follow one of two approaches: CPU-based SAT samplers (e.g., CMSGen), which remain effective even at rare targets but offer limited throughput, and GPU-based gradient samplers, which achieve high throughput at high-probability targets but collapse at rare ones. We introduce Gpap-S, the first GPU sampler built on Boolean constraint propagation (BCP). At its core is Gpap, a new GPU engine for BCP that efficiently propagates many independent partial assignments concurrently on a shared Boolean formula. This capability allows Gpap-S to combine the rare-target robustness of SAT-based sampling with the throughput of GPU parallelism by exploring thousands of decide-and-propagate trajectories simultaneously. On the benchmark families used to evaluate prior GPU gradient samplers, Gpap-S is 2.2-18.7x faster at the high-probability targets considered in those evaluations. At rare targets, where those samplers often fail to generate any samples, Gpap-S achieves a geometric-mean speedup of roughly two orders of magnitude. Across all benchmarks, Gpap-S is also 83.4-1,571x faster than the CPU-based CMSGen. This throughput does not come at the expense of sample quality: under Barbarik, the statistical tester used to evaluate CMSGen, Gpap-S is accepted on every instance we test, as is CMSGen. We release Gpap as a reusable GPU library for high-throughput BCP.",
+      "affiliations": [
+        "Technion"
+      ],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.85,
+        "contribution": {
+          "en": "Builds a GPU Boolean-constraint-propagation engine and uses it for scalable SAT sampling.",
+          "zh": "构建GPU布尔约束传播引擎并将其用于可扩展SAT采样。"
+        },
+        "elegance": 6,
+        "novelty": 7,
+        "relevance": 6,
+        "transferability": 7,
+        "why_care": {
+          "en": "GPU-accelerated SAT/BCP could support synthesis, verification, and compiler testing as a neighboring method.",
+          "zh": "GPU加速的SAT/BCP可作为邻近方法支持综合、验证与编译器测试。"
+        }
+      },
+      "authors": [
+        "Alexander Nadel",
+        "Yogev Shalmon",
+        "Ofer Strichman"
+      ],
+      "categories": [
+        "cs.LO",
+        "cs.DC"
+      ],
+      "channel_scores": {
+        "semantic": 0.5138188004493713
+      },
+      "paper_id": "2610.28805",
+      "pdf_url": "https://arxiv.org/pdf/2610.28805v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "rank": 3,
+      "retrieval_channels": [
+        "semantic"
+      ],
+      "source": "arxiv",
+      "title": "SAT Sampling at Scale via GPU-based Boolean Constraint Propagation",
+      "url": "https://arxiv.org/abs/2610.28805"
+    },
+    {
+      "abstract": "We study how to improve training efficiency on Ascend NPUs. In the NPU training programs we study, framework-level compilation optimizations such as operator fusion are only partially applied, leaving fragmented computation and avoidable execution overheads. Profiling-guided tuning can address these inefficiencies, but it often requires costly trial and error. To make training on NPUs more efficient, we propose TrainBridge, an agentic approach for transferring GPU optimization guidance to NPU training. TrainBridge uses the highly optimized execution produced by mature GPU compilation stacks as a task-specific reference for NPU tuning. It extracts optimization intents from the GPU training execution to guide NPU program rewrites and further refines the rewritten program through iterative profiling. Our GPU-to-NPU migration experiments show that TrainBridge achieves an average 1.7x speedup across four workloads covering LLM pretraining, image classification, and vision-language training, and an average speedup of nearly 2.0x across 27 Modded-NanoGPT speedrun records with highly optimized GPU implementations.",
+      "affiliations": [],
+      "assessment": {
+        "bucket": "adjacent",
+        "confidence": 0.7,
+        "contribution": {
+          "en": "Proposes an agentic method that uses GPU compilation evidence to guide NPU training-program rewrites.",
+          "zh": "提出用GPU编译证据引导NPU训练程序重写的代理式优化方法。"
+        },
+        "elegance": 5,
+        "novelty": 6,
+        "relevance": 6,
+        "transferability": 7,
+        "why_care": {
+          "en": "Relevant to heterogeneous accelerator retargeting and compiler-guided performance portability.",
+          "zh": "与异构加速器重定向和编译器引导的性能移植相关。"
+        }
+      },
+      "authors": [
+        "Yupeng Chen",
+        "Kunxiang Zhao",
+        "Xingjian Wang",
+        "Yue Zhao",
+        "Yijing Wu",
+        "Ye Liu",
+        "Kai Li",
+        "Congliang Chen",
+        "Ruoyu Sun"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "channel_scores": {
+        "diversity": 0.4399999332427978,
+        "semantic": 0.6808633804321289
+      },
+      "paper_id": "2610.29171",
+      "pdf_url": "https://arxiv.org/pdf/2610.29171v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "rank": 4,
+      "retrieval_channels": [
+        "semantic",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "TrainBridge: Agentic NPU Training Optimization Guided by GPU Compilation Evidence",
+      "url": "https://arxiv.org/abs/2610.29171"
+    },
+    {
+      "abstract": "A Transformer is built around attention, whose cost grows with the square of the sequence length and dominates the layer on long sequences. FlashAttention made that cost manageable by tiling the attention matrix and updating the softmax as it goes, but almost all work since has targeted GPUs. On long-vector processors one vector register can hold up to 512 single-precision numbers. The savings of a vector instruction are proportional to how much of the register it uses, so the choice of which loop to vectorize is a first-order decision. We port PyTorch's CPU FlashAttention kernel to a RISC-V CPU with 2KB vector registers and find that it reaches 16.2% of peak floating-point throughput. The kernel walks each tile one query row at a time: the product against V is vectorized along the 64-element head dimension, the softmax's per-row maximum and sum are reductions that collapse a full register to a scalar, and the software exponential's polynomial coefficients compete with tile data for vector registers and cause spilling. We propose two techniques. The first transposes the score tile and the running output so that queries lie along the contiguous axis. The algorithm and its values are unchanged. A single parameter, the number of queries in a tile, now sets the vector length of every part of the kernel and can be matched to the machine. Both reductions also disappear. The second moves the polynomial's coefficients into scalar registers, removing the spills and cutting the softmax's vector memory instructions by 78.7%. On silicon the two together cut whole-kernel cycles by 1.84 to 2.08x at a head dimension of 64, raising floating-point utilization from 16.2% to 29.7% of peak. An FPGA of the same design ranks the changes identically and scores them higher, at 2.71x.",
+      "affiliations": [
+        "Barcelona Supercomputing Center",
+        "Universitat Politècnica de Catalunya (UPC)"
+      ],
+      "assessment": {
+        "bucket": "elegant",
+        "confidence": 0.8,
+        "contribution": {
+          "en": "Reorients score/output tiles and moves softmax coefficients to scalar registers to cut reductions and spills in long-vector FlashAttention.",
+          "zh": "通过转置分数/输出瓦片和标量系数消除长向量FlashAttention归约与寄存器溢出。"
+        },
+        "elegance": 8,
+        "novelty": 6,
+        "relevance": 7,
+        "transferability": 7,
+        "why_care": {
+          "en": "Directly relevant to vector-length-aware kernel scheduling, register pressure, and vectorized code generation.",
+          "zh": "与向量长度感知的kernel调度、寄存器压力和向量化代码生成直接相关。"
+        }
+      },
+      "authors": [
+        "Emmanuel Irabor",
+        "Marc Casas"
+      ],
+      "categories": [
+        "cs.AR",
+        "cs.DC",
+        "cs.PF"
+      ],
+      "channel_scores": {
+        "diversity": 0.3164481687545776,
+        "lexical": 76.36882717652817,
+        "semantic": 0.6117902398109436
+      },
+      "paper_id": "2610.29489",
+      "pdf_url": "https://arxiv.org/pdf/2610.29489v1",
+      "published_at": "2026-10-22T04:00:00+00:00",
+      "rank": 5,
+      "retrieval_channels": [
+        "semantic",
+        "lexical",
+        "diversity"
+      ],
+      "source": "arxiv",
+      "title": "Reorienting the Vector Axis: Restructuring FlashAttention for Long-Vector Processors",
+      "url": "https://arxiv.org/abs/2610.29489"
+    }
+  ],
+  "retrieved_count": 461,
+  "schema_version": 1,
+  "status": "complete"
+}
